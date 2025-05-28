@@ -32,6 +32,11 @@ function Projects() {
       title: "Savoring Weather Clock",
       description: "Arduino-based device that pulls weather data and generates poetic messages. Uses OpenWeather + OpenAI API to encourage eco-awareness and gratitude.",
       link: "https://github.com/walkerstrauss/weather-clock-savoring"
+    }, 
+    {
+      title: "Death of a Deal",
+      description: "Desktop game developed in Java and LibGDX. Contributed to software development, core mechanic design, artistic direction and asset creation.",
+      link: "https://github.com/zachseidner1/death-of-a-deal"
     }
   ];
 
@@ -47,12 +52,49 @@ function Projects() {
           </div>
         ))}
       </div>
+      <div style={{ marginTop: '2rem' }}>
+        <Link to="/" className="back-link">← Back to Home</Link>
+      </div>
     </div>
   );
 }
 
 function Research() {
-  return <h2 className="page">Research Page (Coming Soon)</h2>;
+  const researchItems = [
+    {
+      title: "fMRI Study on Food Imagery and the Hypothalamus",
+      role: "Affect and Cognition Lab · Cornell University",
+      description:
+        "Analyzed functional connectivity using fMRI to investigate how the hypothalamus evaluates food-related stimuli. Led participant onboarding, task execution, and MRI data preprocessing.",
+      year: "2023 – Present"
+    },
+    {
+      title: "Visual vs. Textual Environmental Education Study",
+      role: "Independent Research · Cornell University",
+      description:
+        "Surveyed Cornell undergraduates to compare the impact of visual and textual materials on environmental attitudes using SPSS for data analysis.",
+      year: "2023"
+    }
+  ];
+
+  return (
+    <div className="projects-container">
+      <h2>Research</h2>
+      <div className="projects-grid">
+        {researchItems.map((item, index) => (
+          <div key={index} className="project-card">
+            <h3>{item.title}</h3>
+            <p><strong>{item.role}</strong></p>
+            <p>{item.description}</p>
+            <p style={{ fontStyle: 'italic', color: '#666' }}>{item.year}</p>
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: '2rem' }}>
+        <Link to="/" className="back-link">← Back to Home</Link>
+      </div>
+    </div>
+  );
 }
 
 function Artwork() {

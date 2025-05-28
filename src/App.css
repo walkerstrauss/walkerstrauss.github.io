@@ -1,3 +1,8 @@
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
 body {
   margin: 0;
   font-family: 'Helvetica Neue', sans-serif;
@@ -9,9 +14,18 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  height: 100vh;
+  width: 100vw;
   text-align: center;
-  padding: 2rem;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 600px;
+  width: 100%;
+  padding: 0 1rem;
 }
 
 .hero h1 {
@@ -48,9 +62,10 @@ body {
 }
 
 .projects-grid {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; 
   gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   margin-top: 2rem;
 }
 
@@ -60,6 +75,8 @@ body {
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-width: 200px;
+  max-width: 1200px;
 }
 
 .project-card:hover {
