@@ -22,7 +22,33 @@ function Home() {
 }
 
 function Projects() {
-  return <h2 className="page">Projects Page (Coming Soon)</h2>;
+   const projectData = [
+    {
+      title: "Mah's Jong",
+      description: "Mobile game developed in C++ and CUGL, led a team of 5 programmers and 3 designers. Features action tiles and strategic multiplayer gameplay.",
+      link: "https://github.com/walkerstrauss/mahsjong"
+    },
+    {
+      title: "Savoring Weather Clock",
+      description: "Arduino-based device that pulls weather data and generates poetic messages. Uses OpenWeather + OpenAI API to encourage eco-awareness and gratitude.",
+      link: "https://github.com/walkerstrauss/weather-clock-savoring"
+    }
+  ];
+
+  return (
+    <div className="projects-container">
+      <h2>Projects</h2>
+      <div className="projects-grid">
+        {projectData.map((project, index) => (
+          <div key={index} className="project-card">
+            <h3>{project.title}</h3>
+            <p>{project.description}</p>
+            <a href={project.link} target="_blank" rel="noopener noreferrer">View on GitHub</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 function Research() {
