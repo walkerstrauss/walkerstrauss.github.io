@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function FMRIStudy() {
+export default function FmriStudy() {
   return (
     <div className="projects-container">
       <div className="project-page">
