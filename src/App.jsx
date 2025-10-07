@@ -13,6 +13,8 @@ import AICap from './pages/AICap.jsx';
 import Mahsjong from './pages/Mahsjong.jsx';
 import WeatherClock from './pages/WeatherClock.jsx';
 import DeathOfADeal from './pages/DeathOfADeal.jsx';
+import FmriStudy from './pages/FmriStudy.jsx';
+import VisualVsTextual from './pages/VisualVsTextual.jsx';
 
 function Navbar() {
   return (
@@ -50,6 +52,8 @@ function App() {
         <Route path="/projects/mahsjong" element={<Mahsjong />} />
         <Route path="/projects/weather-clock" element={<WeatherClock />} />
         <Route path="/projects/death-of-a-deal" element={<DeathOfADeal />} />
+        <Route path="/research/fmri-study" element={<FmriStudy />} />
+        <Route path="/research/visual-vs-textual" element={<VisualVsTextual />} />
       </Routes>
       <Footer />
     </Router>
