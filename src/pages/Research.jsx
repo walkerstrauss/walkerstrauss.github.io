@@ -32,7 +32,6 @@ export default function Research() {
             </h3>
             <p><strong>{item.role}</strong></p>
             <p>{item.description}</p>
-            <p style={{ fontStyle: 'italic', color: '#666' }}>{item.year}</p>
           </div>
         ))}
       </div>
