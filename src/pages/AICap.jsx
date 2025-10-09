@@ -53,29 +53,57 @@ export default function AICap() {
           experience feel natural and human.
         </motion.p>
 
+        <motion.h3 variants={itemVariants}>Design Goals</motion.h3>
         <motion.p variants={itemVariants}>
-          I began by defining how the conversation would flow, how the system would respond to users, and how it would
-          transition between touch and voice. The goal was to make the AI approachable, confident, and emotionally
-          intelligent. I designed the interaction framework in Figma, pairing each conversational state with its visual
-          representation and timing every animation to match speech. Every detail of the interface was guided by
-          behavioral psychology and research on trust in human–machine interaction.
+          AICap was built to make technology feel more human. Instead of approaching the project as a functional kiosk,
+          we designed it as a conversational presence that listens, responds, and adapts. The goal was to build an AI
+          interface that could interpret tone, pacing, and gesture to create an atmosphere of trust and curiosity.
+        </motion.p>
+        <motion.p variants={itemVariants}>
+          Every decision, from the cadence of the voice output to the rhythm of the lighting animations, was intended to
+          communicate empathy and attentiveness. We wanted customers to feel that they were in dialogue with the system,
+          not merely using it.
         </motion.p>
 
+        <motion.h3 variants={itemVariants}>Design Process</motion.h3>
         <motion.p variants={itemVariants}>
-          I worked closely with engineers to integrate live data capture for voice and touch events. I structured the
-          JSON schema used to log interactions and developed a process for reviewing engagement data after each session.
-          This data revealed how people explored the kiosk, which questions they skipped, and how tone or phrasing
-          influenced engagement. These insights informed a reinforcement system that could adjust the agent's language
-          and feedback in real time.
+          I began by defining the structure of each conversation and how it would move between touch and voice. Using
+          <strong> Figma</strong>, I created detailed flow diagrams mapping user intents to system responses, visual
+          states, and animations. Each touch interaction triggered a specific visual and auditory feedback loop designed
+          to feel consistent with the system’s voice and personality.
+        </motion.p>
+        <motion.p variants={itemVariants}>
+          The design drew from behavioral psychology and human–computer interaction research. I studied how tone,
+          hesitation, and timing affect user trust and designed each conversational turn to reflect that awareness. By
+          pairing these psychological principles with visual design, the kiosk invited a slower, more mindful mode of
+          engagement than typical AI interfaces.
         </motion.p>
 
+        <motion.h3 variants={itemVariants}>System Architecture</motion.h3>
         <motion.p variants={itemVariants}>
-          During the pilot, AICap completed more than one hundred customer interactions in a physical store. The results
-          showed that a conversational interface can increase confidence in product discovery and create a sense of
-          dialogue between the user and the machine. Subtle choices in timing, tone, and movement helped turn what could
-          have been a transactional experience into one that felt warm and personal. The pilot established the UX and
-          behavioral foundations for Onki's continuing multimodal agent platform, which I continue to refine through
-          design documentation, interaction modeling, and testing.
+          Working closely with engineers, I designed the JSON schema that organized multimodal data from voice, touch,
+          and animation states. The schema allowed us to track engagement patterns across sessions and to analyze how
+          phrasing, timing, or tone influenced user interaction. I also developed the process for reviewing this data,
+          translating raw event logs into insight about user rhythm and attention.
+        </motion.p>
+        <motion.p variants={itemVariants}>
+          The interface itself was built using React and ran on an asynchronous event model that synchronized visual and
+          auditory feedback. Each conversational state was rendered dynamically, with transitions timed to speech and
+          gesture, creating a sense of real presence. This integration between psychology, engineering, and design
+          became the foundation for Onki’s ongoing multimodal agent platform.
+        </motion.p>
+
+        <motion.h3 variants={itemVariants}>Reflection</motion.h3>
+        <motion.p variants={itemVariants}>
+          Designing AICap reinforced for me that good interaction design is as much about emotion as it is about logic.
+          The project challenged me to consider how movement, color, and phrasing can shape perception in subtle but
+          powerful ways. It also deepened my understanding of how design frameworks can guide AI behavior to feel
+          deliberate and coherent.
+        </motion.p>
+        <motion.p variants={itemVariants}>
+          I continue to refine this work as part of Onki’s larger effort to create emotionally intelligent AI systems.
+          The lessons from AICap extend beyond wine discovery. They point toward a future where conversational
+          interfaces are not only intelligent but capable of genuine warmth and character.
         </motion.p>
 
         <motion.div 

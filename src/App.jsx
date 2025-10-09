@@ -41,21 +41,25 @@ function Footer() {
 function App() {
   return (
     <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/research" element={<Research />} />
-        <Route path="/artwork" element={<Artwork />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/projects/aicap" element={<AICap />} />
-        <Route path="/projects/mahsjong" element={<Mahsjong />} />
-        <Route path="/projects/weather-clock" element={<WeatherClock />} />
-        <Route path="/projects/death-of-a-deal" element={<DeathOfADeal />} />
-        <Route path="/research/fmri-study" element={<FmriStudy />} />
-        <Route path="/research/visual-vs-textual" element={<VisualVsTextual />} />
-      </Routes>
-      <Footer />
+      <header>
+        <Navbar />
+      </header>
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/research" element={<Research />} />
+          <Route path="/artwork" element={<Artwork />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/projects/aicap" element={<AICap />} />
+          <Route path="/projects/mahsjong" element={<Mahsjong />} />
+          <Route path="/projects/weather-clock" element={<WeatherClock />} />
+          <Route path="/projects/death-of-a-deal" element={<DeathOfADeal />} />
+          <Route path="/research/fmri-study" element={<FmriStudy />} />
+          <Route path="/research/visual-vs-textual" element={<VisualVsTextual />} />
+        </Routes>
+      </main>
+        <Footer />
     </Router>
   );
 }
