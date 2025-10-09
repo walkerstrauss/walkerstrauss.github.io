@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 export default function Research() {
   const researchItems = [
@@ -21,23 +22,110 @@ export default function Research() {
     }
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const titleVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  };
+
   return (
     <div className="projects-container">
-      <h2>Research</h2>
-      <div className="projects-grid">
+      <motion.h2
+        variants={titleVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        Research
+      </motion.h2>
+      <motion.div 
+        className="projects-grid"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
         {researchItems.map((item, index) => (
-          <div key={index} className="project-card">
+          <motion.div
+            key={index}
+            className="project-card"
+            variants={cardVariants}
+            whileInView={{ 
+              opacity: 1,
+              y: 0,
+              transition: { duration: 0.6, ease: "easeOut" }
+            }}
+            viewport={{ once: true, margin: "-100px" }}
+            whileHover={{ 
+              scale: 1.02,
+              y: -5,
+              transition: { duration: 0.2 }
+            }}
+          >
             <h3>
-              <Link to={item.path} className="project-link">{item.title}</Link>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link to={item.path} className="project-link">{item.title}</Link>
+              </motion.div>
             </h3>
-            <p><strong>{item.role}</strong></p>
-            <p>{item.description}</p>
-          </div>
+            <motion.p 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, duration: 0.4 }}
+            >
+              <strong>{item.role}</strong>
+            </motion.p>
+            <motion.p 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3, duration: 0.4 }}
+            >
+              {item.description}
+            </motion.p>
+          </motion.div>
         ))}
-      </div>
-      <div style={{ marginTop: '2rem' }}>
-        <Link to="/" className="back-link">← Back to Home</Link>
-      </div>
+      </motion.div>
+      <motion.div 
+        style={{ marginTop: '2rem' }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6, duration: 0.5 }}
+      >
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Link to="/" className="back-link">← Back to Home</Link>
+        </motion.div>
+      </motion.div>
     </div>
   );
 }
