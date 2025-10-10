@@ -1,11 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import brainImg from '../assets/fmri/fmri.png';
 
 export default function FmriStudy() {
   return (
     <div className="projects-container">
       <div className="project-page">
         <h2>fMRI Study on Food Imagery and the Hypothalamus</h2>
+
+        <div 
+          className="project-image"
+          style={{ textAlign: 'center', margin: '2rem 0' }}
+        >
+          <img
+            src={brainImg} 
+            alt="The Savoring Weather Clock prototype showing lighting and display integration"
+            style={{
+              width: '100%',
+              maxWidth: '400px',
+              borderRadius: '12px',
+              boxShadow: '0 8px 20px rgba(0, 0, 0, 0.4)',
+              border: '1px solid rgba(255, 255, 255, 0.08)'
+            }}
+          />
+        </div>
 
         <p>
           This project investigates how the brain represents and evaluates food-related imagery, with a focus on the
