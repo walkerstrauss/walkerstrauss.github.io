@@ -23,6 +23,11 @@ export default function Projects() {
       title: "Death of a Deal",
       description: "A Java/LibGDX game exploring narrative-driven decision making.",
       to: "/projects/death-of-a-deal"
+    }, 
+    {
+      title: "Tojiba Crash",
+      description: "Web-based game inspired by Nanaca Crash, developed at Sanko Game Corp.",
+      to: "/projects/tojiba-crash"
     }
   ];
 

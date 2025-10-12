@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import preferencesImg from "../assets/aicap/aicap-preferences.png";
+import recommendationsImg from "../assets/aicap/aicap-recommendations.png";
 
 export default function AICap() {
   const pageVariants = {
@@ -78,6 +80,26 @@ export default function AICap() {
           pairing these psychological principles with visual design, the kiosk invited a slower, more mindful mode of
           engagement than typical AI interfaces.
         </motion.p>
+        <motion.h3 variants={itemVariants}>Interface Design</motion.h3>
+        <motion.div className="image-flex" variants={itemVariants}>
+          <div className="image-pair">
+            <img
+              src={preferencesImg}
+              alt="AICap Preferences Screen"
+              className="project-img"
+            />
+            <p className="image-caption">Preference Selection Interface</p>
+          </div>
+
+          <div className="image-pair">
+            <img
+              src={recommendationsImg}
+              alt="AICap Recommendations Screen"
+              className="project-img"
+            />
+            <p className="image-caption">Recommendation Results Screen</p>
+          </div>
+        </motion.div>
 
         <motion.h3 variants={itemVariants}>System Architecture</motion.h3>
         <motion.p variants={itemVariants}>
@@ -106,6 +128,17 @@ export default function AICap() {
           interfaces are not only intelligent but capable of genuine warmth and character.
         </motion.p>
 
+        <motion.p variants={itemVariants} style={{ marginTop: '2rem', textAlign: 'center' }}>
+          <motion.a
+            href="https://onki.ai/pages/aicap-marketing-intro"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            View AICap Marketing Intro →
+          </motion.a>
+        </motion.p>
         <motion.div 
           style={{ marginTop: '2rem' }}
           variants={itemVariants}

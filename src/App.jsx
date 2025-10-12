@@ -15,6 +15,7 @@ import WeatherClock from './pages/WeatherClock.jsx';
 import DeathOfADeal from './pages/DeathOfADeal.jsx';
 import FmriStudy from './pages/FmriStudy.jsx';
 import VisualVsTextual from './pages/VisualVsTextual.jsx';
+import TojibaCrash from './pages/TojibaCrash.jsx';
 
 function Navbar() {
   return (
@@ -57,6 +58,7 @@ function App() {
           <Route path="/projects/death-of-a-deal" element={<DeathOfADeal />} />
           <Route path="/research/fmri-study" element={<FmriStudy />} />
           <Route path="/research/visual-vs-textual" element={<VisualVsTextual />} />
+          <Route path="/projects/tojiba-crash" element={<TojibaCrash />} />
         </Routes>
       </main>
         <Footer />

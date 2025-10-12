@@ -194,6 +194,8 @@ export default function WeatherClock() {
         <motion.div 
           style={{ textAlign: 'center', marginTop: '2rem' }}
           variants={itemVariants}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
           <a 
             href="https://github.com/walkerstrauss/weather-clock-savoring" 
