@@ -20,6 +20,32 @@ body {
   line-height: 1.6;
 }
 
+.artwork-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.artwork-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.art-img-large,
+.art-img-small {
+  transition: transform 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .artwork-top {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 /* ===== Layout Sections ===== */
 header {
   width: 100vw;
