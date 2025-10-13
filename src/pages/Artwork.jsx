@@ -20,7 +20,7 @@ export default function Artwork() {
         style={{ textAlign: 'center', marginBottom: '2rem' }}
       >
         Artwork
-      </motion.h2>
+      </motion.h2>.
 
       {/* Top two images side by side */}
       <motion.div
