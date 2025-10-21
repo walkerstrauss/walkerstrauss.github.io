@@ -104,11 +104,10 @@ export default function VisualVsTextual() {
 
         <motion.h3 variants={itemVariants}>Reflection</motion.h3>
         <motion.p variants={itemVariants}>
-          Conducting this research taught me how small differences in design—color, pacing, framing—can meaningfully
+          Conducting this research taught me how different forms of educational material can meaningfully
           affect the way people interpret environmental issues. It also reinforced the importance of combining emotional
           engagement with cognitive clarity when designing educational experiences. This lesson now informs much of my
-          work in UX and behavioral design: that meaningful communication often depends less on the format itself and
-          more on the way the message connects to human attention and emotion.
+          work in UX and behavioral design through an understanding of how presentation shapes perception and action.
         </motion.p>
 
         <motion.p variants={itemVariants} style={{ marginTop: '2rem', textAlign: 'center' }}>

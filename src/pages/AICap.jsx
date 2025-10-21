@@ -108,12 +108,6 @@ export default function AICap() {
           phrasing, timing, or tone influenced user interaction. I also developed the process for reviewing this data,
           translating raw event logs into insight about user rhythm and attention.
         </motion.p>
-        <motion.p variants={itemVariants}>
-          The interface itself was built using React and ran on an asynchronous event model that synchronized visual and
-          auditory feedback. Each conversational state was rendered dynamically, with transitions timed to speech and
-          gesture, creating a sense of real presence. This integration between psychology, engineering, and design
-          became the foundation for Onki’s ongoing multimodal agent platform.
-        </motion.p>
 
         <motion.h3 variants={itemVariants}>Reflection</motion.h3>
         <motion.p variants={itemVariants}>
