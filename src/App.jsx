@@ -2,6 +2,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
+import ThemeToggle from "./components/ThemeToggle.jsx";
 
 import Home from './pages/Home.jsx';
 import Projects from './pages/Projects.jsx';
@@ -26,6 +27,7 @@ function Navbar() {
         <Link to="/research">Research</Link>
         <Link to="/artwork">Artwork</Link>
         <Link to="/blog">Blog</Link>
+        <ThemeToggle />
       </div>
     </nav>
   );
