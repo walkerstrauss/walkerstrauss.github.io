@@ -11,6 +11,9 @@
   --accent: #1976d2;
   --link-hover: #0d47a1;
   --shadow: rgba(0, 0, 0, 0.08);
+  --card-bg2: #f9f9fb;
+  --card-border: rgba(0,0,0,0.08);
+  --text-secondary: #444;
 }
 
 [data-theme="dark"] {
@@ -22,6 +25,9 @@
   --accent: #64b5f6;
   --link-hover: #90caf9;
   --shadow: rgba(0, 0, 0, 0.4);
+  --card-bg2: rgba(255,255,255,0.02);
+  --card-border: rgba(255,255,255,0.08);
+  --text-secondary: #d0d0d0;
 }
 
 html, body {
@@ -244,7 +250,7 @@ html {
   flex: 1 1 clamp(var(--card-min), var(--card-ideal), var(--card-max));
   max-width: var(--card-max);
   width: 100%;
-  background: linear-gradient(145deg, #2a2a2a, #1e1e1e, #2a2a2a);
+  background: linear-gradient(145deg, var(--card-bg), var(--card-bg2), var(--card-border));
   padding: 2rem;
   border-radius: 16px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
@@ -301,7 +307,7 @@ html {
   max-width: 1300px;
   margin-left: auto;
   margin-right: auto;
-  background: linear-gradient(145deg, #1c1c1c, #222, #1a1a1a);
+  background: linear-gradient(145deg, var(--bg), var(--card-bg), var(--card-bg2));
   border-radius: 16px;
   box-shadow: 0 0 0 1px rgba(100, 181, 246, 0.15), 0 10px 30px rgba(0,0,0,0.4);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -335,7 +341,7 @@ html {
   font-weight: 600;
   margin-bottom: 1.5rem;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: var(--text);
 }
 
 .project-page h3,
@@ -344,7 +350,7 @@ html {
   margin-top: 2rem;
   font-size: 1.35rem;
   font-weight: 600;
-  color: #e0e0e0;
+  color: var(--accent);
   margin-bottom: 1rem;
   letter-spacing: -0.01em;
 }
@@ -357,7 +363,7 @@ html {
   margin-right: auto;
   line-height: 1.8;
   margin-bottom: 1.5rem;
-  color: #d0d0d0;
+  color: var(--text-secondary);
 }
 
 /* ===== Links ===== */
@@ -457,7 +463,7 @@ a:hover {
 .project-img {
   width: 100%;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px var(--shadow);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -512,7 +518,7 @@ a:hover {
 
 .cs-page {
   width: 100%;
-  max-width: 950px;
+  max-width: 1000px;
   margin: 6rem auto 5rem;
   padding: 0 1.5rem;
   text-align: center; /* centered body */
@@ -527,12 +533,8 @@ a:hover {
 .cs-skills {
   display: grid;
   gap: 1rem 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  background: linear-gradient(145deg, #1a1a1a, #191919);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   padding: 0.8rem 1rem;
-  box-shadow: 0 0 0 1px rgba(100, 181, 246, 0.08) inset;
   text-align: left;
   margin-top: 1rem;
 }
@@ -547,13 +549,13 @@ a:hover {
 .cs-subtitle {
   font-size: 1.1rem;
   font-weight: 400;
-  color: #8ab4f8;
+  color: var(--accent);
   margin-bottom: 2.5rem;
 }
 
 /* Centered sections with readable flow */
 .cs-section {
-  margin-top: 3rem;
+  margin-top: 2rem;
   padding-top: 0.5rem;
 }
 
@@ -587,12 +589,12 @@ a:hover {
 
 .cs-list li {
   background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(100,181,246,0.15);
+  border: 1px solid var(--border);
   border-left: 3px solid var(--accent);
   border-radius: 10px;
   padding: 1rem 1.25rem;
   margin: 0.7rem 0;
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  box-shadow: 0 0 15px var(--shadow);
 }
 
 .cs-list li strong {
@@ -604,8 +606,9 @@ a:hover {
   max-width: 600px;
   margin: 2rem auto;
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 20px var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .cs-demo-video:hover {
@@ -637,10 +640,44 @@ header, footer {
   border-color: var(--border);
 }
 
-.project-card,
 .cs-meta,
 .cs-skills {
-  background: var(--card-bg);
-  border-color: var(--border);
-  box-shadow: 0 2px 10px var(--shadow);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.cs-meta div,
+.cs-skills div {
+  background: var(--card-bg, rgba(255,255,255,0.02));
+  border: 1px solid var(--card-border, rgba(255,255,255,0.08));
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.cs-meta div:hover,
+.cs-skills div:hover {
+  border-color: var(--accent, #64b5f6);
+  box-shadow: 0 4px 10px rgba(100,181,246,0.15);
+  transform: translateY(-2px);
+}
+
+.cs-meta h4,
+.cs-skills h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent, #64b5f6);
+  margin: 0 0 0.4rem;
+  letter-spacing: 0.01em;
+}
+
+.cs-meta p,
+.cs-skills p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
 }
