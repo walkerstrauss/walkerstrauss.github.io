@@ -102,7 +102,7 @@ export default function FmriStudy() {
 
         <motion.h3 variants={itemVariants}>Data Processing and Analysis</motion.h3>
         <motion.p variants={itemVariants}>
-          To standardize our workflow, I created scripts that used <em>dcm2niix</em> and <em>jq</em> to extract key
+          To standardize our workflow, I created scripts that used <em>dcm2niix</em> to extract key
           information from DICOM headers and rename scans based on acquisition type. This ensured consistent mapping
           across sessions for anatomical, diffusion, and functional runs. I then developed quality control procedures to
           verify alignment and completeness before preprocessing in AFNI. These steps allowed the team to manage
