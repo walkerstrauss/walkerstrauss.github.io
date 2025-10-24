@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 /* ===== Theme System ===== */
-[data-theme="dark"] {
+:root {
+  /* Light Mode */
   --bg: #fafafa;
   --text: #1a1a1a;
   --subtext: #444;
@@ -15,7 +16,7 @@
   --text-secondary: #444;
 }
 
-:root {
+[data-theme="dark"] {
   --bg: #1a1a1a;
   --text: #e0e0e0;
   --subtext: #aaa;
