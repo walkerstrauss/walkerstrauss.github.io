@@ -65,7 +65,7 @@ export default function FmriStudy() {
             style={{
               width: '100%',
               maxWidth: '400px',
-              borderRadius: '12px',
+              borderRadius: '6px',
               boxShadow: '0 8px 20px rgba(0, 0, 0, 0.4)',
               border: '1px solid rgba(255, 255, 255, 0.08)',
             }}

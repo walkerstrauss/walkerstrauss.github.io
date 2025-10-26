@@ -95,7 +95,7 @@ export default function WeatherClock() {
               width: '100%',
               maxWidth: '400px',
               borderRadius: '12px',
-              boxShadow: '0 8px 20px rgba(0, 0, 0, 0.4)',
+              boxShadow: '0 4px 10px rgba(0, 0, 0, 0.4)',
               border: '1px solid rgba(255, 255, 255, 0.08)'
             }}
           />
@@ -134,7 +134,7 @@ export default function WeatherClock() {
               width: '100%',
               maxWidth: '400px',
               borderRadius: '12px',
-              boxShadow: '0 8px 20px rgba(0, 0, 0, 0.4)',
+              boxShadow: '0 4px 10px rgba(0, 0, 0, 0.4)',
               border: '1px solid rgba(255, 255, 255, 0.08)'
             }}
           />
@@ -174,7 +174,7 @@ export default function WeatherClock() {
               width: '100%',
               maxWidth: '400px',
               borderRadius: '12px',
-              boxShadow: '0 8px 20px rgba(0, 0, 0, 0.4)',
+              boxShadow: '0 4px 10px rgba(0, 0, 0, 0.4)',
               border: '1px solid rgba(255, 255, 255, 0.08)'
             }}
           />

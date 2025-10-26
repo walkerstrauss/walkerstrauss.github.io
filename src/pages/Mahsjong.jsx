@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import demoVideo from '../assets/mahsjong/gameplay.mp4';
+import MahsjongImg from '../assets/mahsjong/mj.png';
 
 export default function Mahsjong() {
   const pageVariants = {
@@ -46,7 +47,21 @@ export default function Mahsjong() {
         animate="animate"
       >
         <motion.h2 variants={itemVariants}>Mah’s Jong</motion.h2>
-
+        <motion.div 
+            className="project-image"
+            variants={itemVariants}
+            style={{ textAlign: 'center', margin: '2rem 0' }}
+        >
+            <img 
+            src={MahsjongImg} 
+            alt="Mah's Jong poster"
+            style={{
+                width: '100%',
+                maxWidth: '400px',
+            }}
+            />
+        </motion.div>
+      
         <motion.p variants={itemVariants}>
           <strong>Mah’s Jong</strong> is a two-player digital strategy game inspired by traditional mahjong and built
           from the ground up using C++ and the CUGL framework. Developed in the Advanced Game Development course at

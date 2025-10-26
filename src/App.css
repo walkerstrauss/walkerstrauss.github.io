@@ -1,10 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-/* ===== Theme System ===== */
 :root {
-  /* Light Mode */
   --bg: #fafafa;
-  --text: #1a1a1a;
+  --text: #2a2a2a;
   --subtext: #444;
   --card-bg: #ffffff;
   --border: rgba(0, 0, 0, 0.1);
@@ -45,10 +43,14 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100%;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-  font-weight: 400;
+  font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  font-weight: 300;
   letter-spacing: -0.01em;
   line-height: 1.6;
+}
+
+strong {
+  font-weight: 550;
 }
 
 .artwork-top {
@@ -77,15 +79,12 @@ body {
   }
 }
 
-/* ===== Layout Sections ===== */
 header {
   width: 100vw;
   position: sticky;
   top: 0;
   z-index: 100;
   background: rgba(26, 26, 26, 0.95);
-  border-bottom: 1px solid #333;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(8px);
   box-sizing: border-box;
 }
@@ -104,7 +103,6 @@ main {
 
 footer {
   width: 100vw;
-  border-top: 1px solid #333;
   background: #1a1a1a;
   color: #888;
   text-align: center;
@@ -117,7 +115,6 @@ html {
   scroll-padding-top: 72px;
 }
 
-/* ===== Navbar (Fixed vertical centering) ===== */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -129,7 +126,7 @@ html {
 }
 
 .navbar .logo {
-  font-weight: 600;
+  font-weight: 400;
   color: var(--text);
   text-decoration: none;
   font-size: 1.15rem;
@@ -147,7 +144,7 @@ html {
 .navbar .nav-links a {
   text-decoration: none;
   color: var(--text);
-  font-weight: 500;
+  font-weight: 350;
   font-size: 0.95rem;
   letter-spacing: -0.01em;
   position: relative;
@@ -160,7 +157,9 @@ html {
 .navbar .nav-links a:hover,
 .navbar .nav-links a.active {
   color: var(--accent);
-  text-shadow: 0 0 8px rgba(100, 181, 246, 0.4);
+  text-shadow: 0 0 6px var(--shadow);
+  margin-bottom: 4px;
+  transition-duration: 0.3s;
 }
 
 .navbar .nav-links a::after {
@@ -179,9 +178,6 @@ html {
   width: 100%;
 }
 
-/* ===== Page Layout Adjustments ===== */
-
-/* Shared base for all pages */
 .page,
 .projects-container,
 .home-container {
@@ -194,7 +190,6 @@ html {
   padding: 1rem 1.5rem 3rem;
 }
 
-/* Vertically centered layout for hero pages (Home + Projects) */
 .home-container,
 .projects-container {
   justify-content: center;
@@ -212,22 +207,21 @@ html {
 
 .hero h1 {
   font-size: 3.5rem;
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: 0.5rem;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
   line-height: 1.1;
 }
 
 .tagline {
   font-size: 1.3rem;
-  font-weight: 500;
-  color: #888;
+  font-weight: 450;
+  color: var(--subtext);
   margin-bottom: 2rem;
   letter-spacing: -0.01em;
   line-height: 1.4;
 }
 
-/* ===== Projects Grid ===== */
 :root {
   --gap: 2rem;
   --card-min: 320px;
@@ -293,9 +287,6 @@ html {
   z-index: 2;
 }
 
-/* ===== Project Pages ===== */
-
-/* Top-aligned layout for detailed reading pages (Project + Research) */
 .project-page,
 .research-page {
   justify-content: flex-start;
@@ -338,7 +329,7 @@ html {
   margin-top: 0;
   text-align: center;
   font-size: 2.1rem;
-  font-weight: 600;
+  font-weight: 450;
   margin-bottom: 1.5rem;
   letter-spacing: -0.02em;
   color: var(--text);
@@ -349,13 +340,12 @@ html {
   text-align: center;
   margin-top: 2rem;
   font-size: 1.35rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--accent);
   margin-bottom: 1rem;
   letter-spacing: -0.01em;
 }
 
-/* Optional: smoother reading flow */
 .project-page p,
 .research-page p {
   max-width: 1000px;
@@ -366,7 +356,6 @@ html {
   color: var(--text-secondary);
 }
 
-/* ===== Links ===== */
 a {
   color: var(--accent);
   text-decoration: none;
@@ -377,7 +366,8 @@ a {
 
 a:hover {
   color: var(--link-hover);
-  text-shadow: 0 0 6px rgba(100, 181, 246, 0.3);
+  text-shadow: 0 1px 4px var(--accent);
+  transition-duration: 0.3s;
 }
 
 .back-link {
@@ -392,7 +382,6 @@ a:hover {
   text-shadow: 0 0 6px rgba(187, 187, 187, 0.3);
 }
 
-/* ===== Responsive Design ===== */
 @media (max-width: 1024px) {
   .project-page,
   .research-page {
@@ -462,20 +451,21 @@ a:hover {
 
 .project-img {
   width: 100%;
-  border-radius: 12px;
+  max-width: 400px;
+  border-radius: 6px;
   box-shadow: 0 4px 12px var(--shadow);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .project-img:hover {
   transform: scale(1.02);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 6px 20px var(--shadow);
 }
 
 .image-caption {
   margin-top: 0.8rem;
   font-size: 0.9rem;
-  color: #aaa;
+  color: var(--subtext);
   line-height: 1.4;
   max-width: 90%;
 }
@@ -542,13 +532,13 @@ a:hover {
 .cs-title {
   font-size: 2.1rem;
   line-height: 1.2;
-  font-weight: 700;
+  font-weight: 500;
   margin-bottom: 0.4rem;
 }
 
 .cs-subtitle {
   font-size: 1.1rem;
-  font-weight: 400;
+  font-weight: 350;
   color: var(--accent);
   margin-bottom: 2.5rem;
 }
@@ -562,7 +552,7 @@ a:hover {
 .cs-section h2 {
   font-size: 1.4rem;
   color: var(--text);
-  font-weight: 700;
+  font-weight: 550;
   margin-bottom: 0.8rem;
 }
 
@@ -652,7 +642,7 @@ header, footer {
 .cs-skills div {
   background: var(--card-bg, rgba(255,255,255,0.02));
   border: 1px solid var(--card-border, rgba(255,255,255,0.08));
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 1rem 1.2rem;
   transition: all 0.3s ease;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
@@ -668,7 +658,7 @@ header, footer {
 .cs-meta h4,
 .cs-skills h4 {
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--accent, #64b5f6);
   margin: 0 0 0.4rem;
   letter-spacing: 0.01em;
@@ -680,4 +670,59 @@ header, footer {
   color: var(--text-secondary);
   line-height: 1.6;
   margin: 0;
+}
+.thumb-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
+  gap: 2rem 1.5rem;
+  width: 100%;
+  max-width: 1500px;
+  margin: 5rem auto;
+  padding: 0 1rem;
+}
+
+.thumb-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-decoration: none;
+  color: inherit;
+}
+
+.thumb-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px var(--shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.thumb-card:hover .thumb-image {
+  transform: translateY(-4px);
+  box-shadow: 0 2px 10px var(--shadow);
+}
+
+.thumb-caption {
+  margin-top: 0.2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 0.65rem;
+  box-shadow: 0 0 0 var(--shadow);
+}
+
+.thumb-caption h3 {
+  font-size: 0.95rem;
+  font-weight: 450;
+  margin: 0;
+  color: var(--text);
+}
+
+.thumb-caption p {
+  color: var(--subtext);
+  margin: 0;
+  font-weight: 400;
+  font-size: 0.95rem;
 }
