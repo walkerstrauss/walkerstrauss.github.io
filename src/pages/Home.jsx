@@ -172,6 +172,53 @@ export default function Home() {
           </Link>
         ))}        
       </motion.div>
+      <motion.section
+        className="connecting-work"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        viewport={{ once: true }}
+      >
+        <h2>What connects my work?</h2>
+
+        <div className="connecting-grid">
+          <div className="connecting-card">
+            <h3>Intelligent / Interactive Systems</h3>
+            <p>
+              My projects are focused on the user experience of collaborating with intelligent systems.
+              Across home appliances and retail recommender systems, I’m interested in simplifying
+              human-computer collaboration through intentional design.
+            </p>
+          </div>
+
+          <div className="connecting-card">
+            <h3>Backed by Research</h3>
+            <p>
+              My interest in interactive products stems from my background in psychology and neuroscience
+              research, meaning all my work is influenced by research on human behavior and cognition. I
+              always pair rapid building/iteration with data-driven ideation.
+            </p>
+          </div>
+
+          <div className="connecting-card">
+            <h3>Design for Hand-offs</h3>
+            <p>
+              Because of my extensive experience with computer science and software engineering, my UX
+              design always includes a thorough consideration of the implementation process. I think not
+              only in pixels and styling, but in functions and classes too.
+            </p>
+          </div>
+
+          <div className="connecting-card">
+            <h3>Cross-functional Collaboration</h3>
+            <p>
+              I’m a proven team-leader and cross-functional collaborator. My interdisciplinary background
+              in CS, design and psychology allows me to foster communication between teams—I can present
+              ideas to diverse audiences and create a good work environment for all.
+            </p>
+          </div>
+        </div>
+      </motion.section>
     </div>
   );
 }
