@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap');
 
 :root {
   --bg: #fafafa;
@@ -39,6 +39,11 @@ html, body {
   transition: background-color 0.2s ease, color 0.2s ease;
   overflow-x: hidden;
   scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "cv11", "ss01";
+  font-variation-settings: "opsz" 14;
 }
 
 body {
@@ -196,7 +201,7 @@ html {
 .home-container,
 .projects-container {
   justify-content: center;
-  min-height: calc(100vh - 120px);
+  min-height: calc(90vh - 120px);
 }
 
 h2 {

@@ -14,16 +14,16 @@ const projects = [
     image: AICapThumb,
   },
   {
-    title: "Mah's Jong",
-    subtitle: "Competitive Mahjong-inspired 1v1 Strategy Game",
-    link: "/projects/mahsjong",
-    video: MahsjongThumb,
-  },
-  {
     title: "Savoring Weather Clock",
     subtitle: "Arduino-based Interactive Clock Merging Weather Data, AI, and Psychology",
     link: "/projects/weather-clock",
     image: WeatherClockThumb,
+  },
+  {
+    title: "Mah's Jong",
+    subtitle: "Competitive Mahjong-inspired 1v1 Strategy Game",
+    link: "/projects/mahsjong",
+    video: MahsjongThumb,
   },
   {
     title: "fMRI Study on Food Imagery",
