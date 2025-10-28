@@ -534,6 +534,7 @@ a:hover {
   margin: 6rem auto 5rem;
   padding: 0 1.5rem;
   text-align: center; /* centered body */
+  letter-spacing: -0.02em;
 }
 
 .cs-hero {
@@ -579,9 +580,16 @@ a:hover {
 }
 
 .cs-section h3 {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   color: var(--accent);
   margin: 1.8rem 0 0.6rem;
+  font-weight: 500;
+}
+
+.cs-section h4 {
+  font-size: 1rem;
+  margin: 1.2rem 0 0.4rem;
+  font-weight: 550;
 }
 
 .cs-section p {
@@ -673,7 +681,7 @@ header, footer {
 .cs-meta div:hover,
 .cs-skills div:hover {
   border-color: var(--accent, #64b5f6);
-  box-shadow: 0 4px 10px rgba(100,181,246,0.15);
+  box-shadow: 0 4px 10px var(--shadow);
   transform: translateY(-2px);
 }
 
