@@ -67,7 +67,7 @@ export default function Home() {
         >
           <motion.h1 variants={itemVariants}>Walker Strauss</motion.h1>
 
-          <motion.p
+          {/*<motion.p
             className="tagline"
             variants={itemVariants}
             animate={{
@@ -84,19 +84,22 @@ export default function Home() {
             }}
           >
             "Designing technology that feels human."
-          </motion.p>
-
+          </motion.p>*/}
+          <motion.h2 variants={itemVariants}>
+            Creative technologist for AI-powered products
+          </motion.h2>
+{/* 
           <motion.p variants={itemVariants}>
             I build thoughtful, emotionally-aware systems that connect psychology,
             design, and AI to create more human digital experiences.
-          </motion.p>
+          </motion.p> */}
 
           {/* === Contact Section === */}
           <motion.div
             className="contact-links"
             variants={itemVariants}
             style={{
-              marginTop: "2.5rem",
+              marginTop: "0.5rem",
               display: "flex",
               gap: "2rem",
               flexWrap: "wrap",

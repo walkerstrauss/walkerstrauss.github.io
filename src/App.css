@@ -12,6 +12,7 @@
   --card-bg2: #f9f9fb;
   --card-border: rgba(0,0,0,0.08);
   --text-secondary: #444;
+  --text-tirtiary: #7d7d7d;
   --nav-border: #e8e8e8;
 }
 
@@ -27,6 +28,7 @@
   --card-bg2: rgba(255,255,255,0.02);
   --card-border: rgba(255,255,255,0.08);
   --text-secondary: #aaa;
+  --text-tirtiary: #8f8f8f;
   --nav-border: #252525;
 }
 
@@ -51,7 +53,7 @@ body {
   flex-direction: column;
   min-height: 100%;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: -0.01em;
   line-height: 1.6;
 }
@@ -218,11 +220,20 @@ h2 {
 }
 
 .hero h1 {
+  color: var(--text);
   font-size: 3.5rem;
   font-weight: 400;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.1rem;
+  letter-spacing: -0.04em;
+}
+
+.hero h2 {
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--text-tirtiary);
+  margin-bottom: 2.5rem;
+  line-height: 1.2;
   letter-spacing: -0.06em;
-  line-height: 1.1;
 }
 
 .tagline {
@@ -760,15 +771,16 @@ header, footer {
 }
 
 .connecting-card h3 {
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 400;
   color: var(--text);
   margin-bottom: 0.6rem;
 }
 
 .connecting-card p {
-  font-size: 0.95rem;
-  color: var(--subtext);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-tirtiary);
   line-height: 1.7;
   margin: 0;
 }
