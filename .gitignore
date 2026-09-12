@@ -25,3 +25,5 @@ dist-ssr
 node_modules/
 dist/
 build/
+# Local working notes and drawing exports, not part of the build
+website-content/

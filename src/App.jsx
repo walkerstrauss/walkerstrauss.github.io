@@ -1,14 +1,21 @@
 // src/App.jsx
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  NavLink,
+  useLocation,
+} from 'react-router-dom';
 import './App.css';
 import ThemeToggle from "./components/ThemeToggle.jsx";
 
 import Home from './pages/Home.jsx';
 import Projects from './pages/Projects.jsx';
 import Research from './pages/Research.jsx';
-import Artwork from './pages/Artwork.jsx';
 import Blog from './pages/Blog.jsx';
+import AUI from './pages/AUI.jsx';
 
 import AICap from './pages/AICap.jsx';
 import Mahsjong from './pages/Mahsjong.jsx';
@@ -18,15 +25,26 @@ import FmriStudy from './pages/FmriStudy.jsx';
 import VisualVsTextual from './pages/VisualVsTextual.jsx';
 import TojibaCrash from './pages/TojibaCrash.jsx';
 
+// React Router keeps the scroll position across route changes; reset it so each
+// page opens at its title rather than partway down the previous page.
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [pathname]);
+
+  return null;
+}
+
 function Navbar() {
   return (
     <nav className="navbar">
       <Link to="/" className="logo">Walker Strauss</Link>
       <div className="nav-links">
-        <Link to="/projects">Projects</Link>
-        <Link to="/research">Research</Link>
-        <Link to="/artwork">Artwork</Link>
-        <Link to="/blog">Blog</Link>
+        <NavLink to="/aui">Work</NavLink>
+        <NavLink to="/projects">Projects</NavLink>
+        <NavLink to="/research">Research</NavLink>
         <ThemeToggle />
       </div>
     </nav>
@@ -44,15 +62,17 @@ function Footer() {
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <header>
         <Navbar />
       </header>
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/aui" element={<AUI />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/research" element={<Research />} />
-          <Route path="/artwork" element={<Artwork />} />
+          {/* Reachable by URL; hidden from the navbar until it has a post. */}
           <Route path="/blog" element={<Blog />} />
           <Route path="/projects/aicap" element={<AICap />} />
           <Route path="/projects/mahsjong" element={<Mahsjong />} />
