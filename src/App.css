@@ -11,6 +11,7 @@
 
   /* Hairlines carry the structure now that the boxes are gone. */
   --rule: rgba(17, 24, 39, 0.11);
+  --rule-soft: rgba(17, 24, 39, 0.07);
   --rule-strong: rgba(17, 24, 39, 0.26);
   --tint: rgba(17, 24, 39, 0.025);
 
@@ -22,9 +23,8 @@
 
   --measure: 74ch;
   --page-max: 1280px;
-  /* The navbar spans wider than the content it sits above, so the shell reads
-     as a frame rather than a column that happens to include the nav. */
-  --nav-max: 1440px;
+  /* The navbar is full-bleed; this is its distance from the viewport edges. */
+  --nav-pad: 2rem;
 
   /* The AUI mark is drawn for a light ground, so its plate is pinned to the
      light-theme background and its ink to the light-theme text colour. Neither
@@ -56,6 +56,7 @@
   --text-tirtiary: #85858d;
 
   --rule: rgba(255, 255, 255, 0.11);
+  --rule-soft: rgba(255, 255, 255, 0.07);
   --rule-strong: rgba(255, 255, 255, 0.28);
   --tint: rgba(255, 255, 255, 0.03);
 
@@ -154,14 +155,17 @@ footer p {
 }
 
 /* ---- Navbar ---- */
+/* A conventional site header: full viewport width, edge-anchored, deliberately
+   not tied to the content container below it. --nav-pad stays under 50px. */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1.5rem;
-  width: min(100% - var(--gutter) * 2, var(--nav-max));
-  margin: 0 auto;
-  padding: 0;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0 var(--nav-pad);
   height: 64px;
   box-sizing: border-box;
 }
@@ -174,7 +178,7 @@ footer p {
 }
 
 .navbar .logo {
-  font-weight: 500;
+  font-weight: 400;
   color: var(--text);
   text-decoration: none;
   font-size: var(--fs-base);
@@ -200,7 +204,7 @@ footer p {
   height: 64px;
   text-decoration: none;
   color: var(--text-tirtiary);
-  font-weight: 450;
+  font-weight: 400;
   font-size: var(--fs-sm);
   letter-spacing: -0.01em;
   transition: color 0.2s ease;
@@ -218,7 +222,7 @@ footer p {
   left: 0;
   width: 100%;
   height: 1px;
-  background: var(--text);
+  background: var(--text-tirtiary);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.28s cubic-bezier(0.2, 0, 0.2, 1);
@@ -679,12 +683,12 @@ footer p {
 }
 
 .hero h1 {
-  font-size: clamp(2.5rem, 6.5vw, 4rem);
+  font-size: clamp(2.2rem, 5.7vw, 3.5rem);
   font-weight: 400;
   line-height: 1.04;
   letter-spacing: -0.048em;
   color: var(--text);
-  margin: 0 0 0.6rem;
+  margin: 0 0 1.15rem;
 }
 
 .hero h2 {
@@ -692,8 +696,8 @@ footer p {
   font-weight: 350;
   line-height: 1.22;
   letter-spacing: -0.04em;
-  color: var(--text-tirtiary);
-  margin: 0 auto 2.25rem;
+  color: var(--text-secondary);
+  margin: 0 auto 1.6rem;
   max-width: 22ch;
 }
 
@@ -702,7 +706,7 @@ footer p {
   flex-wrap: wrap;
   justify-content: center;
   gap: 1.75rem;
-  font-size: var(--fs-sm);
+  font-size: var(--fs-base);
 }
 
 .contact-links a {
@@ -719,9 +723,9 @@ footer p {
   grid-template-columns: repeat(6, 1fr);
   gap: 3.25rem 2.5rem;
   width: min(100% - var(--gutter) * 2, var(--page-max));
-  margin: 5rem auto 0;
-  padding: 3rem 0 0;
-  border-top: 1px solid var(--rule);
+  margin: 3rem auto 0;
+  padding: 2.5rem 0 0;
+  border-top: 1px solid var(--rule-soft);
   box-sizing: border-box;
 }
 
@@ -736,7 +740,7 @@ footer p {
 
 /* Wider tiles get a shallower crop so the two rows stay close in height. */
 .thumb-card:nth-child(-n + 2) .thumb-media {
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
 }
 
 .thumb-card {
@@ -753,7 +757,7 @@ footer p {
 .thumb-media {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 2;
   border-radius: 10px;
   border: 1px solid var(--rule);
   background: var(--tint);
@@ -836,7 +840,7 @@ footer p {
   width: min(100% - var(--gutter) * 2, var(--page-max));
   margin: 6rem auto 0;
   padding: 3rem 0 7rem;
-  border-top: 1px solid var(--rule);
+  border-top: 1px solid var(--rule-soft);
   box-sizing: border-box;
   text-align: left;
 }
@@ -1032,7 +1036,7 @@ footer p {
   }
 
   .thumb-grid .thumb-card:nth-child(-n + 2) .thumb-media {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 3 / 2;
   }
 
   .thumb-grid .thumb-card:last-child:nth-child(odd) {
@@ -1096,6 +1100,7 @@ footer p {
   }
 
   .navbar {
+    padding: 0 1.5rem;
     gap: 1rem;
   }
 
@@ -1124,7 +1129,7 @@ footer p {
 
   .thumb-grid .thumb-card .thumb-media,
   .thumb-grid .thumb-card:last-child:nth-child(odd) .thumb-media {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 3 / 2;
   }
 
   .navbar .nav-links a {

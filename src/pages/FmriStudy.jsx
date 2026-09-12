@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import brainImg from '../assets/fmri/fmri.png';
 
 export default function FmriStudy() {
   return (
@@ -13,22 +12,6 @@ export default function FmriStudy() {
         <h2>
           fMRI Study on Food Imagery and the Hypothalamus
         </h2>
-
-        <div
-          className="project-image"
-          style={{ margin: '2rem 0' }}
-        >
-          <img
-            src={brainImg}
-            alt="Brain activity visualization related to food imagery"
-            className="project-img"
-            style={{
-              width: '100%',
-              maxWidth: '400px',
-              borderRadius: '6px'
-            }}
-          />
-        </div>
 
         <p>
           This project investigates how the brain represents and evaluates food-related imagery, with a focus on the
