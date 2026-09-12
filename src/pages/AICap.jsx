@@ -1,33 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import preferencesImg from "../assets/aicap/aicap-preferences.png";
 import recommendationsImg from "../assets/aicap/aicap-recommendations.png";
 import demoVideo from "../assets/aicap/demo.mp4";
 
 export default function AICap() {
-  const page = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -20 },
-  };
-
-  const reveal = {
-    initial: { opacity: 0, y: 16 },
-    animate: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
-  };
-
   return (
-    <motion.div
+    <div
       className="cs-page"
-      variants={page}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      transition={{ duration: 0.6, ease: "easeOut" }}
     >
       {/* Hero */}
-      <motion.div className="cs-hero" variants={reveal}>
+      <div className="cs-hero">
         <h1 className="cs-title">AICap: Personalized shopping via multimodal AI kiosk</h1>
         <p className="cs-subtitle">
           Reimagining the consumer experience for physical retail in the GenAI era
@@ -68,10 +51,10 @@ export default function AICap() {
             <p>Technical Product Specifications, Conversational AI Design, AI Product Management, Prompt Engineering</p>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       {/* Overview */}
-      <motion.section className="cs-section" variants={reveal}>
+      <section className="cs-section">
         <h2>Overview</h2>
         <p>
           AICap is a multimodal AI sommelier revolutionizing the in-store wine selection experience through personalized
@@ -83,10 +66,10 @@ export default function AICap() {
           I played a leading role in driving product design and development, grounding AICap in user studies, market
           research, and literature reviews as well as leading UX and conversation design.
         </p>
-      </motion.section>
+      </section>
 
       {/* Problem */}
-      <motion.section className="cs-section" variants={reveal}>
+      <section className="cs-section">
         <h2>Problem</h2>
         <p>
           Consumer frictions in physical retail limit conversion and store staff are often perceived as unavailable or
@@ -95,16 +78,16 @@ export default function AICap() {
           shoppers are also less familiar with wine categories, increasing the need for simple, confidence-building
           guidance.
         </p>
-      </motion.section>
+      </section>
 
       {/* Solution */}
-      <motion.section className="cs-section" variants={reveal}>
+      <section className="cs-section">
         <h2>Solution</h2>
         <p>
           AICap turns passerby curiosity into a confident list of recommendations in under two minutes through a
           voice-and-touch flow. We approached the design of AICap with the goal of supplementing store staff, not
-          replacing them—much of the process was aligning the interaction with the experience of talking to a human
-          sommelier.
+          replacing them. Much of the process was aligning the interaction with the experience of talking to a
+          human sommelier.
         </p>
         <h3 className="cs-callout">Unlimited product knowledge</h3>
         <p>
@@ -121,10 +104,10 @@ export default function AICap() {
           Tired of endlessly searching for the right wine for the occasion? AICap’s recommendations allow for a simple
           and rewarding wine-buying experience that will elevate your next dinner party or gift.
         </p>
-      </motion.section>
+      </section>
 
       {/* Research */}
-      <motion.section className="cs-section" variants={reveal}>
+      <section className="cs-section">
         <h2>Research</h2>
         <p>
           AICap is a product grounded in user studies, market research, and literature reviews.
@@ -213,23 +196,23 @@ export default function AICap() {
             <strong>Sensitive data:</strong> avoid prompting or repeating private information.
           </li>
         </ul>
-      </motion.section>
+      </section>
 
       {/* Design Ideation */}
-      <motion.section className="cs-section" variants={reveal}>
+      <section className="cs-section">
         <h2>Design Ideation</h2>
         <p>
           The design of AICap’s UX included identifying the pages and components necessary for the ideal user journey,
           developing a framework for modular design, and prototyping common use cases.
         </p>
 
-        <motion.div className="cs-video" variants={reveal}>
+        <div className="cs-video">
           <video 
             src={demoVideo} 
             controls 
             className="cs-demo-video"
           />
-        </motion.div>
+        </div>
 
         <h3 className="cs-subhead">Notable Design Decisions</h3>
 
@@ -271,9 +254,9 @@ export default function AICap() {
             </p>
           </div>
         </div>
-      </motion.section>
+      </section>
 
-      <motion.div className="image-flex" variants={reveal}>
+      <div className="image-flex">
         <div className="image-pair">
           <img
             src={preferencesImg}
@@ -291,10 +274,10 @@ export default function AICap() {
           />
           <p className="image-caption">Recommendation Results Screen</p>
         </div>
-      </motion.div>
+      </div>
 
       {/* Reflection */}
-      <motion.section className="cs-section" variants={reveal}>
+      <section className="cs-section">
         <h2>Reflection</h2>
         <p>
           Designing AICap reinforced for me that good interaction design is as much about emotion as it is about logic.
@@ -303,20 +286,20 @@ export default function AICap() {
           deliberate and coherent. The lessons from AICap extend beyond wine discovery and point toward a future where
           conversational interfaces are not only intelligent but capable of genuine warmth and character.
         </p>
-      </motion.section>
+      </section>
 
       {/* Links */}
-      <motion.section className="cs-links" variants={reveal}>
+      <section className="cs-links">
         <a
-          href="https://onki.ai/pages/aicap-marketing-intro"
+          href="https://onki.ai"
           target="_blank"
           rel="noopener noreferrer"
           className="project-link"
         >
-          View AICap Marketing Intro →
+          Visit Onki →
         </a>
         <Link to="/projects" className="back-link">← Back to Projects</Link>
-      </motion.section>
-    </motion.div>
+      </section>
+    </div>
   );
 }

@@ -1,144 +1,82 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import brainImg from '../assets/fmri/fmri.png';
 
 export default function FmriStudy() {
-  const pageVariants = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -20 },
-  };
-
-  const contentVariants = {
-    initial: { opacity: 0 },
-    animate: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    initial: { opacity: 0, y: 15 },
-    animate: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: 'easeOut' },
-    },
-  };
-
   return (
-    <motion.div
+    <div
       className="projects-container"
-      variants={pageVariants}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      transition={{ duration: 0.6, ease: 'easeOut' }}
     >
-      <motion.div
+      <div
         className="project-page"
-        variants={contentVariants}
-        initial="initial"
-        animate="animate"
       >
-        <motion.h2 variants={itemVariants}>
+        <h2>
           fMRI Study on Food Imagery and the Hypothalamus
-        </motion.h2>
+        </h2>
 
-        <motion.div
-          className="project-image"
-          style={{ textAlign: 'center', margin: '2rem 0' }}
-          variants={itemVariants}
-        >
-          <motion.img
-            src={brainImg}
-            alt="Brain activity visualization related to food imagery"
-            className="project-img"
-            variants={itemVariants}
-            initial="initial"
-            animate="animate"
-            transition={{ duration: 0.6 }}
-            style={{
-              width: '100%',
-              maxWidth: '400px',
-              borderRadius: '6px',
-              boxShadow: '0 8px 20px rgba(0, 0, 0, 0.4)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-            }}
-          />
-        </motion.div>
-
-        <motion.p variants={itemVariants}>
+        <p>
           This project investigates how the brain represents and evaluates food-related imagery, with a focus on the
           hypothalamus and its interaction with affective and memory networks. Conducted at Cornell University’s
           <strong> Affect and Cognition Lab</strong>, the study examines how visual exposure to food stimuli influences
           motivation, emotion, and recall. I joined the lab as a research assistant to help design, organize, and
           process the neuroimaging pipeline, connecting behavioral and physiological data into a coherent analytical
           framework.
-        </motion.p>
+        </p>
 
-        <motion.h3 variants={itemVariants}>Research Focus</motion.h3>
-        <motion.p variants={itemVariants}>
+        <h3>Research Focus</h3>
+        <p>
           The study builds on prior work showing that food cues can trigger both emotional and physiological responses,
           linking memory systems to bodily states. Our experiment combines an incidental encoding paradigm with
           post-scan recognition testing to explore how imagery and taste associations affect subsequent recall. The
           central question is how appetitive visual experiences interact with hunger and internal state signals mediated
           by the hypothalamus.
-        </motion.p>
+        </p>
 
-        <motion.h3 variants={itemVariants}>My Role</motion.h3>
-        <motion.p variants={itemVariants}>
+        <h3>My Role</h3>
+        <p>
           I contributed to the design and implementation of the study’s data infrastructure, working with <em>DICOM</em>{' '}
           and <em>NIfTI</em> formats to prepare MRI data for analysis. I wrote Bash and Python scripts to automate
           conversion and organization into <em>BIDS</em> format, handling preprocessing steps including motion
           correction, slice timing adjustment, and metadata extraction. I also helped construct the experimental
           directory structure, designed the behavioral stimuli for incidental encoding, and assisted with participant
           onboarding and in-scan task monitoring.
-        </motion.p>
+        </p>
 
-        <motion.h3 variants={itemVariants}>Data Processing and Analysis</motion.h3>
-        <motion.p variants={itemVariants}>
+        <h3>Data Processing and Analysis</h3>
+        <p>
           To standardize our workflow, I created scripts that used <em>dcm2niix</em> to extract key
           information from DICOM headers and rename scans based on acquisition type. This ensured consistent mapping
           across sessions for anatomical, diffusion, and functional runs. I then developed quality control procedures to
           verify alignment and completeness before preprocessing in AFNI. These steps allowed the team to manage
           multi-session data from multiple participants efficiently and reproducibly, preparing the dataset for
           functional connectivity and activation analysis.
-        </motion.p>
+        </p>
 
-        <motion.h3 variants={itemVariants}>Scientific Insight</motion.h3>
-        <motion.p variants={itemVariants}>
+        <h3>Scientific Insight</h3>
+        <p>
           The study’s results contribute to our understanding of how the hypothalamus and limbic regions respond to
           emotionally charged sensory cues. By examining incidental encoding rather than explicit memory tasks, the work
           provides a clearer picture of how food-related affect influences spontaneous attention and neural encoding. My
-          involvement gave me experience in the technical and conceptual sides of fMRI research—how raw imaging data
+          involvement gave me experience in the technical and conceptual sides of fMRI research: how raw imaging data
           becomes psychological evidence through careful structure, processing, and interpretation.
-        </motion.p>
+        </p>
 
-        <motion.h3 variants={itemVariants}>Reflection</motion.h3>
-        <motion.p variants={itemVariants}>
+        <h3>Reflection</h3>
+        <p>
           Working in the Affect and Cognition Lab taught me to think critically about data design, not just data
           analysis. Building the infrastructure for large-scale fMRI studies required both precision and creativity. It
           helped me understand how experimental psychology, programming, and neuroscience intersect, and how small
           implementation details can shape scientific insight. This project strengthened my foundation in neuroimaging
           methods and deepened my appreciation for research as both a technical and interpretive practice.
-        </motion.p>
+        </p>
 
-        <motion.div
-          style={{ marginTop: '2rem', textAlign: 'center' }}
-          variants={itemVariants}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+        <div
+          style={{ marginTop: '2rem' }}
         >
-          <Link to="/projects" className="back-link">
-            ← Back to Projects
+          <Link to="/research" className="back-link">
+            ← Back to Research
           </Link>
-        </motion.div>
-      </motion.div>
-    </motion.div>
+        </div>
+      </div>
+    </div>
   );
 }
