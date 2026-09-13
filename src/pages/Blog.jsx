@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Page from '../components/Page.jsx';
 
 export default function Blog() {
   return (
-    <div className="page">
+    <Page className="page">
       <div>
         <span className="cs-eyebrow">Writing</span>
         <h1 className="cs-title">Blog</h1>
@@ -15,6 +16,6 @@ export default function Blog() {
           <Link to="/" className="back-link">← Back to Home</Link>
         </div>
       </div>
-    </div>
+    </Page>
   );
 }

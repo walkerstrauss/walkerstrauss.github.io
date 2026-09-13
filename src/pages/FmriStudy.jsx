@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Page from '../components/Page.jsx';
 
 export default function FmriStudy() {
   return (
-    <div
-      className="projects-container"
-    >
+    <Page className="projects-container">
       <div
         className="project-page"
       >
@@ -77,6 +76,6 @@ export default function FmriStudy() {
           </Link>
         </div>
       </div>
-    </div>
+    </Page>
   );
 }

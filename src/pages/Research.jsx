@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Page from '../components/Page.jsx';
 
 const researchItems = [
   {
     title: "fMRI Study on Food Imagery and the Hypothalamus",
-    label: "2023 – Present",
+    label: "2023 – 2025",
     role: "Affect and Cognition Lab · Cornell University",
     description:
       "Analyzed functional connectivity using fMRI to investigate how the hypothalamus evaluates food-related stimuli. Led participant onboarding, task execution, and MRI data preprocessing.",
@@ -22,7 +23,7 @@ const researchItems = [
 
 export default function Research() {
   return (
-    <div className="projects-container">
+    <Page className="projects-container">
       <div>
         <span className="cs-eyebrow">Psychology &amp; neuroscience</span>
         <h1 className="cs-title">Research</h1>
@@ -58,6 +59,6 @@ export default function Research() {
         <Link to="/projects" className="project-link">Browse projects →</Link>
         <Link to="/" className="back-link">← Back to Home</Link>
       </div>
-    </div>
+    </Page>
   );
 }

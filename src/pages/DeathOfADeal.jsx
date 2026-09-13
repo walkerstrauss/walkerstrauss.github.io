@@ -1,12 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Page from '../components/Page.jsx';
 import DOADImg from '../assets/doad/death-of-a-deal.png';
 
 export default function DeathOfADeal() {
   return (
-    <div
-      className="projects-container"
-    >
+    <Page className="projects-container">
       <div
         className="project-page"
       >
@@ -89,6 +88,6 @@ export default function DeathOfADeal() {
           <Link to="/projects">← Back to Projects</Link>
         </div>
       </div>
-    </div>
+    </Page>
   );
 }

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Page from '../components/Page.jsx';
+import Reveal from '../components/Reveal.jsx';
 
 export default function AUI() {
   return (
-    <div
-      className="cs-page"
-    >
+    <Page className="cs-page">
       {/* ================= Hero ================= */}
       <div className="cs-hero">
         <span className="cs-eyebrow">Current work</span>
@@ -65,7 +65,7 @@ export default function AUI() {
       </div>
 
       {/* ================= Overview ================= */}
-      <section className="cs-section">
+      <Reveal as="section" className="cs-section">
         <h2>Overview</h2>
         <p>
           AUI builds Apollo-1, a neuro-symbolic foundation model that separates a
@@ -93,10 +93,10 @@ export default function AUI() {
           coding agents, build correctly on Apollo-1 without relearning the platform’s
           nuances from scratch.
         </p>
-      </section>
+      </Reveal>
 
       {/* ================= Problem ================= */}
-      <section className="cs-section">
+      <Reveal as="section" className="cs-section">
         <h2>Problem</h2>
         <p>
           Generative AI works for users; it does not reliably work for companies. A
@@ -121,10 +121,10 @@ export default function AUI() {
           built into the architecture, so the model doesn’t have the information
           available to leak in the first place.
         </p>
-      </section>
+      </Reveal>
 
       {/* ================= What I do ================= */}
-      <section className="cs-section">
+      <Reveal as="section" className="cs-section">
         <h2>What I do</h2>
 
         <h3 className="cs-callout">Deployment &amp; systems design</h3>
@@ -159,10 +159,10 @@ export default function AUI() {
           directly by what that deployment needed, and it is what finally let us
           structurally implement the payouts platform’s requirements.
         </p>
-      </section>
+      </Reveal>
 
       {/* ================= Selected work ================= */}
-      <section className="cs-section">
+      <Reveal as="section" className="cs-section">
         <h2>Selected work</h2>
 
         <div className="cs-card-grid">
@@ -207,7 +207,7 @@ export default function AUI() {
             </p>
           </div>
         </div>
-      </section>
+      </Reveal>
 
       {/*
         ================= Media =================
@@ -227,7 +227,7 @@ export default function AUI() {
       */}
 
       {/* ================= Impact ================= */}
-      <section className="cs-section">
+      <Reveal as="section" className="cs-section">
         <h2>Impact</h2>
         <p>
           Multiple customers are now running Apollo-1 agents connected directly to their
@@ -238,10 +238,10 @@ export default function AUI() {
           push for based on that deployment, is now part of how the platform enforces
           disclosure policy.
         </p>
-      </section>
+      </Reveal>
 
       {/* ================= Reflection ================= */}
-      <section className="cs-section">
+      <Reveal as="section" className="cs-section">
         <h2>Reflection</h2>
         <p>
           The earlier projects taught me to design for people. This is teaching me to
@@ -252,10 +252,10 @@ export default function AUI() {
           someone else build the next ten agents correctly on the first try compounds in
           a way one well-built agent doesn’t.
         </p>
-      </section>
+      </Reveal>
 
       {/* ================= Links ================= */}
-      <section className="cs-links">
+      <Reveal as="section" className="cs-links">
         <a
           href="https://aui.io"
           target="_blank"
@@ -268,7 +268,7 @@ export default function AUI() {
           <Link to="/projects" className="back-link">← Back to Projects</Link>
           <Link to="/" className="back-link">← Back to Home</Link>
         </div>
-      </section>
-    </div>
+      </Reveal>
+    </Page>
   );
 }

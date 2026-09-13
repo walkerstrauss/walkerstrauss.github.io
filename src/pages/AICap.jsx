@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Page from '../components/Page.jsx';
+import Reveal from '../components/Reveal.jsx';
 import preferencesImg from "../assets/aicap/aicap-preferences.png";
 import recommendationsImg from "../assets/aicap/aicap-recommendations.png";
 import demoVideo from "../assets/aicap/demo.mp4";
 
 export default function AICap() {
   return (
-    <div
-      className="cs-page"
-    >
+    <Page className="cs-page">
       {/* Hero */}
       <div className="cs-hero">
         <h1 className="cs-title">AICap: Personalized shopping via multimodal AI kiosk</h1>
@@ -54,7 +54,7 @@ export default function AICap() {
       </div>
 
       {/* Overview */}
-      <section className="cs-section">
+      <Reveal as="section" className="cs-section">
         <h2>Overview</h2>
         <p>
           AICap is a multimodal AI sommelier revolutionizing the in-store wine selection experience through personalized
@@ -66,10 +66,10 @@ export default function AICap() {
           I played a leading role in driving product design and development, grounding AICap in user studies, market
           research, and literature reviews as well as leading UX and conversation design.
         </p>
-      </section>
+      </Reveal>
 
       {/* Problem */}
-      <section className="cs-section">
+      <Reveal as="section" className="cs-section">
         <h2>Problem</h2>
         <p>
           Consumer frictions in physical retail limit conversion and store staff are often perceived as unavailable or
@@ -78,10 +78,10 @@ export default function AICap() {
           shoppers are also less familiar with wine categories, increasing the need for simple, confidence-building
           guidance.
         </p>
-      </section>
+      </Reveal>
 
       {/* Solution */}
-      <section className="cs-section">
+      <Reveal as="section" className="cs-section">
         <h2>Solution</h2>
         <p>
           AICap turns passerby curiosity into a confident list of recommendations in under two minutes through a
@@ -104,10 +104,10 @@ export default function AICap() {
           Tired of endlessly searching for the right wine for the occasion? AICap’s recommendations allow for a simple
           and rewarding wine-buying experience that will elevate your next dinner party or gift.
         </p>
-      </section>
+      </Reveal>
 
       {/* Research */}
-      <section className="cs-section">
+      <Reveal as="section" className="cs-section">
         <h2>Research</h2>
         <p>
           AICap is a product grounded in user studies, market research, and literature reviews.
@@ -196,10 +196,10 @@ export default function AICap() {
             <strong>Sensitive data:</strong> avoid prompting or repeating private information.
           </li>
         </ul>
-      </section>
+      </Reveal>
 
       {/* Design Ideation */}
-      <section className="cs-section">
+      <Reveal as="section" className="cs-section">
         <h2>Design Ideation</h2>
         <p>
           The design of AICap’s UX included identifying the pages and components necessary for the ideal user journey,
@@ -254,7 +254,7 @@ export default function AICap() {
             </p>
           </div>
         </div>
-      </section>
+      </Reveal>
 
       <div className="image-flex">
         <div className="image-pair">
@@ -276,8 +276,26 @@ export default function AICap() {
         </div>
       </div>
 
+      {/* Impact */}
+      <Reveal as="section" className="cs-section">
+        <h2>Impact</h2>
+        <p>
+          The research and the interaction framework built on it took AICap from a
+          concept to a product in the aisle. An early pilot with a wine and spirits
+          retailer in Tribeca produced a confirmed sale, and AICap is now piloting
+          with wine and spirits retailers across New York.
+        </p>
+        <p>
+          The pilot bore out the central bet: shoppers will accept conversational
+          guidance while they browse, provided it stays low-pressure and lets them
+          set the pace. What it surfaced about how people actually approach that
+          conversation went on to shape Onki’s product strategy and the direction
+          AICap has taken since.
+        </p>
+      </Reveal>
+
       {/* Reflection */}
-      <section className="cs-section">
+      <Reveal as="section" className="cs-section">
         <h2>Reflection</h2>
         <p>
           Designing AICap reinforced for me that good interaction design is as much about emotion as it is about logic.
@@ -286,10 +304,10 @@ export default function AICap() {
           deliberate and coherent. The lessons from AICap extend beyond wine discovery and point toward a future where
           conversational interfaces are not only intelligent but capable of genuine warmth and character.
         </p>
-      </section>
+      </Reveal>
 
       {/* Links */}
-      <section className="cs-links">
+      <Reveal as="section" className="cs-links">
         <a
           href="https://onki.ai"
           target="_blank"
@@ -299,7 +317,7 @@ export default function AICap() {
           Visit Onki →
         </a>
         <Link to="/projects" className="back-link">← Back to Projects</Link>
-      </section>
-    </div>
+      </Reveal>
+    </Page>
   );
 }

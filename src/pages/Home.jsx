@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Page from '../components/Page.jsx';
+import Reveal from '../components/Reveal.jsx';
 import AICapThumb from '../assets/aicap/aicap-thumb.png';
 import MahsjongThumb from '../assets/mahsjong/mahsjong-thumb.mp4';
 import WeatherClockThumb from '../assets/weather-clock/weatherclock-thumb.png';
@@ -67,7 +69,7 @@ const connections = [
 
 export default function Home() {
   return (
-    <div>
+    <Page>
       <div className="home-container">
         <div
           className="hero"
@@ -93,9 +95,9 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="thumb-grid">
+      <Reveal className="thumb-grid" stagger>
         {projects.map((proj) => (
-          <Link key={proj.link} to={proj.link} className="thumb-card">
+          <Reveal.Item as={Link} key={proj.link} to={proj.link} className="thumb-card">
             <div className="thumb-media">
               {proj.mark ? (
                 <div className="thumb-mark">
@@ -119,11 +121,11 @@ export default function Home() {
               <h3>{proj.title}</h3>
               <p>{proj.subtitle}</p>
             </div>
-          </Link>
+          </Reveal.Item>
         ))}
-      </div>
+      </Reveal>
 
-      <section className="connecting-work">
+      <Reveal as="section" className="connecting-work">
         <h2>What connects my work?</h2>
 
         <div className="connecting-grid">
@@ -134,7 +136,7 @@ export default function Home() {
             </div>
           ))}
         </div>
-      </section>
-    </div>
+      </Reveal>
+    </Page>
   );
 }

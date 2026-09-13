@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Page from '../components/Page.jsx';
 import demoVideo from '../assets/mahsjong/gameplay.mp4';
 import MahsjongImg from '../assets/mahsjong/mj.png';
 
 export default function Mahsjong() {
   return (
-    <div
-      className="projects-container"
-    >
+    <Page className="projects-container">
       <div
         className="project-page"
       >
@@ -120,6 +119,6 @@ export default function Mahsjong() {
           </Link>
         </div>
       </div>
-    </div>
+    </Page>
   );
 }

@@ -1,14 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Page from '../components/Page.jsx';
 import weatherClockImg from '../assets/weather-clock/clock.png';
 import weatherClockInsideImg from '../assets/weather-clock/inside2.png';
 import gradImg from '../assets/weather-clock/grad.png';
 
 export default function WeatherClock() {
   return (
-    <div 
-      className="projects-container"
-    >
+    <Page className="projects-container">
       <div 
         className="project-page"
       >
@@ -161,6 +160,6 @@ export default function WeatherClock() {
           <Link to="/projects" className="back-link">← Back to Projects</Link>
         </div>
       </div>
-    </div>
+    </Page>
   );
 }

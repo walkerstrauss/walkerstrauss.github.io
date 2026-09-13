@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Page from '../components/Page.jsx';
 
 const groups = [
   {
@@ -52,7 +53,7 @@ const groups = [
 
 export default function Projects() {
   return (
-    <div className="projects-container">
+    <Page className="projects-container">
       <div>
         <span className="cs-eyebrow">Selected work</span>
         <h1 className="cs-title">Projects</h1>
@@ -84,6 +85,6 @@ export default function Projects() {
         <Link to="/research" className="project-link">Browse research →</Link>
         <Link to="/" className="back-link">← Back to Home</Link>
       </div>
-    </div>
+    </Page>
   );
 }

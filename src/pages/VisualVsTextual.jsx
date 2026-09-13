@@ -1,12 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Page from '../components/Page.jsx';
 import paperPDF from '../assets/visual-vs-textual/Comparing-the-Effects-of-Forms-of-Environmental-Education-Strauss-2023.pdf';
 
 export default function VisualVsTextual() {
   return (
-    <div
-      className="projects-container"
-    >
+    <Page className="projects-container">
       <div
         className="project-page"
       >
@@ -93,6 +92,6 @@ export default function VisualVsTextual() {
           </Link>
         </div>
       </div>
-    </div>
+    </Page>
   );
 }
