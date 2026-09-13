@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Page from '../components/Page.jsx';
+import Reveal from '../components/Reveal.jsx';
 
 const researchItems = [
   {
@@ -32,26 +33,27 @@ export default function Research() {
         </p>
       </div>
 
-      <div className="cs-index">
+      <Reveal className="cs-index" stagger>
         {researchItems.map((item) => (
-          <div
+          <Reveal.Item
+            as={Link}
             key={item.path}
+            to={item.path}
+            className="cs-index-item"
           >
-            <Link to={item.path} className="cs-index-item">
-              <div className="cs-index-label">{item.label}</div>
-              <div>
-                <h3 className="cs-index-title">{item.title}</h3>
-                <p className="cs-index-desc">
-                  <strong>{item.role}</strong>
-                  <br />
-                  {item.description}
-                </p>
-              </div>
-              <span className="cs-index-arrow" aria-hidden="true">→</span>
-            </Link>
-          </div>
+            <div className="cs-index-label">{item.label}</div>
+            <div>
+              <h3 className="cs-index-title">{item.title}</h3>
+              <p className="cs-index-desc">
+                <strong>{item.role}</strong>
+                <br />
+                {item.description}
+              </p>
+            </div>
+            <span className="cs-index-arrow" aria-hidden="true">→</span>
+          </Reveal.Item>
         ))}
-      </div>
+      </Reveal>
 
       <div
         className="cs-links"

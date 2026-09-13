@@ -1,17 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Page from '../components/Page.jsx';
+import Reveal from '../components/Reveal.jsx';
 import paperPDF from '../assets/visual-vs-textual/Comparing-the-Effects-of-Forms-of-Environmental-Education-Strauss-2023.pdf';
 
 export default function VisualVsTextual() {
   return (
-    <Page className="projects-container">
-      <div
-        className="project-page"
-      >
-        <h2>
-          Comparing the Effects of Forms of Environmental Education
-        </h2>
+    <Page className="cs-page">
+      <div className="cs-hero">
+        <span className="cs-eyebrow">Independent Research · Cornell University</span>
+        <h1 className="cs-title">Comparing the Effects of Forms of Environmental Education</h1>
+        <p className="cs-subtitle">Comparing how visual, graphical, and textual materials shape environmental attitudes.</p>
+      </div>
+
+      <Reveal as="section" className="cs-section">
+        <h2>Overview</h2>
 
         <p>
           This study examined how different forms of environmental education (visual, graphical, and textual) affect
@@ -19,8 +22,10 @@ export default function VisualVsTextual() {
           visual or data-driven educational materials can evoke stronger pro-environmental values than traditional text.
           It was completed as an independent research project under faculty mentorship in 2023.
         </p>
+      </Reveal>
 
-        <h3>Research Focus</h3>
+      <Reveal as="section" className="cs-section">
+        <h2>Research Focus</h2>
         <p>
           The study was designed to test how message format influences the way people internalize ecological ideas.
           Prior literature suggested that imagery of natural beauty can evoke awe and emotional connection, while
@@ -28,8 +33,10 @@ export default function VisualVsTextual() {
           been the dominant mode of education. The central question was whether these different modalities produce
           measurable differences in environmental attitude change.
         </p>
+      </Reveal>
 
-        <h3>Methodology</h3>
+      <Reveal as="section" className="cs-section">
+        <h2>Methodology</h2>
         <p>
           172 undergraduate participants were recruited through Cornell’s SONA platform and randomly assigned to one of
           three experimental conditions: visual, graphical, or textual. Participants completed the first half of the
@@ -38,8 +45,10 @@ export default function VisualVsTextual() {
           data analysis was performed in SPSS using paired t-tests and one-way ANOVA to compare pre- and post-intervention
           scores across groups.
         </p>
+      </Reveal>
 
-        <h3>Results</h3>
+      <Reveal as="section" className="cs-section">
+        <h2>Results</h2>
         <p>
           All three conditions (visual, graphical, and textual) produced significant positive shifts in environmental
           attitudes. However, no single format outperformed the others statistically. Participants exposed to images,
@@ -47,8 +56,10 @@ export default function VisualVsTextual() {
           This finding suggests that exposure to environmental content itself, regardless of format, may be sufficient to
           shift attitudes in a positive direction.
         </p>
+      </Reveal>
 
-        <h3>Discussion</h3>
+      <Reveal as="section" className="cs-section">
+        <h2>Discussion</h2>
         <p>
           The results highlight the robustness of environmental education across media. While visual and graphical
           materials may engage emotion and cognition differently, their impact on ecological concern appears comparable
@@ -56,8 +67,10 @@ export default function VisualVsTextual() {
           environmental messaging, and instead emphasizes the importance of accessibility, message framing, and emotional
           resonance across all formats.
         </p>
+      </Reveal>
 
-        <h3>My Role</h3>
+      <Reveal as="section" className="cs-section">
+        <h2>My Role</h2>
         <p>
           I independently designed and implemented the study from hypothesis formation to data analysis. This included
           sourcing stimuli, programming the Qualtrics experiment, managing participant recruitment through SONA,
@@ -65,33 +78,28 @@ export default function VisualVsTextual() {
           quantitative experimental design, environmental psychology, and data interpretation, while deepening my
           understanding of how educational framing influences attitude change.
         </p>
+      </Reveal>
 
-        <h3>Reflection</h3>
+      <Reveal as="section" className="cs-section">
+        <h2>Reflection</h2>
         <p>
           Conducting this research taught me how different forms of educational material can meaningfully
           affect the way people interpret environmental issues. It also reinforced the importance of combining emotional
           engagement with cognitive clarity when designing educational experiences. This lesson now informs much of my
           work in UX and behavioral design through an understanding of how presentation shapes perception and action.
         </p>
+      </Reveal>
 
-        <p style={{ marginTop: '2rem' }}>
-          <a
-            href={paperPDF}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View Full Paper (PDF) →
-          </a>
-        </p>
-
-        <div
-          style={{ marginTop: '2rem' }}
+      <Reveal as="section" className="cs-links">
+        <a
+          href={paperPDF}
+          className="project-link"
         >
-          <Link to="/research" className="back-link">
-            ← Back to Research
-          </Link>
-        </div>
-      </div>
+          View Full Paper (PDF) →
+        </a>
+        <Link to="/research" className="back-link">← Back to Research</Link>
+      </Reveal>
+
     </Page>
   );
 }

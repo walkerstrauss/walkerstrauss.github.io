@@ -1,17 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Page from '../components/Page.jsx';
+import Reveal from '../components/Reveal.jsx';
 import weatherClockImg from '../assets/weather-clock/clock.png';
 import weatherClockInsideImg from '../assets/weather-clock/inside2.png';
-import gradImg from '../assets/weather-clock/grad.png';
 
 export default function WeatherClock() {
   return (
-    <Page className="projects-container">
-      <div 
-        className="project-page"
-      >
-        <h2>Savoring Weather Clock</h2>
+    <Page className="cs-page">
+      <div className="cs-hero">
+        <span className="cs-eyebrow">Meta Design Lab · Cornell University</span>
+        <h1 className="cs-title">Savoring Weather Clock</h1>
+        <p className="cs-subtitle">An ambient home device translating live weather data into reflective prompts.</p>
+      </div>
+
+      <Reveal as="section" className="cs-section">
+        <h2>Overview</h2>
 
         <p>
           The <strong>Savoring Weather Clock</strong> is an interactive home device that transforms live weather data
@@ -23,8 +27,10 @@ export default function WeatherClock() {
           brain-writing sessions with Professor Yoon, and <strong>Xinyi Zhou</strong> later joined to help implement the
           physical system, focusing on the motor, touch sensor, and interactive lighting.
         </p>
+      </Reveal>
 
-        <h3>Concept and Intent</h3>
+      <Reveal as="section" className="cs-section">
+        <h2>Concept and Intent</h2>
         <p>
           The Savoring Weather Clock began as part of an exploration in the Meta Design Lab into technologies that help
           people slow down and notice the world around them. The central question was how an everyday object might make
@@ -34,8 +40,10 @@ export default function WeatherClock() {
           clock transforms temperature, humidity, and wind into moments of poetic attention that fit naturally into the
           rhythm of daily life.
         </p>
+      </Reveal>
 
-        <h3>Design Process</h3>
+      <Reveal as="section" className="cs-section">
+        <h2>Design Process</h2>
         <p>
           The project developed through a series of iterative idea exchanges in the lab. Each week, Gaeul and I created
           new concept sketches and wrote short descriptions of potential interactions, then shared and refined them in
@@ -59,8 +67,10 @@ export default function WeatherClock() {
             }}
           />
         </div>
+      </Reveal>
 
-        <h3>Interaction Framework</h3>
+      <Reveal as="section" className="cs-section">
+        <h2>Interaction Framework</h2>
         <p>
           I structured the interaction logic of the clock around four savoring strategies: sensory-perceptual
           sharpening, counting blessings, memory building, and sharing with others. Each weather condition activates a
@@ -69,8 +79,10 @@ export default function WeatherClock() {
           might produce a warm amber glow and a phrase about warmth or renewal. The system is designed to move at a
           slower tempo than most devices, creating an atmosphere of awareness that unfolds gently over time.
         </p>
+      </Reveal>
 
-        <h3>System Integration</h3>
+      <Reveal as="section" className="cs-section">
+        <h2>System Integration</h2>
         <p>
           My main responsibility was connecting all the modules into a cohesive system. I designed and programmed the
           backend architecture using an <em>Arduino UNO R4 WiFi</em> microcontroller that receives real-time weather
@@ -94,8 +106,10 @@ export default function WeatherClock() {
             }}
           />
         </div>
+      </Reveal>
 
-        <h3>Collaboration and Refinement</h3>
+      <Reveal as="section" className="cs-section">
+        <h2>Collaboration and Refinement</h2>
         <p>
           While I managed the system logic and data flow, <strong>Xinyi Zhou</strong> focused on the physical
           implementation. She developed the motor gestures, calibrated the touch sensor, and choreographed the light
@@ -104,8 +118,10 @@ export default function WeatherClock() {
           mine centered on the system’s behavioral logic and emotional mapping, and hers on the tactile and sensory
           qualities that bring those ideas to life.
         </p>
+      </Reveal>
 
-        <h3>Product Design Contributions</h3>
+      <Reveal as="section" className="cs-section">
+        <h2>Product Design Contributions</h2>
         <p>
           As design lead, I was responsible for defining the clock’s character and emotional rhythm. I built a system
           that translates weather data into expressive states, wrote the logic that connects them, and documented each
@@ -115,22 +131,10 @@ export default function WeatherClock() {
           process, the clock became a model for designing emotion-centered technology that responds to the world
           quietly, but meaningfully.
         </p>
+      </Reveal>
 
-        <div 
-          className="project-image"
-          style={{ margin: '2rem 0' }}
-        >
-          <img 
-            src={gradImg} 
-            alt="An image of Walker with the clock and the whiteboard he architected the system design on"
-            style={{
-              width: '100%',
-              maxWidth: '400px'
-            }}
-          />
-        </div>
-
-        <h3>Reflection</h3>
+      <Reveal as="section" className="cs-section">
+        <h2>Reflection</h2>
         <p>
           Working on the Savoring Weather Clock with <strong>Professor Jay Yoon</strong>, <strong>Gaeul Han</strong>,
           and <strong>Xinyi Zhou</strong> showed me how product design can blend research, art, and engineering into a
@@ -140,26 +144,20 @@ export default function WeatherClock() {
           embodies this approach, functioning not only as a device that reports the weather but as one that invites
           awareness and gratitude for the simple act of noticing it.
         </p>
+      </Reveal>
 
-        <div 
-          style={{ marginTop: '2rem' }}
+      <Reveal as="section" className="cs-links">
+        <a
+          href="https://github.com/walkerstrauss/weather-clock-savoring"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="project-link"
         >
-          <a 
-            href="https://github.com/walkerstrauss/weather-clock-savoring" 
-            className="project-link"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View on GitHub →
-          </a>
-        </div>
+          View on GitHub →
+        </a>
+        <Link to="/projects" className="back-link">← Back to Projects</Link>
+      </Reveal>
 
-        <div 
-          style={{ marginTop: '2rem' }}
-        >
-          <Link to="/projects" className="back-link">← Back to Projects</Link>
-        </div>
-      </div>
     </Page>
   );
 }

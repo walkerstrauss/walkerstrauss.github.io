@@ -1,16 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Page from '../components/Page.jsx';
+import Reveal from '../components/Reveal.jsx';
 import demoVideo from '../assets/mahsjong/gameplay.mp4';
 import MahsjongImg from '../assets/mahsjong/mj.png';
 
 export default function Mahsjong() {
   return (
-    <Page className="projects-container">
-      <div
-        className="project-page"
-      >
-        <h2>Mah’s Jong</h2>
+    <Page className="cs-page">
+      <div className="cs-hero">
+        <span className="cs-eyebrow">Cornell · Game Design</span>
+        <h1 className="cs-title">Mah’s Jong</h1>
+        <p className="cs-subtitle">Competitive Mahjong-inspired 1v1 strategy game built in C++ and the CUGL framework.</p>
+      </div>
+
+      <Reveal as="section" className="cs-section">
+        <h2>Overview</h2>
         <div 
             className="project-image"
             style={{ margin: '2rem 0' }}
@@ -32,8 +37,10 @@ export default function Mahsjong() {
           contributing heavily to both design and programming, guiding the team through every phase from concept to
           final release.
         </p>
+      </Reveal>
 
-        <h3>Leadership and Coordination</h3>
+      <Reveal as="section" className="cs-section">
+        <h2>Leadership and Coordination</h2>
         <p>
           As project lead I organized and led weekly meetings, maintained our production schedule, and coordinated
           between design and development teams. I created detailed task descriptions that translated design goals into
@@ -42,8 +49,10 @@ export default function Mahsjong() {
           keeping communication clear and constructive. This framework gave us consistency and accountability while
           still allowing creative freedom in design discussions.
         </p>
+      </Reveal>
 
-        <h3>Design Direction</h3>
+      <Reveal as="section" className="cs-section">
+        <h2>Design Direction</h2>
         <p>
           I worked closely with our designers to define the tone, pace, and identity of Mah’s Jong. The goal was to
           preserve the tactile satisfaction of physical tiles while introducing dynamic abilities and action tiles that
@@ -51,8 +60,10 @@ export default function Mahsjong() {
           balance of game effects to ensure that play remained strategic yet accessible. Many of these systems grew
           out of collaborative sketch sessions and internal prototypes that I then implemented and tested with the team.
         </p>
+      </Reveal>
 
-        <h3>Programming and Systems Design</h3>
+      <Reveal as="section" className="cs-section">
+        <h2>Programming and Systems Design</h2>
         <p>
           Beyond leadership, I was deeply involved in the core codebase. I developed the animation system that powers
           our tile interactions, creating an <em>AnimationController</em> framework that supports fading, scaling, and
@@ -62,8 +73,10 @@ export default function Mahsjong() {
           tutorial and information scenes, integrating them into the overall game loop so that every state felt seamless
           and consistent.
         </p>
+      </Reveal>
 
-        <h3>Development Process</h3>
+      <Reveal as="section" className="cs-section">
+        <h2>Development Process</h2>
         <p>
           Our collaboration was structured around clear communication and iterative feedback. I used our Notion space
           to track weekly goals and bug fixes, documenting progress after every milestone. On Slack, we coordinated
@@ -72,10 +85,10 @@ export default function Mahsjong() {
           time of our closed beta and final showcase, Mah’s Jong featured complete animation systems, refined gameplay
           balance, and an in-game tutorial that made the experience accessible to new players.
         </p>
+      </Reveal>
 
-        <h3 style={{ marginTop: '2.5rem' }}>
-          Gameplay Demo
-        </h3>
+        <Reveal>
+        <h3>Gameplay Demo</h3>
 
         <video
           src={demoVideo}
@@ -96,8 +109,10 @@ export default function Mahsjong() {
             not exist in the actual game.
           </em>
         </div>
+      </Reveal>
 
-        <h3>Reflection</h3>
+      <Reveal as="section" className="cs-section">
+        <h2>Reflection</h2>
         <p>
           Leading Mah’s Jong taught me how to combine creative vision with technical direction. I learned to balance
           management and design work, to make architectural decisions while keeping the team aligned on aesthetic and
@@ -106,19 +121,20 @@ export default function Mahsjong() {
           respond to our final build reminded me how small, deliberate choices in animation, timing, and flow can bring
           an entire system to life.
         </p>
+      </Reveal>
 
-        <p style={{ marginTop: '2rem' }}>
-          <a href="https://github.com/walkerstrauss/mahsjong">View on GitHub →</a>
-        </p>
-
-        <div
-          style={{ marginTop: '2rem' }}
+      <Reveal as="section" className="cs-links">
+        <a
+          href="https://github.com/walkerstrauss/mahsjong"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="project-link"
         >
-          <Link to="/projects" className="back-link">
-            ← Back to Projects
-          </Link>
-        </div>
-      </div>
+          View on GitHub →
+        </a>
+        <Link to="/projects" className="back-link">← Back to Projects</Link>
+      </Reveal>
+
     </Page>
   );
 }

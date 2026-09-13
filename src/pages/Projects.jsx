@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Page from '../components/Page.jsx';
+import Reveal from '../components/Reveal.jsx';
 
 const groups = [
   {
@@ -37,7 +38,7 @@ const groups = [
       },
       {
         title: "Death of a Deal",
-        label: "Shiny Burger Studios",
+        label: "Cornell · Game Design",
         description: "A Java/LibGDX physics platformer exploring narrative-driven decision making.",
         to: "/projects/death-of-a-deal",
       },
@@ -66,18 +67,18 @@ export default function Projects() {
       {groups.map((group) => (
         <React.Fragment key={group.heading}>
           <h2 className="cs-index-group">{group.heading}</h2>
-          <div className="cs-index">
+          <Reveal className="cs-index" stagger>
             {group.items.map((p) => (
-              <Link key={p.to} to={p.to} className="cs-index-item">
+              <Reveal.Item as={Link} key={p.to} to={p.to} className="cs-index-item">
                 <div className="cs-index-label">{p.label}</div>
                 <div>
                   <h3 className="cs-index-title">{p.title}</h3>
                   <p className="cs-index-desc">{p.description}</p>
                 </div>
                 <span className="cs-index-arrow" aria-hidden="true">→</span>
-              </Link>
+              </Reveal.Item>
             ))}
-          </div>
+          </Reveal>
         </React.Fragment>
       ))}
 

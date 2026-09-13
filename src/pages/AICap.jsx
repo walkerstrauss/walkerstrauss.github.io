@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Page from '../components/Page.jsx';
 import Reveal from '../components/Reveal.jsx';
-import preferencesImg from "../assets/aicap/aicap-preferences.png";
-import recommendationsImg from "../assets/aicap/aicap-recommendations.png";
 import demoVideo from "../assets/aicap/demo.mp4";
 
 export default function AICap() {
@@ -255,26 +253,6 @@ export default function AICap() {
           </div>
         </div>
       </Reveal>
-
-      <div className="image-flex">
-        <div className="image-pair">
-          <img
-            src={preferencesImg}
-            alt="AICap Preferences Screen"
-            className="project-img"
-          />
-          <p className="image-caption">Preference Selection Interface</p>
-        </div>
-
-        <div className="image-pair">
-          <img
-            src={recommendationsImg}
-            alt="AICap Recommendations Screen"
-            className="project-img"
-          />
-          <p className="image-caption">Recommendation Results Screen</p>
-        </div>
-      </div>
 
       {/* Impact */}
       <Reveal as="section" className="cs-section">

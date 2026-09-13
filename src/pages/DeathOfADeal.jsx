@@ -1,15 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Page from '../components/Page.jsx';
+import Reveal from '../components/Reveal.jsx';
 import DOADImg from '../assets/doad/death-of-a-deal.png';
 
 export default function DeathOfADeal() {
   return (
-    <Page className="projects-container">
-      <div
-        className="project-page"
-      >
-        <h2>Death of a Deal</h2>
+    <Page className="cs-page">
+      <div className="cs-hero">
+        <span className="cs-eyebrow">Cornell · Game Design</span>
+        <h1 className="cs-title">Death of a Deal</h1>
+        <p className="cs-subtitle">A Java and LibGDX physics platformer exploring narrative-driven decision making.</p>
+      </div>
+
+      <Reveal as="section" className="cs-section">
+        <h2>Overview</h2>
 
         <p>
           <strong>Death of a Deal</strong> is a physics-based platformer developed in Java using the LibGDX engine by
@@ -19,8 +24,10 @@ export default function DeathOfADeal() {
           player must race through decaying halls and collapsing platforms to scare away potential buyers before they
           complete their tour.
         </p>
+      </Reveal>
 
-        <h3>My Role</h3>
+      <Reveal as="section" className="cs-section">
+        <h2>My Role</h2>
         <p>
           I worked across gameplay programming, level design, and art direction, helping the team translate the game’s
           concept into a playable and visually coherent experience. My primary focus was on the design of core mechanics
@@ -29,8 +36,10 @@ export default function DeathOfADeal() {
           behavior, and collaborated closely with the design team to tune the balance of speed, weight, and control that
           defined the final feel of the game.
         </p>
+      </Reveal>
 
-        <h3>Design Goals and Collaboration</h3>
+      <Reveal as="section" className="cs-section">
+        <h2>Design Goals and Collaboration</h2>
         <p>
           The design process centered on finding the right balance between exhilaration, foresight, and satisfaction.
           Each level was designed as a puzzle of momentum, timing, and environment reading. As a team, we wanted players
@@ -55,8 +64,10 @@ export default function DeathOfADeal() {
             }}
           />
         </div>
+      </Reveal>
 
-        <h3>Game Feel and Aesthetic Direction</h3>
+      <Reveal as="section" className="cs-section">
+        <h2>Game Feel and Aesthetic Direction</h2>
         <p>
           I also contributed to the visual direction and overall atmosphere of the game. Our world design drew from
           gothic architecture and whimsical exaggeration, aiming for a tone that was eerie but playful. I helped develop
@@ -64,8 +75,10 @@ export default function DeathOfADeal() {
           matched the physics-based gameplay. Every detail, from the way cobweb platforms stretched to the way the
           statue cracked upon impact, was designed to make the game’s physics feel alive.
         </p>
+      </Reveal>
 
-        <h3>Reflection</h3>
+      <Reveal as="section" className="cs-section">
+        <h2>Reflection</h2>
         <p>
           Working on <strong>Death of a Deal</strong> taught me the importance of unifying mechanical design and visual
           storytelling. The project was a lesson in teamwork and communication: how to guide creative ideas through
@@ -73,21 +86,20 @@ export default function DeathOfADeal() {
           development cycle. It remains one of the most technically and creatively rewarding experiences I’ve had, a
           project that combined narrative, physics, and collaboration into a cohesive, spirited work.
         </p>
+      </Reveal>
 
-        <p style={{ marginTop: '2rem' }}>
-          <a
-            href="https://github.com/zachseidner1/death-of-a-deal"
-          >
-            View on GitHub →
-          </a>
-        </p>
-
-        <div
-          style={{ marginTop: '1rem' }}
+      <Reveal as="section" className="cs-links">
+        <a
+          href="https://github.com/zachseidner1/death-of-a-deal"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="project-link"
         >
-          <Link to="/projects">← Back to Projects</Link>
-        </div>
-      </div>
+          View on GitHub →
+        </a>
+        <Link to="/projects" className="back-link">← Back to Projects</Link>
+      </Reveal>
+
     </Page>
   );
 }
