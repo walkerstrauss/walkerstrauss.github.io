@@ -20,8 +20,8 @@ const SECTIONS = [
 
 const ROLES = [
   ['Me', 'Interaction design and product design. I also wrote the system code.'],
-  ['Gaeul Han', 'Modeling and building the clock.'],
-  ['Xinyi Zhou', 'Built the motor, touch sensor and lighting.'],
+  ['Gaeul Han', 'Modeled and built the housing.'],
+  ['Xinyi Zhou', 'Built the electronics: motor, touch sensor and lighting.'],
 ];
 
 export default function WeatherClock() {
