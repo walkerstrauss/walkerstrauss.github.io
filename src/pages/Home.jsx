@@ -6,45 +6,30 @@ import { AUIHomePreview } from '../components/aui/CasePreview.jsx';
 import AICapPreview from '../components/aicap/AICapPreview.jsx';
 
 /* The whole site on one page, most recent work first (S342). */
-const research = [
+const more = [
   {
-    label: '2023 – 2025',
-    title: 'fMRI study on food imagery and the hypothalamus',
-    line: 'Affect and Cognition Lab. Helped run scan sessions and wrote the scripts that prepared imaging and behavioral data for analysis.',
-    to: '/research/fmri-study',
-  },
-  {
-    label: '2023',
-    title: 'Visual vs. textual environmental education',
-    line: 'Independent study with 172 undergraduates comparing how images, infographics and text change environmental attitudes.',
-    to: '/research/visual-vs-textual',
-  },
-];
-
-const projects = [
-  {
-    label: 'Meta Design Lab',
+    label: 'Design · Meta Design Lab',
     title: 'Savoring Weather Clock',
     line: 'A home device that turns live weather into a prompt to notice it.',
     to: '/projects/weather-clock',
   },
   {
-    label: 'Cornell · Game design',
+    label: 'Game design · Cornell',
     title: 'Mah’s Jong',
     line: 'Project lead on a two-player mahjong race. A case study in five design decisions.',
     to: '/projects/mahsjong',
   },
   {
-    label: 'Cornell · Game design',
-    title: 'Death of a Deal',
-    line: 'A physics platformer built in Java with LibGDX by a team of nine.',
-    to: '/projects/death-of-a-deal',
+    label: 'Research · 2023 – 2025',
+    title: 'fMRI study on food imagery and the hypothalamus',
+    line: 'Affect and Cognition Lab. Helped run scan sessions and wrote the scripts that prepared imaging and behavioral data for analysis.',
+    to: '/research/fmri-study',
   },
   {
-    label: 'Sanko Game Corp',
-    title: 'Tojiba Crash',
-    line: 'A browser game built for a client in HTML5, CSS and JavaScript.',
-    to: '/projects/tojiba-crash',
+    label: 'Research · 2023',
+    title: 'Visual vs. textual environmental education',
+    line: 'Independent study with 172 undergraduates comparing how images, infographics and text change environmental attitudes.',
+    to: '/research/visual-vs-textual',
   },
 ];
 
@@ -96,13 +81,8 @@ export default function Home() {
       </Tiles>
 
       <section className="page-section">
-        <span className="section-label">Projects</span>
-        <Rows items={projects} />
-      </section>
-
-      <section className="page-section">
-        <span className="section-label">Research</span>
-        <Rows items={research} />
+        <span className="section-label">Projects and research</span>
+        <Rows items={more} />
       </section>
     </Page>
   );

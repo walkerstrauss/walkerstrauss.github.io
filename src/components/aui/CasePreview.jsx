@@ -20,12 +20,14 @@ const LEAVE = {
   kind: 'thread',
   msg: 'Can I take two weeks off starting June 7?',
   cells: [['Requested', '10 working days'], ['Available', '6 days']],
-  end: { tone: 'block', text: 'Not submitted · “Would one week work?”' },
+  reply: { tone: 'block', text: 'You have 6 days available, so I haven’t submitted this. Would one week work?' },
+  end: { tone: 'result', text: 'One week submitted, within policy' },
 };
 const DISPUTE = {
   kind: 'thread',
   msg: 'The sofa I ordered never arrived. Can I dispute the charge?',
   cells: [['Since promised delivery', '25 days'], ['Filing window', '60 days']],
+  reply: { text: 'That’s inside the filing window. Shall I file it?' },
   end: { tone: 'result', text: 'Dispute filed' },
 };
 
@@ -34,15 +36,15 @@ const DISPUTE = {
 const TICKET = {
   kind: 'thread',
   msg: 'I’m still waiting for my payment. Can you check?',
-  reply: 'I can look into that. What was the amount?',
-  end: { tone: 'block', text: 'Proposed reply · held for review, nothing sent' },
+  reply: { text: 'I can look into that. What was the amount?' },
+  end: { tone: 'result', text: 'Shown to the support team before anything is sent' },
 };
 const ROUTE = {
   kind: 'route',
   nodes: ['Ticket', 'Webhook', 'Customer APIs', 'Reply or handoff'],
 };
 
-const stepsIn = (scene) => (scene.kind === 'route' ? scene.nodes.length : 3);
+const stepsIn = (scene) => (scene.kind === 'route' ? scene.nodes.length : scene.cells ? 4 : 3);
 
 function useScenes(scenes) {
   const ref = useRef(null);
@@ -76,19 +78,19 @@ function Scene({ scene, step }) {
       </ol>
     );
   }
+  let n = 1;
   return (
     <div className="mini-thread">
-      <span className="mini-msg mini-step" data-on={step >= 1}>{scene.msg}</span>
-      {scene.cells ? (
-        <span className="mini-cells mini-step" data-on={step >= 2}>
+      <span className="mini-msg mini-step" data-on={step >= n}>{scene.msg}</span>
+      {scene.cells && (
+        <span className="mini-cells mini-step" data-on={step >= ++n}>
           {scene.cells.map(([k, v]) => (
             <span key={k}><small>{k}</small>{v}</span>
           ))}
         </span>
-      ) : (
-        <span className="mini-reply mini-step" data-on={step >= 2}>{scene.reply}</span>
       )}
-      <span className="mini-end mini-step" data-tone={scene.end.tone} data-on={step >= 3}>{scene.end.text}</span>
+      <span className="mini-reply mini-step" data-tone={scene.reply.tone} data-on={step >= ++n}>{scene.reply.text}</span>
+      <span className="mini-end mini-step" data-tone={scene.end.tone} data-on={step >= ++n}>{scene.end.text}</span>
     </div>
   );
 }

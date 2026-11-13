@@ -15,9 +15,9 @@ const PRESETS_RECS = ['Recommend a sweeter option', 'Show me more white wines li
 /* ---- 1. Starting a session ---------------------------------------------- */
 
 const startSteps = [
-  { label: 'Shopper 3 m or more away', rule: 'Detect. The ad carousel plays and the microphone stays off.' },
-  { label: 'Shopper 1–2 m away', rule: 'Approach. The screen invites a hello and the mic pulses gently.' },
-  { label: 'Shopper within 1 m', rule: 'Engage. The greeting appears within 150–300 ms.' },
+  { label: 'Browsing · 3 m or more away', rule: 'The ad carousel plays and the microphone stays off. Nothing is asked of the shopper.' },
+  { label: 'Showing interest · 1–2 m away', rule: 'The screen offers a hello or a tap. Neither is needed to begin.' },
+  { label: 'First contact · within 1 m', rule: 'Onki speaks first. The greeting appears within 150–300 ms of the shopper coming close.' },
   { label: 'Or a tap on “Let’s start”', rule: 'The start button opens the same session by touch.' },
 ];
 
@@ -46,7 +46,7 @@ export function StartDemo({ title, intro }) {
                 {i === 1 && (
                   <motion.div key="b" className="ax-approach" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                     <span className="ax-mic is-pulse" />
-                    <p>Say “Hi Onki”</p>
+                    <p>Say “Hi Onki” or tap.<br />Or just walk up.</p>
                   </motion.div>
                 )}
                 {i >= 2 && (

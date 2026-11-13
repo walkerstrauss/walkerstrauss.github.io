@@ -20,10 +20,8 @@ import AUIReferenceAgents from './pages/AUIReferenceAgents.jsx';
 import AICap from './pages/AICap.jsx';
 import Mahsjong from './pages/Mahsjong.jsx';
 import WeatherClock from './pages/WeatherClock.jsx';
-import DeathOfADeal from './pages/DeathOfADeal.jsx';
 import FmriStudy from './pages/FmriStudy.jsx';
 import VisualVsTextual from './pages/VisualVsTextual.jsx';
-import TojibaCrash from './pages/TojibaCrash.jsx';
 
 /*
  * Routes live inside AnimatePresence so each page's exit variant runs before
@@ -51,10 +49,10 @@ function AnimatedRoutes() {
         <Route path="/projects/aicap" element={<AICap />} />
         <Route path="/projects/mahsjong" element={<Mahsjong />} />
         <Route path="/projects/weather-clock" element={<WeatherClock />} />
-        <Route path="/projects/death-of-a-deal" element={<DeathOfADeal />} />
+        <Route path="/projects/death-of-a-deal" element={<Navigate to="/" replace />} />
         <Route path="/research/fmri-study" element={<FmriStudy />} />
         <Route path="/research/visual-vs-textual" element={<VisualVsTextual />} />
-        <Route path="/projects/tojiba-crash" element={<TojibaCrash />} />
+        <Route path="/projects/tojiba-crash" element={<Navigate to="/" replace />} />
         {/* Every route above is linked from the site. Anything else, including
             the addresses of pages that have been retired, goes home. */}
         <Route path="*" element={<Navigate to="/" replace />} />

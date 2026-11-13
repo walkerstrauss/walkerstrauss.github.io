@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CaseLayout } from '../components/case/Case.jsx';
+import { CaseLayout, Plate } from '../components/case/Case.jsx';
 import Page from '../components/Page.jsx';
 import Reveal from '../components/Reveal.jsx';
 import SurveyBars from '../components/aicap/SurveyBars.jsx';
@@ -161,7 +161,7 @@ export default function AICap() {
 
         <h3 className="cs-subhead">Literature review</h3>
         <ul className="cs-list">
-          <li><strong>Wake words feel awkward in public</strong> → start from presence, not a spoken phrase.</li>
+          <li><strong>Wake words feel awkward in public</strong> → the kiosk speaks first when a shopper comes close; the phrase is optional.</li>
           <li><strong>Too much choice reduces conversion</strong> → recommend a few bottles at a time.</li>
           <li><strong>Shoppers feel dismissed without tailored reasons</strong> → explain each pick against stated preferences.</li>
           <li><strong>Finding products causes stress</strong> → say where each bottle is.</li>
@@ -170,34 +170,45 @@ export default function AICap() {
       </Reveal>
 
       <section className="cs-section cs-decisions">
-        <h2>Design decisions</h2>
+        <h2>What changes at each stage</h2>
         <p>
-          Each decision below is shown on the component it shaped. Scroll
-          through a demo to step through it; scroll back to replay.
+          I specified the kiosk as five stages, from a shopper browsing the
+          aisle to a recommendation. At each shift, what the kiosk asks of the
+          shopper and what it shows change. Scroll through a demo to step
+          through it; scroll back to replay.
         </p>
+        <Plate label="The five stages and what shifts at each">
+          <ol className="path" data-on-all="true" role="list" aria-label="The five stages of a kiosk session">
+            <li data-on="true"><span className="path-mark" aria-hidden="true" /><strong>Browsing</strong><span>Ads play, mic off, nothing asked</span></li>
+            <li data-on="true"><span className="path-mark" aria-hidden="true" /><strong>Showing interest</strong><span>The screen offers a way in</span></li>
+            <li data-on="true"><span className="path-mark" aria-hidden="true" /><strong>First contact</strong><span>Onki speaks first</span></li>
+            <li data-on="true"><span className="path-mark" aria-hidden="true" /><strong>Gathering</strong><span>Preferences by voice, text or tap</span></li>
+            <li data-on="true"><span className="path-mark" aria-hidden="true" /><strong>Recommendation</strong><span>A few bottles, voice and card together</span></li>
+          </ol>
+        </Plate>
 
         <StartDemo
-          title="1. Start without a wake word"
-          intro="Saying a phrase out loud to a machine in an aisle is awkward, so the kiosk responds to someone walking up. “Let’s start” opens the same session by touch."
+          title="Browsing to first contact: Onki speaks first"
+          intro="Saying a phrase out loud to a machine in an aisle is awkward, so a shopper never has to. The kiosk stays quiet while someone browses, offers a way in as they come nearer, and greets them itself at arm’s length. “Let’s start” opens the same session by touch."
         />
 
         <PreferencesDemo
-          title="2. Speak, type, or tap, and see what was heard"
+          title="Gathering: speak, type, or tap, and see what was heard"
           intro="Spoken input appears as text while the shopper talks, and each preference becomes a chip they can check and remove. “Show me matches” switches on once there is something to match; “Just surprise” is always available for a shopper who wants to skip ahead."
         />
 
         <VoiceSyncDemo
-          title="3. The voice leads, the screen follows"
+          title="Recommendation: the voice leads, the screen follows"
           intro="The voice gives the short pitch: name, price, origin, a taste, and where to find the bottle. The card holds the detail to scan. I tied the card to the voice, so the screen always shows the wine being talked about."
         />
 
         <InterruptDemo
-          title="4. A tap interrupts, like speaking over it"
+          title="Recommendation: a tap interrupts, like speaking over it"
           intro="Shoppers tap while the assistant is still talking. I defined a tap as an interruption: the voice stops, the caption finishes its phrase so nothing is cut off mid-word, and the assistant answers the tap instead of finishing its old plan."
         />
 
         <RefineDemo
-          title="5. Recommend first, then refine"
+          title="Back to gathering: recommend first, then refine"
           intro="The assistant recommends within two turns and asks one question at a time. Each answer narrows the next set, and earlier picks stay in the carousel as history."
         />
       </section>
