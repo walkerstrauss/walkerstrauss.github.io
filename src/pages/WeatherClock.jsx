@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Beat, CaseLayout, Instead, Plate, Trio } from '../components/case/Case.jsx';
 import Page from '../components/Page.jsx';
-import { ConceptMap, InsideParts, RearParts, WeatherToClock } from '../components/weatherclock/RealFigures.jsx';
+import { ConceptMap, InsideParts, RearParts, WeatherToClock, WhenItSpeaks } from '../components/weatherclock/RealFigures.jsx';
 
 /*
  * The Savoring Weather Clock as a case (S349): problem, the decisions, the
@@ -72,6 +72,9 @@ export default function WeatherClock() {
             long its transitions take. I documented each behavior in
             narrative form so the intent survived implementation.
           </p>
+          <Plate label="What the clock does, and when">
+            <WhenItSpeaks />
+          </Plate>
         </Beat>
 
         <Beat id="system" eyebrow="System" title="Separate modules for light, motor, display and touch, kept in step by one timing model.">
@@ -81,7 +84,7 @@ export default function WeatherClock() {
             message from the OpenAI API. I wrote the modules and the shared
             timing model.
           </p>
-          <Plate label="Inside the clock, part by part">
+          <Plate label="The clock, part by part">
             <InsideParts />
           </Plate>
         </Beat>

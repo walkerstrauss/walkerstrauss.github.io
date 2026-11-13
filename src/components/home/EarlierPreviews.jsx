@@ -14,10 +14,12 @@ import './earlier.css';
  */
 
 /* Weather Clock: live weather becomes light and a line of text on the clock.
-   The clock is redrawn from the project's diagrams in the site's line style. */
+   The clock follows the project's exterior diagram; the light patterns are the
+   project's own. */
 const WEATHER = [
-  { steps: 3, weather: 'Rain', light: 'Soft blue ripple', text: 'A line about stillness', glow: '#6fb4dd' },
-  { steps: 2, weather: 'Clear day', light: 'Warm amber glow', glow: '#f0b24a' },
+  { steps: 4, weather: 'rainy', label: 'Rain', light: 'Rain pattern', text: 'A short poetic line' },
+  { steps: 4, weather: 'sunny', label: 'Sun', light: 'Sun pattern', text: 'A short poetic line' },
+  { steps: 4, weather: 'snowy', label: 'Snow', light: 'Snow pattern', text: 'A short poetic line' },
 ];
 
 export function WeatherClockCard() {
@@ -25,12 +27,13 @@ export function WeatherClockCard() {
   const s = WEATHER[at.scene];
   return (
     <div className="mini ec" ref={ref} aria-hidden="true">
-      <ClockDrawing className="ec-clock" glow={at.step >= 2 ? s.glow : undefined} turns={at.scene * 2 + (at.step >= 2 ? 2 : 0)} text={at.step >= 3 && s.text ? s.text.toLowerCase() : ''} />
+      <ClockDrawing className="ec-clock" weather={at.step >= 2 ? s.weather : undefined} frame={at.step} turns={at.scene * 3 + (at.step >= 3 ? 3 : 0)} text={at.step >= 4 ? 'a short poetic line' : ''} />
       <AnimatePresence mode="wait" initial={false}>
         <motion.div key={at.scene} className="ec-trace" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
-          <span className="ec-cell mini-step" data-on={at.step >= 1}><small>Live weather</small>{s.weather}</span>
+          <span className="ec-cell mini-step" data-on={at.step >= 1}><small>Live weather</small>{s.label}</span>
           <span className="ec-cell mini-step" data-on={at.step >= 2}><small>Light</small>{s.light}</span>
-          {s.text && <span className="ec-cell mini-step" data-on={at.step >= 3}><small>On the display</small>{s.text}</span>}
+          <span className="ec-cell mini-step" data-on={at.step >= 3}><small>Motion</small>The vane turns</span>
+          <span className="ec-cell mini-step" data-on={at.step >= 4}><small>Display</small>{s.text}</span>
         </motion.div>
       </AnimatePresence>
     </div>

@@ -23,29 +23,61 @@
   stroke: none;
 }
 
-/* See-through panels, as in the diagram. */
+/* Three faces of a pale metal box, as in the exterior diagram. */
 .ck .ck-wall {
-  fill: rgba(205, 213, 218, 0.34);
+  fill: #f4f6f7;
+  stroke: #aab5ba;
+}
+
+.ck .ck-side {
+  fill: #dfe5e8;
 }
 
 .ck .ck-roof {
-  fill: rgba(205, 213, 218, 0.5);
+  fill: #e9edef;
+}
+
+.ck .ck-chimney .ck-part {
+  fill: #e3e8eb;
+  stroke: #aab5ba;
 }
 
 .ck .ck-vane path,
 .ck .ck-vane ellipse {
-  stroke: #c0553f;
+  stroke: #b9523d;
   stroke-width: 1.6;
 }
 
 .ck .ck-vane ellipse {
-  fill: #cf6a54;
+  fill: #cc6650;
 }
 
 .ck-arm {
   transform-box: fill-box;
   transform-origin: center;
-  transition: transform 1.8s cubic-bezier(0.2, 0, 0.2, 1);
+  transition: transform 2.4s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.ck .ck-window {
+  fill: #2f373b;
+  stroke: none;
+}
+
+.ck .ck-led {
+  stroke: none;
+  fill: rgba(255, 255, 255, 0.09);
+  transition: fill 1.1s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.ck .ck-rim {
+  stroke: #aab5ba;
+  stroke-width: 1.4;
+  transition: stroke 0.6s ease;
+}
+
+.ck .ck-rim[data-hot='true'] {
+  stroke: var(--accent);
+  stroke-width: 3;
 }
 
 .ck .ck-part {
@@ -53,39 +85,14 @@
   transition: fill 0.6s ease, stroke 0.6s ease;
 }
 
-.ck .ck-part.ck-board {
-  fill: #5d8fd0;
-  stroke: #4a79b8;
-}
-
-.ck .ck-part.ck-matrix {
-  fill: #3a4347;
-  stroke: #3a4347;
-  transition: fill 1.4s cubic-bezier(0.2, 0, 0.2, 1), stroke 1.4s ease;
-}
-
-.ck .ck-part.ck-matrix[data-lit='true'] {
-  stroke: transparent;
-}
-
-.ck .ck-dots circle {
-  stroke: none;
-  fill: rgba(255, 255, 255, 0.35);
-  transition: fill 1.4s ease;
-}
-
-.ck .ck-dots[data-lit='true'] circle {
-  fill: rgba(255, 255, 255, 0.85);
-}
-
 .ck .ck-part.ck-dark {
-  fill: #474f54;
-  stroke: #474f54;
+  fill: #3f474b;
+  stroke: #3f474b;
 }
 
 .ck .ck-lines path {
-  stroke: rgba(255, 255, 255, 0.4);
-  stroke-width: 2;
+  stroke: rgba(255, 255, 255, 0.38);
+  stroke-width: 2.4;
   transition: opacity 0.8s ease;
 }
 
@@ -98,12 +105,12 @@
   place-items: center;
   height: 100%;
   text-align: center;
-  font-size: 8.5px;
-  line-height: 1.25;
+  font-size: 11px;
+  line-height: 1.3;
   font-style: italic;
   color: #f1f4f5;
   opacity: 0;
-  transform: skewY(-6deg);
+  transform: skewY(5.5deg);
   transition: opacity 1.2s cubic-bezier(0.2, 0, 0.2, 1);
 }
 
@@ -111,15 +118,65 @@
   opacity: 1;
 }
 
-.ck .ck-part[data-hot='true'] {
-  fill: var(--accent);
+.ck .ck-part[data-hot='true'],
+.ck .ck-chimney[data-hot='true'] .ck-part {
+  fill: var(--accent-soft);
   stroke: var(--accent);
-  filter: drop-shadow(0 0 6px rgba(63, 122, 153, 0.6));
+  stroke-width: 2.4;
+}
+
+.ck .ck-part.ck-dark[data-hot='true'] {
+  fill: #3f474b;
+}
+
+.ck-when {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.95rem;
+}
+
+.ck-when [role='row'] {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.ck-when-head span {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tirtiary);
+}
+
+.ck-when-row {
+  padding: 0.6rem 0;
+  border-top: 1px solid var(--rule);
+}
+
+.ck-when-row [role='rowheader'] {
+  font-weight: 550;
+}
+
+.ck-when-row [role='cell'] {
+  justify-self: start;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  color: var(--text-tirtiary);
+  background: var(--plate);
+}
+
+.ck-when-row [role='cell'][data-yes='true'] {
+  background: var(--tone-result-bg);
+  color: var(--tone-result-ink);
+  font-weight: 550;
 }
 
 .ck-fig {
   display: grid;
-  grid-template-columns: minmax(0, 19rem) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
   gap: clamp(1.25rem, 5vw, 3rem);
   align-items: center;
   justify-content: center;
@@ -199,5 +256,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ck-arm, .ck-text, .ck .ck-part, .ck-steps li { transition: none; }
+  .ck-arm, .ck-text, .ck .ck-part, .ck .ck-led, .ck-steps li { transition: none; }
 }

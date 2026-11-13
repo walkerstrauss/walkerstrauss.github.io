@@ -1,68 +1,87 @@
 import { useSteps } from '../../lib/useSteps.js';
+import PATTERNS from './patterns.json';
 import './clock.css';
 
 /*
- * The Weather Clock, redrawn from the project's own diagrams in the site's
- * line style (S349): the labelled exterior, the front/quarter/rear views,
- * the interior cutaway, and the early concept map. Proportions and parts
- * follow those diagrams; nothing is added that they do not show. Scroll is
- * the clock on the case page.
+ * The Weather Clock, redrawn in the site's style from the project's own
+ * exterior diagram (assets/weather-clock/diagram1.png: front wall, side
+ * wall, roof slope with the chimney and vane, round window, display, reset)
+ * and driven by the project's own code (~/meta-design-lab/
+ * weather-clock-savoring): the window plays the real 8 by 8 light patterns
+ * from patterns.h, the vane turns when the weather changes, and the display
+ * shows a generated line. Scroll is the clock on the case page.
  */
 
-/* The LED matrix behind the window: a 5 by 5 grid. */
-const DOTS = [];
-for (let r = 0; r < 5; r += 1) for (let c = 0; c < 5; c += 1) DOTS.push([117 + c * 4.6, 88 + r * 4.6]);
+/* A pattern byte is a hue on the LED matrix: 0xfe white, 0xff off. */
+const colour = (b) => (b === 0xff ? null : b === 0xfe ? '#ffffff' : `hsl(${Math.round((b / 255) * 360)} 85% 60%)`);
+
+/* The light behind the round window, showing one frame of a weather's pattern. */
+function Matrix({ weather, frame = 0 }) {
+  const frames = weather ? PATTERNS[weather] : null;
+  const rows = frames ? frames[frame % frames.length] : null;
+  return (
+    <g className="ck-matrix" clipPath="url(#ck-window)">
+      <circle className="ck-window" cx="91" cy="123" r="17" />
+      {Array.from({ length: 64 }, (_, i) => {
+        const r = Math.floor(i / 8); const c = i % 8;
+        const fill = rows ? colour(rows[r][c]) : null;
+        return <rect key={i} className="ck-led" x={75 + c * 4.1} y={107 + r * 4.1} width="3.1" height="3.1" rx="0.8" style={{ fill: fill || undefined }} data-on={fill ? 'true' : undefined} />;
+      })}
+    </g>
+  );
+}
 
 /*
- * The quarter view from Gaeul Han's diagram (the site's original thumbnail):
- * a see-through house with the parts visible inside. The same drawing serves
- * every figure. glow: the light's colour. text: the display's line. turns:
- * spins the vane. hot: the part to pick out. view "rear" shows the back.
+ * weather: which light pattern plays. frame: which frame of it. text: the
+ * display's line. turns: spins the vane. hot: the part to pick out.
+ * view "rear" shows the back panel.
  */
-export function ClockDrawing({ view = 'front', glow, text, turns = 0, hot, className = '' }) {
+export function ClockDrawing({ view = 'front', weather, frame, text, turns = 0, hot, className = '' }) {
   if (view === 'rear') {
     return (
-      <svg className={`ck ${className}`} viewBox="0 0 280 260" role="img" aria-label="The weather clock from behind">
-        <ellipse className="ck-shadow" cx="140" cy="240" rx="95" ry="9" />
-        <path className="ck-wall" d="M70 95 L140 32 L210 95 L210 228 L70 228 Z" />
-        <path className="ck-part" data-hot={hot === 'key'} d="M140 62 a6 6 0 1 1 0.01 0 M136 72 L144 72 L143 84 L137 84 Z" />
-        {[[84, 110], [196, 110], [84, 214], [196, 214]].map(([x, y]) => <circle key={`${x}${y}`} className="ck-part" data-hot={hot === 'bolts'} cx={x} cy={y} r="4" />)}
-        <rect className="ck-part" data-hot={hot === 'ports'} x="124" y="232" width="12" height="6" rx="3" />
-        <circle className="ck-part" data-hot={hot === 'ports'} cx="150" cy="235" r="4" />
+      <svg className={`ck ${className}`} viewBox="0 0 250 345" role="img" aria-label="The weather clock from behind">
+        <ellipse className="ck-shadow" cx="125" cy="330" rx="100" ry="9" />
+        <path className="ck-wall" d="M45 120 L125 30 L205 120 L205 318 L45 318 Z" />
+        <path className="ck-part" data-hot={hot === 'key'} d="M125 78 a7 7 0 1 1 0.01 0 M120 90 L130 90 L129 106 L121 106 Z" />
+        {[[62, 140], [188, 140], [62, 298], [188, 298]].map(([x, y]) => <circle key={`${x}${y}`} className="ck-part" data-hot={hot === 'bolts'} cx={x} cy={y} r="4.5" />)}
+        <rect className="ck-part" data-hot={hot === 'ports'} x="106" y="322" width="14" height="7" rx="3.5" />
+        <circle className="ck-part" data-hot={hot === 'ports'} cx="136" cy="325.5" r="4.5" />
       </svg>
     );
   }
   return (
-    <svg className={`ck ${className}`} viewBox="0 0 280 260" role="img" aria-label="The weather clock, seen from the front quarter with its parts visible">
-      <ellipse className="ck-shadow" cx="140" cy="242" rx="100" ry="9" />
-      {/* side wall, gable wall, roof slope */}
-      <path className="ck-wall" d="M58 82 L96 98 L96 236 L58 212 Z" />
-      <path className="ck-wall" d="M96 98 L152 36 L218 92 L218 218 L96 236 Z" />
-      <path className="ck-wall ck-roof" d="M58 82 L118 22 L152 36 L96 98 Z" />
-
-      {/* board on the side wall */}
-      <path className="ck-part ck-board" data-hot={hot === 'board'} d="M66 142 L90 153 L90 222 L66 208 Z" />
-      {/* push button */}
-      <path className="ck-part" data-hot={hot === 'button'} d="M70 214 L80 219 L80 229 L70 224 Z" />
-      {/* servo under the vane */}
-      <rect className="ck-part" data-hot={hot === 'servo'} x="96" y="62" width="18" height="26" rx="6" />
+    <svg className={`ck ${className}`} viewBox="0 0 250 345" role="img" aria-label="The weather clock: a small house with a weather vane, a round window of light and a text display">
+      <defs><clipPath id="ck-window"><circle cx="91" cy="123" r="17" /></clipPath></defs>
+      <ellipse className="ck-shadow" cx="130" cy="330" rx="112" ry="10" />
+      {/* side wall, roof slope, front wall */}
+      <path className="ck-wall ck-side" d="M169.5 120 L232.5 107 L232.5 306 L169.5 328 Z" />
+      <path className="ck-wall ck-roof" d="M91.5 22.5 L159 10 L232.5 107 L169.5 120 Z" />
+      <path className="ck-wall" d="M18 97.5 L91.5 22.5 L169.5 120 L169.5 328 L18 298 Z" />
+      {/* chimney and vane */}
+      <g className="ck-chimney" data-hot={hot === 'servo'}>
+        <path className="ck-part" d="M161 68 L180 72 L180 100 L161 78 Z" />
+        <path className="ck-part" d="M180 72 L196 66 L196 92 L180 100 Z" />
+        <path className="ck-part" d="M161 68 L177 62 L196 66 L180 72 Z" />
+      </g>
       <g className="ck-vane">
-        <path d="M105 62 L105 16" />
+        <path d="M178 66 L178 36" />
         <g className="ck-arm" style={{ transform: `rotateY(${turns * 180}deg)` }}>
-          <path d="M86 16 L124 16" />
-          <ellipse cx="86" cy="16" rx="7" ry="6" />
-          <ellipse cx="124" cy="16" rx="7" ry="6" />
+          <path d="M158 34 L198 34" />
+          <ellipse cx="158" cy="34" rx="8" ry="7" />
+          <ellipse cx="198" cy="34" rx="8" ry="7" />
         </g>
       </g>
-      {/* light behind the round window */}
-      <rect className="ck-part ck-matrix" data-hot={hot === 'light'} x="113" y="84" width="27" height="27" rx="4" style={{ fill: glow || undefined }} data-lit={glow ? 'true' : undefined} />
-      <g className="ck-dots" data-lit={glow ? 'true' : undefined}>{DOTS.map(([x, y]) => <circle key={`${x}-${y}`} cx={x} cy={y} r="1.1" />)}</g>
+      {/* round window with the light behind it */}
+      <g data-hot={hot === 'light'} className="ck-hotwrap"><Matrix weather={weather} frame={frame} /></g>
+      <circle className="ck-rim" cx="91" cy="123" r="17" data-hot={hot === 'light'} />
       {/* text display */}
-      <path className="ck-part ck-dark" data-hot={hot === 'display'} d="M110 140 L204 130 L204 196 L110 210 Z" />
-      <g className="ck-lines" data-off={text ? 'true' : undefined}><path d="M122 160 L190 152" /><path d="M122 172 L190 164" /><path d="M122 184 L166 179" /></g>
-      <foreignObject x="114" y="140" width="86" height="60">
+      <path className="ck-part ck-dark" data-hot={hot === 'display'} d="M35 187 L151 199 L151 292 L35 283 Z" />
+      <g className="ck-lines" data-off={text ? 'true' : undefined}><path d="M50 215 L136 224" /><path d="M50 232 L136 241" /><path d="M50 249 L104 254.5" /></g>
+      <foreignObject x="40" y="196" width="106" height="86">
         <div className="ck-text" data-on={text ? 'true' : 'false'}>{text}</div>
       </foreignObject>
+      {/* push button on the side wall */}
+      <path className="ck-part" data-hot={hot === 'button'} d="M176 298 L189 294.5 L189 311 L176 315 Z" />
     </svg>
   );
 }
@@ -81,11 +100,11 @@ function Steps({ items, step }) {
 }
 
 const WEATHER = [
-  { label: 'Rain outside', note: 'Live weather arrives.' },
-  { label: 'The window turns a soft blue', note: 'Light, changing slowly.', glow: '#6fb4dd' },
-  { label: 'The weather vane turns', note: 'Motion.', glow: '#6fb4dd', turns: 2 },
-  { label: 'A line appears on the display', note: 'Generated text: a line about stillness.', glow: '#6fb4dd', turns: 2, text: 'a line about stillness' },
-  { label: 'A clear day', note: 'The same clock, a warm amber glow.', glow: '#f0b24a', turns: 4 },
+  { label: 'The weather changes to rain', note: 'The clock checks live weather on a timer.' },
+  { label: 'The window plays the rain pattern', note: 'One of the light patterns written for rain.', weather: 'rainy', frame: 0 },
+  { label: 'The vane turns for five seconds', note: 'Only when the weather has changed.', weather: 'rainy', frame: 1, turns: 3 },
+  { label: 'A line appears on the display', note: 'Generated from the weather and a savoring technique, 150 characters at most.', weather: 'rainy', frame: 2, turns: 3, text: 'a short poetic line about the rain' },
+  { label: 'Later, the sun comes out', note: 'A different pattern, and the vane turns again.', weather: 'sunny', frame: 0, turns: 6 },
 ];
 
 /* Decision 1: what one change in the weather does to the clock. */
@@ -94,26 +113,47 @@ export function WeatherToClock() {
   const s = step >= 1 ? WEATHER[step - 1] : {};
   return (
     <div className="ck-fig" ref={ref}>
-      <ClockDrawing glow={s.glow} text={s.text} turns={s.turns || 0} />
+      <ClockDrawing weather={s.weather} frame={s.frame} text={s.text} turns={s.turns || 0} />
       <Steps items={WEATHER} step={step} />
     </div>
   );
 }
 
-const INSIDE = [
-  { hot: 'board', label: 'Arduino UNO R4 WiFi', note: 'Fetches live weather and requests a short message.' },
-  { hot: 'light', label: 'Light, behind the window', note: 'Its own module.' },
-  { hot: 'servo', label: 'Servo motor', note: 'Turns the weather vane.' },
-  { hot: 'display', label: 'Text display', note: 'Shows the generated line.' },
-  { hot: 'button', label: 'Push button', note: 'Input from the person.' },
+/* Decision 2: what the clock does and when, from the main loop. */
+const WHEN = [
+  ['The weather changes', true, true, true],
+  ['The weather stays the same', false, false, true],
+  ['Someone touches the clock', false, false, true],
 ];
 
-/* System: the cutaway, one part at a time. */
+export function WhenItSpeaks() {
+  const [ref, step] = useSteps(WHEN.length);
+  return (
+    <div className="ck-when" ref={ref} role="table" aria-label="What the clock does and when">
+      <div role="row" className="ck-when-head"><span role="columnheader" /><span role="columnheader">Light pattern</span><span role="columnheader">Vane turns</span><span role="columnheader">New line</span></div>
+      {WHEN.map(([k, light, vane, line], i) => (
+        <div key={k} role="row" className="ck-when-row step" data-on={step >= i + 1}>
+          <span role="rowheader">{k}</span>
+          {[light, vane, line].map((on, n) => <span key={n} role="cell" data-yes={on}>{on ? 'Yes' : 'Stays still'}</span>)}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+const INSIDE = [
+  { hot: 'light', label: 'Light matrix, behind the round window', note: 'Plays the pattern for the current weather.' },
+  { hot: 'servo', label: 'Motor, under the chimney', note: 'Turns the weather vane.' },
+  { hot: 'display', label: 'Text display', note: 'Shows the generated line.' },
+  { hot: 'button', label: 'Touch input', note: 'Asks for a new line.' },
+];
+
+/* System: the parts a person sees, one at a time. */
 export function InsideParts() {
   const [ref, step] = useSteps(INSIDE.length);
   return (
     <div className="ck-fig" ref={ref}>
-      <ClockDrawing hot={step >= 1 ? INSIDE[step - 1].hot : undefined} turns={step === 3 ? 2 : 0} />
+      <ClockDrawing hot={step >= 1 ? INSIDE[step - 1].hot : undefined} weather={step === 1 ? 'cloudy' : undefined} turns={step === 2 ? 3 : 0} text={step === 3 ? 'a short poetic line' : ''} />
       <Steps items={INSIDE} step={step} />
     </div>
   );
