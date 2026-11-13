@@ -2,6 +2,27 @@ import { Beat, Instead, Plate, Trio } from '../components/case/Case.jsx';
 import PaymentsReview from '../components/aui/PaymentsReview.jsx';
 import PaymentsPath from '../components/aui/PaymentsPath.jsx';
 import { Check, MessageToDraft, Thread } from '../components/thread/Thread.jsx';
+import { useSteps } from '../lib/useSteps.js';
+
+/* One round of the teams’ review, as the page describes it. */
+const ROUND = [
+  ['Replay', 'A past ticket runs through the agent'],
+  ['Proposed reply', 'The team reads it; nothing is sent'],
+  ['Feedback', 'The subscription is managed in the rider’s app store account'],
+  ['New rule', 'Send the rider there, and say why'],
+  ['Replay again', 'The team sees the revised reply'],
+];
+
+function FeedbackRound() {
+  const [ref, step] = useSteps(ROUND.length);
+  return (
+    <ol className="path" role="list" ref={ref} aria-label="One round of feedback">
+      {ROUND.map(([k, v], i) => (
+        <li key={k} data-on={step >= i + 1 ? 'true' : 'false'}><span className="path-mark" aria-hidden="true" /><strong>{k}</strong><span>{v}</span></li>
+      ))}
+    </ol>
+  );
+}
 
 /*
  * One case: two customer support agents (a payments company and a transit
@@ -67,10 +88,23 @@ export default function AUIPayments() {
             payments customer, I worked with their head of customer success
             and their engineers to get test accounts and to match what their
             APIs returned to the customer states the agent had to recognize.
-            One endpoint said a document upload was required but did not
-            return the upload link; their engineers gave me a development
-            environment and endpoints to validate against.
           </p>
+          <Plate label="One gap found while matching API responses to customer states">
+            <Thread caption="Illustrative layout of a real gap.">
+              <Check index={0} label="What the customer’s endpoint returned" cells={[
+                { k: 'Document', v: 'Upload required' },
+                { k: 'Upload link', v: 'Not returned', tone: 'block' },
+              ]} />
+              <Check index={1} label="What the agent has to do with it" cells={[
+                { k: 'Recognize the state', v: 'A document is needed' },
+                { k: 'Tell the customer', v: 'Where to upload it', note: 'not possible without the link', tone: 'block' },
+              ]} />
+              <Check index={2} label="Resolved with their engineers" cells={[
+                { k: 'They provided', v: 'A development environment' },
+                { k: 'And', v: 'Endpoints to validate against', tone: 'result' },
+              ]} />
+            </Thread>
+          </Plate>
           <Plate label="How a ticket reaches the agent and comes back">
             <ol className="path" data-on-all="true" role="list" aria-label="A ticket’s route through the integration">
               <li data-on="true"><span className="path-mark" aria-hidden="true" /><strong>Ticket</strong><span>A customer writes in to the help desk</span></li>
@@ -113,15 +147,14 @@ export default function AUIPayments() {
           <p>
             I replayed each customer’s existing tickets through the agent,
             presented the results to their team, and revised it over rounds
-            of feedback. In one round, the transit customer explained why a
-            reply should change: the subscription is managed through the
-            rider’s app store account, so the agent should send the rider
-            there and say why. I wrote that as rules for the follow-up and
-            its wording. What gave the teams the confidence to deploy was
+            of feedback. What gave the teams the confidence to deploy was
             seeing in real time how the agent would respond to their
             incoming tickets, with nothing sent. Release then went out in
             phases.
           </p>
+          <Plate label="One round of feedback, from the transit customer">
+            <FeedbackRound />
+          </Plate>
           <Plate tone="solution" kind="Solution" label="The reply is proposed; the ticket is untouched">
             <PaymentsReview />
           </Plate>

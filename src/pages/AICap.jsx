@@ -4,6 +4,7 @@ import { CaseLayout, Plate } from '../components/case/Case.jsx';
 import Page from '../components/Page.jsx';
 import Reveal from '../components/Reveal.jsx';
 import SurveyBars from '../components/aicap/SurveyBars.jsx';
+import { SawTook, TestLoop, TwentyPeople } from '../components/aicap/research.jsx';
 import { ProblemFigure, SolutionFigure } from '../components/aicap/ShelfFigure.jsx';
 import {
   StartDemo,
@@ -65,34 +66,7 @@ export default function AICap() {
           We looked at an earlier wine kiosk, wine apps, and other self-serve
           screens people use in public.
         </p>
-        <div className="cs-card-grid">
-          <div className="cs-card">
-            <h4>Savvo Digital Sommelier</h4>
-            <p>
-              An in-store wine kiosk from about a decade earlier; the company
-              didn’t last. A published UX case study of it found testers wanted
-              to explore before being guided and preferred a more playful
-              prototype. We aimed for a friendly, playful tone and let shoppers
-              set the pace.
-            </p>
-          </div>
-          <div className="cs-card">
-            <h4>Vivino, Wine.com, Winc</h4>
-            <p>
-              Wine apps and online stores. Winc’s short overview that expands
-              into detail shaped our recommendation card: the essentials up
-              front, the rest a glance away.
-            </p>
-          </div>
-          <div className="cs-card">
-            <h4>Ordering kiosks, self-checkout, shelf screens</h4>
-            <p>
-              Self-serve screens in public. People feel self-conscious talking
-              to a machine with others around, so touch had to be a complete
-              path, not a backup for voice.
-            </p>
-          </div>
-        </div>
+        <SawTook />
       </Reveal>
 
       <Reveal as="section" className="cs-section">
@@ -104,19 +78,7 @@ export default function AICap() {
           the sommelier approaches shoppers, so the flow could follow that
           conversation.
         </p>
-        <SurveyBars
-          question="Which way would you prefer to use AICap?"
-          n={20}
-          focus={['Touch: presets and buttons', 'Voice and touch']}
-          data={[
-            ['Touch: presets and buttons', 8],
-            ['Voice and touch', 4],
-            ['Text', 3],
-            ['Touch and text', 2],
-            ['I wouldn’t use it', 2],
-            ['Voice only', 1],
-          ]}
-        />
+        <TwentyPeople />
         <p className="sv-takeaway">
           Only one person wanted voice alone. Touch had to work for the whole
           flow, with voice alongside it.
@@ -222,9 +184,9 @@ export default function AICap() {
         </p>
         <p>
           I extended our Python evaluation harness with simulated shoppers and
-          a rubric for checking whether the assistant stayed on topic, avoided
-          repetition, and asked about preferences at the right time.
+          a rubric.
         </p>
+        <TestLoop />
       </Reveal>
 
       <Reveal as="section" className="cs-section">

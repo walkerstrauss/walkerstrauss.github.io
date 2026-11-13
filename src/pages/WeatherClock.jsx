@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Beat, CaseLayout, Instead, Plate, Trio } from '../components/case/Case.jsx';
 import Page from '../components/Page.jsx';
-import { ConceptMap, InsideParts, InteractionChoice, ProcessTimeline, RearParts, WeatherToClock, WhenItSpeaks } from '../components/weatherclock/RealFigures.jsx';
+import { CheckVsNotice, ConceptMap, InsideParts, InteractionChoice, ProcessTimeline, RearParts, WeatherToClock, WhenItSpeaks } from '../components/weatherclock/RealFigures.jsx';
 
 /*
  * The Savoring Weather Clock as a case (S349): problem, the decisions, the
@@ -44,6 +44,9 @@ export default function WeatherClock() {
             question for this project was how an everyday object could make
             the weather something a person notices.
           </p>
+          <Plate label="The same rain, two ways">
+            <CheckVsNotice />
+          </Plate>
         </Beat>
 
         <Beat

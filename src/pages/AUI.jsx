@@ -71,12 +71,6 @@ export default function AUI() {
             to whichever of three can be held to it.
           </p>
           <Trio items={SPLIT} />
-          <p>
-            The three parts below show that split in the work: reference
-            agents where code decides the rules, two customer rollouts where
-            the support team reviewed the agent before release, and a runtime
-            feature that removed a decision from the model altogether.
-          </p>
         </Beat>
 
         <AUIReferenceAgents />

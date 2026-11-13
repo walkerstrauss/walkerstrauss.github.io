@@ -307,3 +307,24 @@ export function InteractionChoice() {
     </div>
   );
 }
+
+/* Problem: the same rain, checked on a phone and noticed on the clock. */
+export function CheckVsNotice() {
+  const [ref, step] = useSteps(2);
+  return (
+    <div className="ck-versus" ref={ref}>
+      <div className="ck-versus-side step" data-on={step >= 1}>
+        <span className="ck-versus-label">Checked</span>
+        <div className="ck-alert" aria-label="A weather app alert">
+          <small>Weather · now</small>
+          <b>Rain starting soon</b>
+          <span>Opened, read, dismissed.</span>
+        </div>
+      </div>
+      <div className="ck-versus-side step" data-on={step >= 2}>
+        <span className="ck-versus-label">Noticed</span>
+        <ClockDrawing className="ck-versus-clock" weather={step >= 2 ? 'rainy' : undefined} frame={1} turns={step >= 2 ? 3 : 0} />
+      </div>
+    </div>
+  );
+}
