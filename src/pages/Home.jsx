@@ -8,14 +8,14 @@ import AICapPreview from '../components/aicap/AICapPreview.jsx';
 /* Work: the case studies from jobs. Then prototypes, research and games. */
 const work = [
   {
-    title: 'Building and deploying enterprise agents at AUI',
-    line: 'AUI · Reference agents that act on records under policy, and a payments support agent taken to production.',
+    title: 'Enterprise agents at AUI, from first build to production',
+    line: 'Product Operations · Built reference agents, took a customer’s payments support agent live, and onboarded customer teams.',
     to: '/aui',
     preview: AUIWorkPreview,
   },
   {
-    title: 'Voice and touch for wine recommendations',
-    line: 'Onki · Led kiosk interaction design and tested how the assistant handled shopper preferences.',
+    title: 'A wine kiosk shoppers can talk to or tap',
+    line: 'Onki · Led interaction design for an in-store kiosk. A shopper survey made touch a complete path, not a backup for voice.',
     to: '/projects/aicap',
     // Coded kiosk cycling through the flow, the same component as the case study.
     preview: AICapPreview,
