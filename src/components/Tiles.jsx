@@ -33,9 +33,9 @@ export function Tiles({ cols = 2, label, note, children }) {
 }
 
 /* `children` is the tile's picture: a coded preview, a video or an image. */
-export function Tile({ to, title, line, children }) {
+export function Tile({ id, to, title, line, children }) {
   return (
-    <MotionLink to={to} className="thumb-card" variants={revealVariants}>
+    <MotionLink id={id} to={to} className="thumb-card" variants={revealVariants}>
       <div className="thumb-media">{children}</div>
       <div className="thumb-caption">
         <h3>{title}</h3>

@@ -4466,3 +4466,66 @@ a:hover,
     zoom: 1;
   }
 }
+
+/* The path under the name: three roots, then where they led. */
+.home .hero-statement {
+  max-width: 34ch;
+}
+
+.roots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.9rem;
+}
+
+.roots li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.roots li + li:not(.roots-to)::before {
+  content: '+';
+  color: var(--text-tirtiary);
+}
+
+.roots-to::before {
+  content: '→';
+  color: var(--text-tirtiary);
+}
+
+.roots a {
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  background: #fff;
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.roots a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.roots-to a {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.roots-to a:hover {
+  color: #fff;
+}
+
+.thumb-card[id],
+#conversational-ai {
+  scroll-margin-top: 24px;
+}
