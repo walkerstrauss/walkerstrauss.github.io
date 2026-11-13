@@ -28,7 +28,7 @@ export default function Home() {
       </Reveal>
 
       <div id="conversational-ai">
-        <Tiles cols={2} label="Conversational AI">
+        <Tiles cols={2} label="Work">
           <Tile
             to="/aui"
             title="AUI: what the model decides, what code decides, what a person reviews"

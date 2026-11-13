@@ -188,7 +188,7 @@ export function RefineDemo({ title, intro }) {
     <Scrub title={title} intro={intro} steps={refineSteps}>
       {(i) => {
         const chips = i === 0 ? ['Dinner'] : ['Dinner', 'Seafood'];
-        const caption = ['Here’s two wines that are perfect for a group dinner! What are you planning to cook?', 'Here’s two wines that are perfect for a group dinner! What are you planning to cook?', 'Okay, seafood sounds like a good choice!', 'These two options pair well with seafood. Let me know if you’d like to learn more about either option.'][i];
+        const caption = ['Here are two wines that are perfect for a group dinner! What are you planning to cook?', 'Here are two wines that are perfect for a group dinner! What are you planning to cook?', 'Okay, seafood sounds like a good choice!', 'These two options pair well with seafood. Let me know if you’d like to learn more about either option.'][i];
         return (
           <div className="ax-panel ax-refine">
             <Caption text={caption} speaking={i === 2} />

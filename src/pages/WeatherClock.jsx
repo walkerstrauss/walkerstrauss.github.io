@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Beat, CaseLayout, Instead, Plate, Trio } from '../components/case/Case.jsx';
 import Page from '../components/Page.jsx';
-import { ConceptMap, InsideParts, RearParts, WeatherToClock, WhenItSpeaks } from '../components/weatherclock/RealFigures.jsx';
+import { ConceptMap, InsideParts, InteractionChoice, ProcessTimeline, RearParts, WeatherToClock, WhenItSpeaks } from '../components/weatherclock/RealFigures.jsx';
 
 /*
  * The Savoring Weather Clock as a case (S349): problem, the decisions, the
@@ -13,6 +13,7 @@ const SECTIONS = [
   { label: 'Decisions', group: true },
   { id: 'savoring', label: 'Savoring, not alerts', sub: true },
   { id: 'pace', label: 'Slow on purpose', sub: true },
+  { id: 'motion', label: 'A motor, not a ball', sub: true },
   { id: 'system', label: 'System' },
   { id: 'process', label: 'Process and roles' },
 ];
@@ -77,6 +78,21 @@ export default function WeatherClock() {
           </Plate>
         </Beat>
 
+        <Beat
+          id="motion"
+          eyebrow="Decision 3"
+          title={<><Instead>Instead of a ball that drops when a message arrives,</Instead>a motor moves the clock.</>}
+        >
+          <p>
+            In February I compared two playful physical interactions for the
+            moment a message appears. The clock was built with a motor that
+            turns the weather vane.
+          </p>
+          <Plate label="The two options, with the points from my notes">
+            <InteractionChoice />
+          </Plate>
+        </Beat>
+
         <Beat id="system" eyebrow="System" title="Separate modules for light, motor, display and touch, kept in step by one timing model.">
           <p>
             An Arduino UNO R4 WiFi fetches live weather from the Google Maps
@@ -96,7 +112,10 @@ export default function WeatherClock() {
             Professor Yoon. Once the direction was set, Xinyi Zhou joined to
             prototype the motor behavior and lighting.
           </p>
-          <Plate label="An earlier concept from those sessions, for an air-care appliance">
+          <Plate label="Five weekly documents, from first ideas to the clock">
+            <ProcessTimeline />
+          </Plate>
+          <Plate label="From the first week: the map for one of the three ideas, Savoring Clean Air">
             <ConceptMap />
           </Plate>
           <Plate label="The back and underside of the build">

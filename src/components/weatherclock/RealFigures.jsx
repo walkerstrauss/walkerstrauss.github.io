@@ -178,7 +178,7 @@ export function RearParts() {
 
 /* The early concept map, column by column, in its own words. */
 const MAP = [
-  ['The device', ['An air-care appliance']],
+  ['The device', ['An air purifier']],
   ['What it does', ['Implicit signaling', 'Auto setting reminders', 'Invitations to reflect']],
   ['What follows', ['Product upkeep', 'Save energy', 'More free time', 'Access to clean air']],
   ['For the person', ['Increased savoring and gratitude', 'Increased attachment', 'Longer product lifetime']],
@@ -192,6 +192,57 @@ export function ConceptMap() {
         <div key={head} className="ck-col step" data-on={step >= i + 1}>
           <small>{head}</small>
           {nodes.map((n) => <span key={n} data-key={n === 'Increased savoring and gratitude' ? 'true' : undefined}>{n}</span>)}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* The weekly documents, in order (~/meta-design-lab, Nov 15 to Feb 10). */
+const WEEKS = [
+  ['Nov 15', 'Three ideas for savoring home appliances: a recipe assistant, clean air, clothing care.'],
+  ['Nov 22', 'Who acts and who receives: the recipe assistant as acts of kindness.'],
+  ['Dec 6', 'Brain writing on Gaeul’s Read the Air: which savoring technique each behavior supports.'],
+  ['Dec 20', 'The Weather Clock as four modules: sensing, display, playful motion, connection.'],
+  ['Feb 10', 'Display logic, and a choice between two playful interactions.'],
+];
+
+export function ProcessTimeline() {
+  const [ref, step] = useSteps(WEEKS.length);
+  return (
+    <ol className="path" role="list" ref={ref} aria-label="The weekly sessions, from first ideas to the clock">
+      {WEEKS.map(([d, text], i) => (
+        <li key={d} data-on={step >= i + 1 ? 'true' : 'false'}><span className="path-mark" aria-hidden="true" /><strong>{d}</strong><span>{text}</span></li>
+      ))}
+    </ol>
+  );
+}
+
+/* The Feb 10 comparison of two playful interactions, in its own points. */
+const OPTIONS = [
+  {
+    name: 'A motor that waves or knocks',
+    chosen: true,
+    plus: ['Precise timing and frequency', 'Wave or knock, fast or slow', 'We already had a motor'],
+    minus: ['Movement may be hard to perfect', 'Motor noise could distract', 'Motors wear out'],
+  },
+  {
+    name: 'A ball that drops',
+    plus: ['A simple mechanism', 'Playful sight and sound', 'Shows whether people respond'],
+    minus: ['The ball can roll away or get lost', 'People may ignore it over time', 'Does not fit what a clock does'],
+  },
+];
+
+export function InteractionChoice() {
+  const [ref, step] = useSteps(3);
+  return (
+    <div className="ck-choice" ref={ref}>
+      {OPTIONS.map((o, i) => (
+        <div key={o.name} className="ck-option step" data-on={step >= i + 1} data-chosen={o.chosen && step >= 3 ? 'true' : undefined}>
+          <strong>{o.name}</strong>
+          <ul data-kind="plus">{o.plus.map((p) => <li key={p}>{p}</li>)}</ul>
+          <ul data-kind="minus">{o.minus.map((p) => <li key={p}>{p}</li>)}</ul>
+          {o.chosen && <span className="ck-chosen step-fade" data-on={step >= 3}>Built: the motor turns the weather vane</span>}
         </div>
       ))}
     </div>

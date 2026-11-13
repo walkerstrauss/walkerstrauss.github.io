@@ -98,9 +98,8 @@ export default function AICap() {
       <Reveal as="section" className="cs-section">
         <h2>User research</h2>
         <p>
-          We surveyed 35 shoppers about how they buy wine and segmented them
-          with exploratory factor analysis and k-means clustering on the Wine
-          Attitudes Scale. Twenty answered the questions about AICap itself.
+          We surveyed 35 shoppers about how they buy wine. Twenty answered
+          the questions about AICap itself.
           I also interviewed the pilot store’s owner and sommelier about how
           the sommelier approaches shoppers, so the flow could follow that
           conversation.
