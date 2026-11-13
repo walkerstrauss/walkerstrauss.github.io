@@ -9,73 +9,60 @@ import './clock.css';
  * the clock on the case page.
  */
 
+/* The LED matrix behind the window: a 5 by 5 grid. */
 const DOTS = [];
-for (let r = 0; r < 5; r += 1) for (let c = 0; c < 5; c += 1) {
-  const x = 74 + c * 5.5; const y = 94 + r * 5.5;
-  if (Math.hypot(x - 85, y - 105) < 12.5) DOTS.push([x, y]);
-}
-
-function Shell({ dim }) {
-  return (
-    <g className="ck-shell" data-dim={dim ? 'true' : undefined}>
-      <path d="M40 90 L100 30 L160 90 L160 240 L40 240 Z" />
-      <path className="ck-thin" d="M122 52 L122 40 L140 40 L140 70" />
-    </g>
-  );
-}
-
-/* The vane: a post in the chimney, an arm, a cup at each end. `turns` spins it. */
-function Vane({ turns = 0 }) {
-  return (
-    <g className="ck-vane">
-      <path d="M131 40 L131 22" />
-      <g className="ck-arm" style={{ transform: `rotateY(${turns * 180}deg)` }}>
-        <path d="M113 22 L149 22" />
-        <circle cx="113" cy="22" r="6" />
-        <circle cx="149" cy="22" r="6" />
-      </g>
-    </g>
-  );
-}
+for (let r = 0; r < 5; r += 1) for (let c = 0; c < 5; c += 1) DOTS.push([117 + c * 4.6, 88 + r * 4.6]);
 
 /*
- * view: "front" (what a person sees), "inside" (the cutaway) or "rear".
- * glow: the window's colour. text: the display's line. hot: the part to ring.
+ * The quarter view from Gaeul Han's diagram (the site's original thumbnail):
+ * a see-through house with the parts visible inside. The same drawing serves
+ * every figure. glow: the light's colour. text: the display's line. turns:
+ * spins the vane. hot: the part to pick out. view "rear" shows the back.
  */
 export function ClockDrawing({ view = 'front', glow, text, turns = 0, hot, className = '' }) {
+  if (view === 'rear') {
+    return (
+      <svg className={`ck ${className}`} viewBox="0 0 280 260" role="img" aria-label="The weather clock from behind">
+        <ellipse className="ck-shadow" cx="140" cy="240" rx="95" ry="9" />
+        <path className="ck-wall" d="M70 95 L140 32 L210 95 L210 228 L70 228 Z" />
+        <path className="ck-part" data-hot={hot === 'key'} d="M140 62 a6 6 0 1 1 0.01 0 M136 72 L144 72 L143 84 L137 84 Z" />
+        {[[84, 110], [196, 110], [84, 214], [196, 214]].map(([x, y]) => <circle key={`${x}${y}`} className="ck-part" data-hot={hot === 'bolts'} cx={x} cy={y} r="4" />)}
+        <rect className="ck-part" data-hot={hot === 'ports'} x="124" y="232" width="12" height="6" rx="3" />
+        <circle className="ck-part" data-hot={hot === 'ports'} cx="150" cy="235" r="4" />
+      </svg>
+    );
+  }
   return (
-    <svg className={`ck ${className}`} viewBox="0 0 200 256" role="img" aria-label={`The weather clock, ${view} view`}>
-      <Shell dim={view !== 'front'} />
-      <Vane turns={turns} />
-      {view === 'front' && (
-        <>
-          <circle className="ck-window" cx="85" cy="105" r="15" style={{ fill: glow || undefined }} data-lit={glow ? 'true' : undefined} />
-          <g className="ck-dots" data-lit={glow ? 'true' : undefined}>{DOTS.map(([x, y]) => <circle key={`${x}-${y}`} cx={x} cy={y} r="1.3" />)}</g>
-          <rect className="ck-display" x="52" y="150" width="78" height="62" rx="5" />
-          <g className="ck-lines" data-off={text ? 'true' : undefined}><path d="M64 170 L118 170" /><path d="M64 181 L118 181" /><path d="M64 192 L98 192" /></g>
-          <foreignObject x="56" y="154" width="70" height="54">
-            <div className="ck-text" data-on={text ? 'true' : 'false'}>{text}</div>
-          </foreignObject>
-        </>
-      )}
-      {view === 'inside' && (
-        <>
-          <rect className="ck-part" data-hot={hot === 'servo'} x="120" y="72" width="22" height="30" rx="5" />
-          <path className="ck-thin" d="M131 72 L131 40" />
-          <rect className="ck-part" data-hot={hot === 'light'} x="70" y="90" width="30" height="30" rx="2" />
-          <rect className="ck-part ck-dark" data-hot={hot === 'display'} x="52" y="150" width="70" height="62" rx="3" />
-          <rect className="ck-part ck-board" data-hot={hot === 'board'} x="128" y="146" width="16" height="78" rx="2" />
-          <rect className="ck-part" data-hot={hot === 'button'} x="94" y="224" width="14" height="12" rx="2" />
-        </>
-      )}
-      {view === 'rear' && (
-        <>
-          <path className="ck-part" data-hot={hot === 'key'} d="M100 58 a6 6 0 1 1 0.01 0 M96 68 L104 68 L103 80 L97 80 Z" />
-          {[[52, 104], [148, 104], [52, 226], [148, 226]].map(([x, y]) => <circle key={`${x}${y}`} className="ck-part" data-hot={hot === 'bolts'} cx={x} cy={y} r="3.5" />)}
-          <rect className="ck-part" data-hot={hot === 'ports'} x="88" y="238" width="10" height="5" rx="2.5" />
-          <circle className="ck-part" data-hot={hot === 'ports'} cx="110" cy="240.5" r="3.5" />
-        </>
-      )}
+    <svg className={`ck ${className}`} viewBox="0 0 280 260" role="img" aria-label="The weather clock, seen from the front quarter with its parts visible">
+      <ellipse className="ck-shadow" cx="140" cy="242" rx="100" ry="9" />
+      {/* side wall, gable wall, roof slope */}
+      <path className="ck-wall" d="M58 82 L96 98 L96 236 L58 212 Z" />
+      <path className="ck-wall" d="M96 98 L152 36 L218 92 L218 218 L96 236 Z" />
+      <path className="ck-wall ck-roof" d="M58 82 L118 22 L152 36 L96 98 Z" />
+
+      {/* board on the side wall */}
+      <path className="ck-part ck-board" data-hot={hot === 'board'} d="M66 142 L90 153 L90 222 L66 208 Z" />
+      {/* push button */}
+      <path className="ck-part" data-hot={hot === 'button'} d="M70 214 L80 219 L80 229 L70 224 Z" />
+      {/* servo under the vane */}
+      <rect className="ck-part" data-hot={hot === 'servo'} x="96" y="62" width="18" height="26" rx="6" />
+      <g className="ck-vane">
+        <path d="M105 62 L105 16" />
+        <g className="ck-arm" style={{ transform: `rotateY(${turns * 180}deg)` }}>
+          <path d="M86 16 L124 16" />
+          <ellipse cx="86" cy="16" rx="7" ry="6" />
+          <ellipse cx="124" cy="16" rx="7" ry="6" />
+        </g>
+      </g>
+      {/* light behind the round window */}
+      <rect className="ck-part ck-matrix" data-hot={hot === 'light'} x="113" y="84" width="27" height="27" rx="4" style={{ fill: glow || undefined }} data-lit={glow ? 'true' : undefined} />
+      <g className="ck-dots" data-lit={glow ? 'true' : undefined}>{DOTS.map(([x, y]) => <circle key={`${x}-${y}`} cx={x} cy={y} r="1.1" />)}</g>
+      {/* text display */}
+      <path className="ck-part ck-dark" data-hot={hot === 'display'} d="M110 140 L204 130 L204 196 L110 210 Z" />
+      <g className="ck-lines" data-off={text ? 'true' : undefined}><path d="M122 160 L190 152" /><path d="M122 172 L190 164" /><path d="M122 184 L166 179" /></g>
+      <foreignObject x="114" y="140" width="86" height="60">
+        <div className="ck-text" data-on={text ? 'true' : 'false'}>{text}</div>
+      </foreignObject>
     </svg>
   );
 }
@@ -126,7 +113,7 @@ export function InsideParts() {
   const [ref, step] = useSteps(INSIDE.length);
   return (
     <div className="ck-fig" ref={ref}>
-      <ClockDrawing view="inside" hot={step >= 1 ? INSIDE[step - 1].hot : undefined} turns={step === 3 ? 2 : 0} />
+      <ClockDrawing hot={step >= 1 ? INSIDE[step - 1].hot : undefined} turns={step === 3 ? 2 : 0} />
       <Steps items={INSIDE} step={step} />
     </div>
   );

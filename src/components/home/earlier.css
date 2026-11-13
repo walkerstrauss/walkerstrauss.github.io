@@ -1,7 +1,7 @@
 /* Home cards for the Cornell work. Shares .mini, .mini-step, .mini-route and
    .mini-end with the AUI tiles. */
 .ec {
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
   gap: 0.75rem;
   padding: 1rem;
   font-size: clamp(0.72rem, 1vw, 0.85rem);
