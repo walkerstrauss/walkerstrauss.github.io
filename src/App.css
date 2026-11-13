@@ -4345,3 +4345,8 @@ a:hover,
     transform: none;
   }
 }
+
+/* Home lists sit directly under their label. */
+.home .page-section .cs-index {
+  margin-top: 0;
+}

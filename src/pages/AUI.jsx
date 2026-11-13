@@ -2,8 +2,7 @@ import { Link } from 'react-router-dom';
 import Page from '../components/Page.jsx';
 import Reveal from '../components/Reveal.jsx';
 import { Tile, Tiles } from '../components/Tiles.jsx';
-import AUIWorkPreview from '../components/AUIWorkPreview.jsx';
-import PaymentsPreview from '../components/aui/PaymentsPreview.jsx';
+import { ReferencePreview, SupportPreview } from '../components/aui/CasePreview.jsx';
 import '../components/case/case.css';
 
 /*
@@ -13,13 +12,13 @@ import '../components/case/case.css';
 const CASES = [
   {
     to: '/aui/reference-agents',
-    preview: AUIWorkPreview,
+    preview: ReferencePreview,
     title: 'Agents that act on records under policy',
     line: 'Two demo agents: one files card disputes, one submits leave requests.',
   },
   {
     to: '/aui/payments',
-    preview: PaymentsPreview,
+    preview: SupportPreview,
     title: 'Taking two customer support agents from requirements to rollout',
     line: 'Payments and transit support: scoping, ticketing integration, and review by each support team before release.',
   },

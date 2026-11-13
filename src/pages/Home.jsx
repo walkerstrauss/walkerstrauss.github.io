@@ -1,24 +1,11 @@
 import { Link } from 'react-router-dom';
 import Page from '../components/Page.jsx';
 import Reveal from '../components/Reveal.jsx';
-import { Beat, CaseLayout } from '../components/case/Case.jsx';
 import { Tile, Tiles } from '../components/Tiles.jsx';
-import AUIWorkPreview from '../components/AUIWorkPreview.jsx';
+import { AUIHomePreview } from '../components/aui/CasePreview.jsx';
 import AICapPreview from '../components/aicap/AICapPreview.jsx';
 
-/*
- * The whole site on one page, in the case-study layout: the outline on the
- * left runs from the most recent work back to the research it grew from, and
- * the blue dot follows it down. Order is Walker's choice (S342): reverse
- * chronological. Each stop links to its own page.
- */
-const SECTIONS = [
-  { id: 'aui', label: 'AUI' },
-  { id: 'onki', label: 'Onki' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'research', label: 'Research' },
-];
-
+/* The whole site on one page, most recent work first (S342). */
 const research = [
   {
     label: '2023 – 2025',
@@ -88,41 +75,35 @@ export default function Home() {
         </Reveal.Item>
       </Reveal>
 
-      <CaseLayout sections={SECTIONS}>
-        <Beat id="aui" eyebrow="AUI · Dec 2025 – Nov 2026" title="Enterprise agents, from first build to production">
-          <p>
-            In Product Operations I built reference agents, took two
-            customers’ support agents from requirements to release, and
-            onboarded customer teams.
-          </p>
-          <Tiles cols={1}>
-            <Tile to="/aui" title="Building and deploying enterprise agents at AUI" line="Two case studies: reference agents, and two customer support rollouts">
-              <AUIWorkPreview />
-            </Tile>
-          </Tiles>
-        </Beat>
+      {/* Most recent first. The two jobs get tiles that preview their pages;
+          projects and research are lists. Everything spans the page width,
+          so the page stays centered under the name. */}
+      <Tiles cols={2} label="Work">
+        <Tile
+          to="/aui"
+          title="Enterprise agents at AUI, from first build to production"
+          line="Product Operations · Built reference agents, took two customers’ support agents from requirements to release, and onboarded customer teams."
+        >
+          <AUIHomePreview />
+        </Tile>
+        <Tile
+          to="/projects/aicap"
+          title="A wine kiosk shoppers can talk to or tap"
+          line="Onki · Led interaction design for an in-store kiosk. A shopper survey made touch a complete path, not a backup for voice."
+        >
+          <AICapPreview />
+        </Tile>
+      </Tiles>
 
-        <Beat id="onki" eyebrow="Onki" title="A wine kiosk shoppers can talk to or tap">
-          <p>
-            I led interaction design for an in-store kiosk. A shopper survey
-            made touch a complete path, not a backup for voice.
-          </p>
-          <Tiles cols={1}>
-            <Tile to="/projects/aicap" title="Voice and touch for wine recommendations" line="Read the case study">
-              <AICapPreview />
-            </Tile>
-          </Tiles>
-        </Beat>
+      <section className="page-section">
+        <span className="section-label">Projects</span>
+        <Rows items={projects} />
+      </section>
 
-        <Beat id="projects" eyebrow="Projects" title="A physical-computing prototype and three games">
-          <Rows items={projects} />
-        </Beat>
-
-        <Beat id="research" eyebrow="Research · Cornell" title="Psychology and neuroscience research">
-          <p>The behavioral and cognitive research that grounds how I design.</p>
-          <Rows items={research} />
-        </Beat>
-      </CaseLayout>
+      <section className="page-section">
+        <span className="section-label">Research</span>
+        <Rows items={research} />
+      </section>
     </Page>
   );
 }
