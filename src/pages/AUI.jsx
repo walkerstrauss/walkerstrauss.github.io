@@ -1,27 +1,42 @@
 import { Link } from 'react-router-dom';
 import Page from '../components/Page.jsx';
-import Reveal from '../components/Reveal.jsx';
-import { Tile, Tiles } from '../components/Tiles.jsx';
-import { ReferencePreview, SupportPreview } from '../components/aui/CasePreview.jsx';
+import { Beat, CaseLayout, Trio } from '../components/case/Case.jsx';
+import AUIReferenceAgents from './AUIReferenceAgents.jsx';
+import AUIPayments from './AUIPayments.jsx';
 import '../components/case/case.css';
 
 /*
- * The AUI page: what the company builds (in its own public words, linked),
- * what my role covered, and the two case studies. The cases carry the detail.
+ * The AUI year as one story (S346). The argument, chosen by Walker: he
+ * designs what a conversational AI is allowed to decide, and what code or a
+ * person decides instead. Part 1 is the reference agents (code decides the
+ * rules), Part 2 the two customer rollouts (a person reviews before
+ * release), Part 3 the runtime feature that came out of them (the model is
+ * never asked). Customers are not named; figures are fictional illustrations.
  */
-const CASES = [
-  {
-    to: '/aui/reference-agents',
-    preview: ReferencePreview,
-    title: 'Agents that act on records under policy',
-    line: 'Two demo agents: one files card disputes, one submits leave requests.',
-  },
-  {
-    to: '/aui/payments',
-    preview: SupportPreview,
-    title: 'Taking two customer support agents from requirements to rollout',
-    line: 'Payments and transit support: scoping, ticketing integration, and review by each support team before release.',
-  },
+const SECTIONS = [
+  { id: 'argument', label: 'Who decides' },
+  { label: 'Code decides the rules', group: true },
+  { id: 'check-first', label: 'Check before writing', sub: true },
+  { id: 'reason', label: 'The reason decides', sub: true },
+  { id: 'block', label: 'A block explains itself', sub: true },
+  { id: 'edit', label: 'Edit the same draft', sub: true },
+  { id: 'result', label: 'Same facts, same decision', sub: true },
+  { label: 'A person reviews', group: true },
+  { id: 'requirements', label: 'Requirements as decisions', sub: true },
+  { id: 'integration', label: 'Ticketing integration', sub: true },
+  { id: 'tests', label: 'Test the decision', sub: true },
+  { id: 'review', label: 'Review before rollout', sub: true },
+  { label: 'The model is never asked', group: true },
+  { id: 'linked-state', label: 'User-linked state', sub: true },
+  { id: 'outcome', label: 'Outcome' },
+  { id: 'takeaway', label: 'Takeaway' },
+  { id: 'role', label: 'Also in the role' },
+];
+
+const SPLIT = [
+  ['The model', 'Reads what the person asked for and words the reply.'],
+  ['Code', 'Checks the policy, keeps the current value, and allows or blocks the write.'],
+  ['A person', 'Sees what the agent would do on real tickets before it is released.'],
 ];
 
 const ROLE = [
@@ -34,11 +49,11 @@ export default function AUI() {
   return (
     <Page className="cs-page">
       <header className="cs-hero">
-        <h1 className="cs-title">Building and deploying enterprise agents at AUI</h1>
+        <h1 className="cs-title">What the model decides, what code decides, and what a person decides</h1>
         <p className="cs-subtitle">
-          I built reference agents, took two customers’ support agents from
-          requirements to release, and onboarded customer teams onto the
-          tools to build their own.
+          At AUI I built two reference agents and took two customers’ support
+          agents from requirements to release. Each one came down to the same
+          design question: which decisions should a model never be asked to make?
         </p>
         <div className="cs-meta">
           <div><h4>Organization</h4><p><a href="https://www.aui.io/" target="_blank" rel="noopener noreferrer">Augmented Intelligence (AUI)</a></p></div>
@@ -47,39 +62,34 @@ export default function AUI() {
         </div>
       </header>
 
-      <Reveal as="section" className="hub-about">
-        <span className="section-label">About AUI</span>
-        <p className="hub-quote">AUI builds enterprise agents that can be trusted to act.</p>
-        <p>
-          A team defines the work and the rules. <a href="https://www.aui.io/" target="_blank" rel="noopener noreferrer">AUI’s</a> neuro-symbolic
-          runtime enforces each policy deterministically and makes every
-          decision traceable.
-        </p>
-      </Reveal>
+      <CaseLayout sections={SECTIONS}>
+        <Beat id="argument" eyebrow="Who decides" title="A model is good at understanding a request. It should not be what decides whether a rule is met.">
+          <p>
+            AUI builds enterprise agents that act on records: filing a
+            dispute, submitting leave, answering a support ticket. In that
+            work a wrong answer is a wrong record, so each decision is given
+            to whichever of three can be held to it.
+          </p>
+          <Trio items={SPLIT} />
+          <p>
+            The three parts below show that split in the work: reference
+            agents where code decides the rules, two customer rollouts where
+            the support team reviewed the agent before release, and a runtime
+            feature that removed a decision from the model altogether.
+          </p>
+        </Beat>
 
-      <Tiles cols={2} label="Case studies">
-        {CASES.map((c) => (
-          <Tile key={c.to} to={c.to} title={c.title} line={c.line}>
-            <c.preview />
-          </Tile>
-        ))}
-      </Tiles>
+        <AUIReferenceAgents />
+        <AUIPayments />
 
-      <section className="page-section">
-        <span className="section-label">Also in the role</span>
-        <Reveal as="dl" className="hub-role" stagger>
-          {ROLE.map(([k, v]) => (
-            <Reveal.Item key={k}>
-              <dt>{k}</dt>
-              <dd>{v}</dd>
-            </Reveal.Item>
-          ))}
-        </Reveal>
-      </section>
+        <Beat id="role" eyebrow="Also in the role" title="The rest of the year.">
+          <Trio items={ROLE} />
+        </Beat>
 
-      <section className="cs-links">
-        <Link to="/" className="back-link">← Back to home</Link>
-      </section>
+        <div className="cs-links">
+          <Link to="/" className="back-link">← Back to home</Link>
+        </div>
+      </CaseLayout>
     </Page>
   );
 }

@@ -1,6 +1,4 @@
-import { Link } from 'react-router-dom';
-import Page from '../components/Page.jsx';
-import { Beat, CaseLayout, Instead, Plate, Trio } from '../components/case/Case.jsx';
+import { Beat, Instead, Plate, Trio } from '../components/case/Case.jsx';
 import PaymentsReview from '../components/aui/PaymentsReview.jsx';
 import PaymentsPath from '../components/aui/PaymentsPath.jsx';
 import { Check, MessageToDraft, Thread } from '../components/thread/Thread.jsx';
@@ -11,39 +9,11 @@ import { Check, MessageToDraft, Thread } from '../components/thread/Thread.jsx';
  * figure is a fictional illustration. Sources: S071, S219–S220, S232, S328,
  * S341, AUI-012, AUI-013.
  */
-const SECTIONS = [
-  { id: 'problem', label: 'Problem' },
-  { label: 'Decisions', group: true },
-  { id: 'requirements', label: 'Requirements as decisions', sub: true },
-  { id: 'integration', label: 'Ticketing integration', sub: true },
-  { id: 'tests', label: 'Test the decision', sub: true },
-  { id: 'review', label: 'Review before rollout', sub: true },
-  { id: 'linked-state', label: 'User-linked state', sub: true },
-  { id: 'outcome', label: 'Outcome' },
-  { id: 'takeaway', label: 'Takeaway' },
-];
-
+/* Rendered inside the one AUI page (S346). */
 export default function AUIPayments() {
   return (
-    <Page className="cs-page">
-      <header className="cs-hero">
-        <h1 className="cs-title">Taking two customer support agents from requirements to rollout</h1>
-        <p className="cs-subtitle">
-          I scoped the requirements from scratch and owned the migration of
-          support agents for a payments company and a transit app: what each
-          agent could answer, how it connected to the customer’s ticketing
-          system, and how the support team reviewed its behavior before
-          release.
-        </p>
-        <div className="cs-meta">
-          <div><h4>Organization</h4><p><a href="https://www.aui.io/" target="_blank" rel="noopener noreferrer">Augmented Intelligence (AUI)</a></p></div>
-          <div><h4>My role</h4><p>Product Operations (Agents)</p></div>
-          <div><h4>Scope</h4><p>Two customer migrations: payments and transit support</p></div>
-        </div>
-      </header>
-
-      <CaseLayout sections={SECTIONS}>
-        <Beat id="problem" eyebrow="Problem" title="A support team has to trust what an agent will do before it acts.">
+    <>
+        <Beat id="roll-problem" eyebrow="Part 2 · A person reviews before release" title="A support team has to trust what an agent will do before it acts.">
           <p>
             The team needed a way to trust that, once deployed, the agent would
             take the correct actions on their tickets.
@@ -60,7 +30,7 @@ export default function AUIPayments() {
 
         <Beat
           id="requirements"
-          eyebrow="Decision 1"
+          eyebrow="Part 2 · Decision 1"
           title={<><Instead>Instead of a list of topics,</Instead>each requirement became a decision the agent makes on a ticket.</>}
         >
           <p>
@@ -87,7 +57,7 @@ export default function AUIPayments() {
 
         <Beat
           id="integration"
-          eyebrow="Decision 2 · Ticketing integration"
+          eyebrow="Part 2 · Decision 2 · Ticketing integration"
           title="The integration was tested inside each customer’s own ticketing system, with their engineers."
         >
           <p>
@@ -113,7 +83,7 @@ export default function AUIPayments() {
 
         <Beat
           id="tests"
-          eyebrow="Decision 3"
+          eyebrow="Part 2 · Decision 3"
           title={<><Instead>Instead of judging how a reply reads,</Instead>each test checks what the agent decided.</>}
         >
           <p>
@@ -137,7 +107,7 @@ export default function AUIPayments() {
 
         <Beat
           id="review"
-          eyebrow="Decision 4"
+          eyebrow="Part 2 · Decision 4"
           title={<><Instead>Instead of asking the team to trust test results,</Instead>they reviewed proposed replies to their own tickets.</>}
         >
           <p>
@@ -159,7 +129,7 @@ export default function AUIPayments() {
 
         <Beat
           id="linked-state"
-          eyebrow="Decision 5 · User-linked state"
+          eyebrow="Part 3 · The model is never asked"
           title={<><Instead>Instead of asking the model to choose between the old email and the new one,</Instead>the runtime keeps one current value.</>}
         >
           <p>
@@ -209,12 +179,6 @@ export default function AUIPayments() {
             now available to every team that builds on the product.
           </p>
         </Beat>
-
-        <div className="cs-links">
-          <Link to="/aui" className="back-link">← Back to AUI</Link>
-          <Link to="/aui/reference-agents" className="project-link">Next: the reference agents case →</Link>
-        </div>
-      </CaseLayout>
-    </Page>
+    </>
   );
 }

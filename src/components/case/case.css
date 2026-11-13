@@ -609,3 +609,8 @@
     padding: 2.25rem 1rem 1rem;
   }
 }
+
+/* A paragraph that follows the three-column list needs air. */
+.trio + p {
+  margin-top: 2rem;
+}

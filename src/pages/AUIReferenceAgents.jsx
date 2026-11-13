@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Page from '../components/Page.jsx';
-import { Beat, CaseLayout, Instead, Plate, Trio } from '../components/case/Case.jsx';
+import { Beat, Instead, Plate, Trio } from '../components/case/Case.jsx';
 import { ClassContrast, DisputeThread } from '../components/aui/overview.jsx';
 import LeaveStory from '../components/LeaveStory.jsx';
 import SameDecisionReplay from '../components/SameDecisionReplay.jsx';
@@ -12,17 +10,6 @@ import { Check, Facts, MessageToDraft, Reply, Thread } from '../components/threa
  * figure that shows it), the full conversations on demand, and the result.
  * Every figure is illustrative, with fictional people, policies and wording.
  */
-const SECTIONS = [
-  { id: 'problem', label: 'Problem' },
-  { label: 'Decisions', group: true },
-  { id: 'check-first', label: 'Check before writing', sub: true },
-  { id: 'reason', label: 'The reason decides', sub: true },
-  { id: 'block', label: 'A block explains itself', sub: true },
-  { id: 'edit', label: 'Edit the same draft', sub: true },
-  { id: 'end-to-end', label: 'End to end' },
-  { id: 'result', label: 'Result' },
-];
-
 const NOTE = 'Illustrative. Fictional data; not a product interface.';
 
 function Walkthrough() {
@@ -40,25 +27,11 @@ function Walkthrough() {
   );
 }
 
+/* Rendered inside the one AUI page (S346). */
 export default function AUIReferenceAgents() {
   return (
-    <Page className="cs-page">
-      <header className="cs-hero">
-        <h1 className="cs-title">Agents that act on records under policy</h1>
-        <p className="cs-subtitle">
-          I designed and built two demo agents at Augmented Intelligence: one
-          files card disputes, one submits leave requests. Each reads the
-          person’s own records and checks policy before it writes.
-        </p>
-        <div className="cs-meta">
-          <div><h4>Organization</h4><p><a href="https://www.aui.io/" target="_blank" rel="noopener noreferrer">Augmented Intelligence (AUI)</a></p></div>
-          <div><h4>My role</h4><p>Product Operations (Agents)</p></div>
-          <div><h4>Status</h4><p>Demo agents on mock data</p></div>
-        </div>
-      </header>
-
-      <CaseLayout sections={SECTIONS}>
-        <Beat id="problem" eyebrow="Problem" title="In financial services and HR, a request ends in a record.">
+    <>
+        <Beat id="ref-problem" eyebrow="Part 1 · Code decides the rules" title="In financial services and HR, a request ends in a record.">
           <p>
             Many support conversations end with an answer or a handoff to a
             person. A dispute or a leave request ends with something written
@@ -77,7 +50,7 @@ export default function AUIReferenceAgents() {
 
         <Beat
           id="check-first"
-          eyebrow="Decision 1"
+          eyebrow="Part 1 · Decision 1"
           title={<><Instead>Instead of collecting a request and checking it later,</Instead>the agent checks before it writes.</>}
         >
           <p>
@@ -105,7 +78,7 @@ export default function AUIReferenceAgents() {
 
         <Beat
           id="reason"
-          eyebrow="Decision 2"
+          eyebrow="Part 1 · Decision 2"
           title={<><Instead>Instead of one fixed set of questions,</Instead>the reason for a dispute decides what the agent asks.</>}
         >
           <p>
@@ -135,7 +108,7 @@ export default function AUIReferenceAgents() {
 
         <Beat
           id="block"
-          eyebrow="Decision 3"
+          eyebrow="Part 1 · Decision 3"
           title={<><Instead>Instead of a refusal,</Instead>a block shows the rule and its inputs.</>}
         >
           <p>
@@ -158,7 +131,7 @@ export default function AUIReferenceAgents() {
 
         <Beat
           id="edit"
-          eyebrow="Decision 4"
+          eyebrow="Part 1 · Decision 4"
           title={<><Instead>Instead of starting over,</Instead>an edit updates the same draft.</>}
         >
           <p>
@@ -183,12 +156,12 @@ export default function AUIReferenceAgents() {
           </Plate>
         </Beat>
 
-        <Beat id="end-to-end" eyebrow="End to end" title="One request, start to finish.">
+        <Beat id="end-to-end" eyebrow="Part 1 · End to end" title="One request, start to finish.">
           <p>Each conversation plays as you scroll, with its decisions beside it.</p>
           <Walkthrough />
         </Beat>
 
-        <Beat id="result" eyebrow="Result" title="Same facts, same decision.">
+        <Beat id="result" eyebrow="Part 1 · Result" title="Same facts, same decision.">
           <p>
             The reply’s wording varies from run to run. The decision and the
             write do not, and the trace records the rule and the values it
@@ -199,12 +172,6 @@ export default function AUIReferenceAgents() {
             <SameDecisionReplay />
           </Plate>
         </Beat>
-
-        <div className="cs-links">
-          <Link to="/aui" className="back-link">← Back to AUI</Link>
-          <Link to="/aui/payments" className="project-link">Next: the payments support case →</Link>
-        </div>
-      </CaseLayout>
-    </Page>
+    </>
   );
 }

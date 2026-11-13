@@ -14,14 +14,11 @@ import './App.css';
 
 import Home from './pages/Home.jsx';
 import AUI from './pages/AUI.jsx';
-import AUIPayments from './pages/AUIPayments.jsx';
-import AUIReferenceAgents from './pages/AUIReferenceAgents.jsx';
 
 import AICap from './pages/AICap.jsx';
 import Mahsjong from './pages/Mahsjong.jsx';
 import WeatherClock from './pages/WeatherClock.jsx';
 import FmriStudy from './pages/FmriStudy.jsx';
-import VisualVsTextual from './pages/VisualVsTextual.jsx';
 
 /*
  * Routes live inside AnimatePresence so each page's exit variant runs before
@@ -40,8 +37,8 @@ function AnimatedRoutes() {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
         <Route path="/aui" element={<AUI />} />
-        <Route path="/aui/payments" element={<AUIPayments />} />
-        <Route path="/aui/reference-agents" element={<AUIReferenceAgents />} />
+        <Route path="/aui/payments" element={<Navigate to="/aui" replace />} />
+        <Route path="/aui/reference-agents" element={<Navigate to="/aui" replace />} />
         {/* The leave case moved into the reference agents case; keep its old address working. */}
         <Route path="/aui-employee-leave" element={<Navigate to="/aui/reference-agents" replace />} />
         <Route path="/projects" element={<Navigate to="/" replace />} />
@@ -51,7 +48,7 @@ function AnimatedRoutes() {
         <Route path="/projects/weather-clock" element={<WeatherClock />} />
         <Route path="/projects/death-of-a-deal" element={<Navigate to="/" replace />} />
         <Route path="/research/fmri-study" element={<FmriStudy />} />
-        <Route path="/research/visual-vs-textual" element={<VisualVsTextual />} />
+        <Route path="/research/visual-vs-textual" element={<Navigate to="/" replace />} />
         <Route path="/projects/tojiba-crash" element={<Navigate to="/" replace />} />
         {/* Every route above is linked from the site. Anything else, including
             the addresses of pages that have been retired, goes home. */}

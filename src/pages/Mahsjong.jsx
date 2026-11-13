@@ -1,19 +1,23 @@
 import { Link } from 'react-router-dom';
 import Page from '../components/Page.jsx';
 import { Beat, CaseLayout, Instead, Plate } from '../components/case/Case.jsx';
-import demoVideo from '../assets/mahsjong/gameplay.mp4';
-import boardImg from '../assets/mahsjong/mahsjong_6400.PNG';
 import whiteboardImg from '../assets/mahsjong/whiteboard.png';
-import celestialImg from '../assets/mahsjong/mahsjong_6491.PNG';
-import discardImg from '../assets/mahsjong/mahsjong_6487.PNG';
-import timerImg from '../assets/mahsjong/mahsjong_6412.PNG';
+import {
+  BoardFigure,
+  CelestialFigure,
+  RaceFigure,
+  TimerFigure,
+  TurnsFigure,
+  TutorialFigure,
+} from '../components/mahsjong/figures.jsx';
 
 /*
  * Mah's Jong as a case: the design decisions the team's documents and the
  * repository history actually record, with who did what. Evidence: the rules
  * PDF, the two architecture specifications, the team report, the level design
  * slides and the commit history (S341). No reasons or playtest results are
- * written down in those documents, so none are claimed here.
+ * written down in those documents, so none are claimed here. Every figure is
+ * drawn; the only photograph is the team's own whiteboard sketch.
  */
 const SECTIONS = [
   { id: 'game', label: 'The game' },
@@ -56,8 +60,8 @@ export default function Mahsjong() {
             layered grid, and eight zodiac “Celestial” tiles help a player or
             disrupt their opponent.
           </p>
-          <Plate label="The final board">
-            <Shot src={boardImg} alt="The game board: a grid of pile tiles in the middle, each player’s revealed sets, and the player’s hand along the bottom" />
+          <Plate label="The pile and a full hand, drawn">
+            <BoardFigure />
           </Plate>
         </Beat>
 
@@ -75,6 +79,9 @@ export default function Mahsjong() {
           <Plate tone="problem" kind="Before" label="An early sketch of the hand, the pile and tile effects">
             <Shot src={whiteboardImg} alt="Whiteboard sketch of a hand, a grid of pile tiles and a note about an effect on the opponent’s cards" />
           </Plate>
+          <Plate tone="solution" kind="After" label="What was dropped, and what the game became">
+            <RaceFigure />
+          </Plate>
         </Beat>
 
         <Beat
@@ -87,8 +94,8 @@ export default function Mahsjong() {
             part in brainstorming the early action-tile designs and built the
             animations that show an opponent’s Celestial tile taking effect.
           </p>
-          <Plate tone="solution" kind="After" label="A Celestial tile in use: the player picks a row of the pile to rearrange">
-            <Shot src={celestialImg} alt="The board dimmed, with the prompt Select the row you want to rearrange" />
+          <Plate tone="solution" kind="After" label="Three roles, and one Celestial tile in use: the player picks a row of the pile to rearrange">
+            <CelestialFigure />
           </Plate>
         </Beat>
 
@@ -102,8 +109,8 @@ export default function Mahsjong() {
             a turn could end, then replaced it with automatic turn ending and
             on-screen guides for each action.
           </p>
-          <Plate tone="solution" kind="After" label="The guide for discarding">
-            <Shot src={discardImg} alt="The board with a highlighted zone labelled Drag here to discard" />
+          <Plate tone="solution" kind="After" label="The guide for discarding, then the turn passes">
+            <TurnsFigure />
           </Plate>
         </Beat>
 
@@ -113,8 +120,8 @@ export default function Mahsjong() {
             out, and lengthened it to 45 seconds. A teammate later reworked
             the timers.
           </p>
-          <Plate label="The turn timer in play">
-            <Shot src={timerImg} alt="The board during a turn with the timer showing 35 seconds" />
+          <Plate label="The turn timer">
+            <TimerFigure />
           </Plate>
         </Beat>
 
@@ -128,6 +135,9 @@ export default function Mahsjong() {
             programmer as a scene the player plays through, from a designer’s
             Figma layout.
           </p>
+          <Plate tone="solution" kind="After" label="From watched once to played through">
+            <TutorialFigure />
+          </Plate>
         </Beat>
 
         <Beat id="role" eyebrow="My role" title="Project lead, and a programmer on the game’s scenes.">
@@ -138,13 +148,6 @@ export default function Mahsjong() {
             the settings, game-over, info and help scenes; and the
             AnimatedNode class. I started the animation controller and the
             tutorial scene, which teammates and I finished together.
-          </p>
-          <Plate label="Gameplay from the final build">
-            <video src={demoVideo} controls playsInline className="cs-demo-video" />
-          </Plate>
-          <p className="cs-caption">
-            The top and bottom displays are slightly out of sync in this
-            recording. They are not in the game.
           </p>
         </Beat>
 

@@ -5,27 +5,17 @@ import { AUIHomePreview } from '../components/aui/CasePreview.jsx';
 import AICapPreview from '../components/aicap/AICapPreview.jsx';
 import WeatherClockPreview from '../components/weatherclock/WeatherClockPreview.jsx';
 import FmriPreview from '../components/fmri/FmriPreview.jsx';
-import mahsjongBoard from '../assets/mahsjong/mahsjong_6400.PNG';
+import { Hand, Pile } from '../components/mahsjong/parts.jsx';
+import '../components/mahsjong/mahsjong.css';
 
 /*
  * Home, in two eras (S345).
  *
- * Order carries the story: the work since graduating comes first, newest
+ * Order carries the story: the two jobs come first, newest
  * first, then the Cornell work it grew out of. Size carries the weight: the
  * two jobs get large tiles that play their case; the four Cornell pieces get
  * small cards. A reader who stops after one screen has seen the jobs.
  */
-
-/* The study's three conditions, side by side. Stylized. */
-function ConditionsPreview() {
-  return (
-    <div className="cond" aria-hidden="true">
-      <span className="cond-card"><i className="cond-img" />Image</span>
-      <span className="cond-card"><i className="cond-chart"><b /><b /><b /></i>Infographic</span>
-      <span className="cond-card"><i className="cond-text"><b /><b /><b /></i>Text</span>
-    </div>
-  );
-}
 
 export default function Home() {
   return (
@@ -33,40 +23,40 @@ export default function Home() {
       <Reveal className="hero" stagger>
         <Reveal.Item as="h1">Walker Strauss</Reveal.Item>
         <Reveal.Item as="p" className="hero-statement">
-          Designing and deploying conversational AI, from user research to customer rollout
+          I design what a conversational AI is allowed to decide, and what code or a person decides instead
         </Reveal.Item>
       </Reveal>
 
 
-      <Tiles cols={2} label="Since graduating" note="Conversational AI for real users: first a voice kiosk in a store, then enterprise agents for customers.">
+      <Tiles cols={2} label="Work" note="Two products, one question: what should the AI decide, and when should it yield?">
         <Tile
           to="/aui"
-          title="Enterprise agents at AUI, from first build to production"
-          line="2025 – 2026 · Product Operations. Built reference agents, took two customers’ support agents from requirements to release, and onboarded customer teams."
+          title="AUI: what the model decides, what code decides, what a person reviews"
+          line="2025 – 2026 · Product Operations. Reference agents that check policy before they write, and two customers’ support agents reviewed by their teams before release."
         >
           <AUIHomePreview />
         </Tile>
         <Tile
           to="/projects/aicap"
-          title="A wine kiosk shoppers can talk to or tap"
-          line="2025 · AI Product & UX Designer at Onki. Led interaction design for an in-store kiosk that speaks first and works fully by touch."
+          title="Onki: when a kiosk speaks first, listens, and yields to a tap"
+          line="2025 · AI Product & UX Designer. Interaction rules for an in-store wine kiosk, stage by stage, drawn from a shopper survey and research on choice and attention."
         >
           <AICapPreview />
         </Tile>
       </Tiles>
 
-      <Tiles cols={4} label="At Cornell" note="Design projects and psychology research.">
+      <Tiles cols={3} label="Earlier, at Cornell" note="Where the cognitive science comes from: psychology research, and design projects built on it.">
         <Tile to="/projects/weather-clock" title="Savoring Weather Clock" line="Meta Design Lab. A home device that turns live weather into a prompt to notice it.">
           <WeatherClockPreview />
         </Tile>
         <Tile to="/projects/mahsjong" title="Mah’s Jong" line="Project lead on a two-player mahjong race.">
-          <img src={mahsjongBoard} alt="" loading="lazy" />
+          <div className="mj-card" aria-hidden="true">
+            <Pile rows={[['6b', '*', '2d', '7c'], ['1b', '8c', '4d']]} />
+            <Hand tiles={['2b', '3b', '4b', '5d', '5d', '5d']} />
+          </div>
         </Tile>
         <Tile to="/research/fmri-study" title="fMRI study on food imagery" line="Affect and Cognition Lab. Ran scan sessions and wrote the data-preparation scripts.">
           <FmriPreview />
-        </Tile>
-        <Tile to="/research/visual-vs-textual" title="Visual vs. textual environmental education" line="Independent study with 172 undergraduates.">
-          <ConditionsPreview />
         </Tile>
       </Tiles>
     </Page>

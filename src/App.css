@@ -4440,3 +4440,29 @@ a:hover,
 .cond-chart b:nth-child(3) { height: 55%; }
 .cond-text b { display: block; height: 3px; border-radius: 2px; background: #9aa7ad; }
 .cond-text b:last-child { width: 60%; }
+
+/* The home line is a full sentence now; give it room. */
+.home .hero-statement {
+  max-width: 30ch;
+}
+
+/* Home card for Mah's Jong: the drawn pile and part of a hand. */
+.mj-card {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  height: 100%;
+  background: var(--tone-result-bg);
+}
+
+.mj-card > * {
+  zoom: 1.5;
+}
+
+@media (max-width: 900px) {
+  .mj-card > * {
+    zoom: 1;
+  }
+}
