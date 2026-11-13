@@ -23,13 +23,7 @@ export default function Home() {
       <Reveal className="hero" stagger>
         <Reveal.Item as="h1">Walker Strauss</Reveal.Item>
         <Reveal.Item as="p" className="hero-statement">
-          I’ve always been interested in how people make decisions and form memories and emotional associations. That led me to conversational AI.
-        </Reveal.Item>
-        <Reveal.Item as="ol" className="roots" aria-label="The path to conversational AI">
-          <li><a href="#neuroscience">Neuroscience</a></li>
-          <li><a href="#game-design">Game design</a></li>
-          <li><a href="#product-design">Product design and human factors</a></li>
-          <li className="roots-to"><a href="#conversational-ai">Conversational AI</a></li>
+          From human behavior to the limits of deploying enterprise conversational AI
         </Reveal.Item>
       </Reveal>
 
