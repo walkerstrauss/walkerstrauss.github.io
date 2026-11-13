@@ -11,13 +11,13 @@ import {
 } from 'react-router-dom';
 import { AnimatePresence, MotionConfig } from 'framer-motion';
 import './App.css';
-import ThemeToggle from "./components/ThemeToggle.jsx";
 
 import Home from './pages/Home.jsx';
 import Projects from './pages/Projects.jsx';
 import Research from './pages/Research.jsx';
 import AUI from './pages/AUI.jsx';
-import AUIEmployeeLeave from './pages/AUIEmployeeLeave.jsx';
+import AUIPayments from './pages/AUIPayments.jsx';
+import AUIReferenceAgents from './pages/AUIReferenceAgents.jsx';
 
 import AICap from './pages/AICap.jsx';
 import Mahsjong from './pages/Mahsjong.jsx';
@@ -44,7 +44,10 @@ function AnimatedRoutes() {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
         <Route path="/aui" element={<AUI />} />
-        <Route path="/aui-employee-leave" element={<AUIEmployeeLeave />} />
+        <Route path="/aui/payments" element={<AUIPayments />} />
+        <Route path="/aui/reference-agents" element={<AUIReferenceAgents />} />
+        {/* The leave case moved into the reference agents case; keep its old address working. */}
+        <Route path="/aui-employee-leave" element={<Navigate to="/aui/reference-agents" replace />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/research" element={<Research />} />
         <Route path="/projects/aicap" element={<AICap />} />
@@ -68,14 +71,15 @@ function AnimatedRoutes() {
  * the psychology and neuroscience studies. A case study lights the section it
  * belongs to, wherever its address happens to sit.
  */
-const WORK_PATHS = ['/', '/aui', '/aui-employee-leave', '/projects/aicap'];
+const WORK_PATHS = ['/', '/aui', '/aui/payments', '/aui/reference-agents', '/projects/aicap'];
 
 function Navbar() {
   const { pathname } = useLocation();
   const inWork = WORK_PATHS.includes(pathname);
+  /* On the home page the name is the headline, so the header leaves it out. */
   return (
     <nav className="navbar">
-      <Link to="/" className="logo">Walker Strauss</Link>
+      <Link to="/" className="logo" data-hidden={pathname === '/' ? 'true' : undefined}>Walker Strauss</Link>
       <div className="nav-links">
         <NavLink to="/" end className={() => (inWork ? 'active' : undefined)}>Work</NavLink>
         <NavLink
@@ -85,7 +89,6 @@ function Navbar() {
           Projects
         </NavLink>
         <NavLink to="/research">Research</NavLink>
-        <ThemeToggle />
       </div>
     </nav>
   );
@@ -94,7 +97,7 @@ function Navbar() {
 function Footer() {
   return (
     <footer className="footer">
-      <p>&copy; 2025 Walker Strauss. All rights reserved.</p>
+      <p>&copy; 2026 Walker Strauss. All rights reserved.</p>
     </footer>
   );
 }

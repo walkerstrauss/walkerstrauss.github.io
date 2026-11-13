@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { CaseLayout } from '../components/case/Case.jsx';
 import Page from '../components/Page.jsx';
 import Reveal from '../components/Reveal.jsx';
 import paperPDF from '../assets/visual-vs-textual/Comparing-the-Effects-of-Forms-of-Environmental-Education-Strauss-2023.pdf';
@@ -13,25 +14,19 @@ export default function VisualVsTextual() {
         <p className="cs-subtitle">Comparing how visual, graphical, and textual materials shape environmental attitudes.</p>
       </div>
 
+      <CaseLayout>
       <Reveal as="section" className="cs-section">
         <h2>Overview</h2>
 
         <p>
-          This study examined how different forms of environmental education (visual, graphical, and textual) affect
-          people’s environmental attitudes. Conducted at Cornell University, the research aimed to understand whether
-          visual or data-driven educational materials can evoke stronger pro-environmental values than traditional text.
-          It was completed as an independent research project under faculty mentorship in 2023.
+          This study tested whether the format of environmental education (images, infographics or text) changes its effect on environmental attitudes. I ran it as an independent research project at Cornell in 2023 under faculty mentorship.
         </p>
       </Reveal>
 
       <Reveal as="section" className="cs-section">
-        <h2>Research Focus</h2>
+        <h2>Research question</h2>
         <p>
-          The study was designed to test how message format influences the way people internalize ecological ideas.
-          Prior literature suggested that imagery of natural beauty can evoke awe and emotional connection, while
-          infographics may engage analytical reasoning and enhance message clarity. Text, meanwhile, has historically
-          been the dominant mode of education. The central question was whether these different modalities produce
-          measurable differences in environmental attitude change.
+          Earlier work suggested that images of nature evoke awe and emotional connection, and that infographics engage analytical reasoning, while text has been the default. The question was whether the three formats produce measurably different changes in environmental attitudes.
         </p>
       </Reveal>
 
@@ -61,32 +56,14 @@ export default function VisualVsTextual() {
       <Reveal as="section" className="cs-section">
         <h2>Discussion</h2>
         <p>
-          The results highlight the robustness of environmental education across media. While visual and graphical
-          materials may engage emotion and cognition differently, their impact on ecological concern appears comparable
-          to that of text-based learning. This challenges the assumption that visuals are inherently superior for
-          environmental messaging, and instead emphasizes the importance of accessibility, message framing, and emotional
-          resonance across all formats.
+          The assumption that visuals work better for environmental messaging did not hold here: the three formats had comparable effects.
         </p>
       </Reveal>
 
       <Reveal as="section" className="cs-section">
-        <h2>My Role</h2>
+        <h2>My role</h2>
         <p>
-          I independently designed and implemented the study from hypothesis formation to data analysis. This included
-          sourcing stimuli, programming the Qualtrics experiment, managing participant recruitment through SONA,
-          conducting statistical tests in SPSS, and writing the research report. The project strengthened my skills in
-          quantitative experimental design, environmental psychology, and data interpretation, while deepening my
-          understanding of how educational framing influences attitude change.
-        </p>
-      </Reveal>
-
-      <Reveal as="section" className="cs-section">
-        <h2>Reflection</h2>
-        <p>
-          Conducting this research taught me how different forms of educational material can meaningfully
-          affect the way people interpret environmental issues. It also reinforced the importance of combining emotional
-          engagement with cognitive clarity when designing educational experiences. This lesson now informs much of my
-          work in UX and behavioral design through an understanding of how presentation shapes perception and action.
+          I designed and ran the study: sourcing stimuli, building the Qualtrics experiment, recruiting through SONA, running the statistics in SPSS, and writing the report.
         </p>
       </Reveal>
 
@@ -100,6 +77,7 @@ export default function VisualVsTextual() {
         <Link to="/research" className="back-link">← Back to Research</Link>
       </Reveal>
 
+      </CaseLayout>
     </Page>
   );
 }

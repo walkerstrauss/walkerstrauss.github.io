@@ -1,0 +1,499 @@
+/* Case-study format: one reading column, section list beside it, beats with
+   one figure each. Uses the site's tokens only. */
+
+.case {
+  display: grid;
+  grid-template-columns: 12rem minmax(0, var(--column));
+  column-gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+  /* The header's meta row already ends in a rule; no second one here. */
+  margin-top: clamp(2rem, 5vw, 3rem);
+}
+
+.case-nav {
+  position: sticky;
+  top: 104px;
+  font-size: var(--fs-sm);
+}
+
+.case-nav ol {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.case-nav li {
+  position: relative;
+  padding-left: 0.85rem;
+}
+
+.case-nav li[data-sub] {
+  margin-left: 0.9rem;
+}
+
+.case-nav-group {
+  color: var(--text-tirtiary);
+  transition: color 0.2s ease;
+}
+
+.case-nav-group[data-open='true'] {
+  color: var(--text-secondary);
+}
+
+.case-nav a {
+  color: var(--text-tirtiary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+/* The marker is one element shared by the list, so it travels to the
+   section being read instead of blinking on and off. */
+.case-nav-dot {
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--tone-message-mid);
+}
+
+.case-nav a:hover,
+.case-nav a[aria-current='true'] {
+  color: var(--text);
+}
+
+@media (max-width: 1000px) {
+  .case {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .case-nav {
+    display: none;
+  }
+}
+
+/* A beat (AUI cases) and a plain section (every other case) are spaced and
+   measured the same way, so the pages scroll alike. */
+.beat,
+.case-body > .cs-section {
+  margin-top: var(--section-gap);
+  padding-top: 0;
+  border-top: 0;
+  /* Added to the page's 88px scroll padding: a jump lands 96px down. */
+  scroll-margin-top: 8px;
+}
+
+.beat:first-child,
+.case-body > .cs-section:first-child {
+  margin-top: 0.5rem;
+}
+
+.case-body > .cs-section > p,
+.case-body > .cs-section > .cs-list {
+  max-width: 62ch;
+  line-height: 1.7;
+}
+
+.case-body > .cs-links {
+  margin-top: var(--section-gap);
+}
+
+.beat-title {
+  max-width: 27ch;
+  margin: 0 0 0.9rem;
+  font-size: clamp(1.5rem, 3.1vw, 2.1rem);
+  font-weight: 450;
+  line-height: 1.18;
+  letter-spacing: -0.032em;
+  color: var(--text);
+}
+
+.beat-instead {
+  color: var(--text-tirtiary);
+}
+
+.beat > p {
+  max-width: 62ch;
+  margin: 0 0 1.25rem;
+  font-size: var(--fs-base);
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.beat > p a,
+.hub-about a {
+  color: inherit;
+  text-underline-offset: 3px;
+}
+
+/* ---- Plates ---- */
+.plate {
+  margin: 1.5rem 0 0;
+  padding: clamp(0.85rem, 2vw, 1.25rem);
+  border: 1px solid var(--rule-soft);
+  border-radius: 12px;
+  background: var(--tint);
+}
+
+.plate + .plate {
+  margin-top: 0.9rem;
+}
+
+.plate[data-tone='problem'] {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--tone-block-mid) 14%, var(--bg));
+}
+
+.plate[data-tone='solution'] {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--tone-result-mid) 15%, var(--bg));
+}
+
+.plate-label {
+  margin: 0 0 0.8rem;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text);
+}
+
+.plate-label span {
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.plate-card {
+  padding: clamp(1rem, 2.5vw, 1.6rem);
+  border-radius: 9px;
+  background: var(--bg);
+}
+
+.plate-card > figure {
+  margin: 0;
+}
+
+/* ---- Who / goal / constraint ---- */
+.trio {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem 2rem;
+  margin: 2rem 0 0;
+}
+
+.trio dt {
+  margin: 0 0 0.35rem;
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-tirtiary);
+}
+
+.trio dd {
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 700px) {
+  .trio {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---- Switch between two walkthroughs ---- */
+.case-switch {
+  display: inline-flex;
+  gap: 0.25rem;
+  margin: 0.25rem 0 0;
+  padding: 0.2rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+}
+
+.case-switch button {
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-size: var(--fs-sm);
+  color: var(--text-tirtiary);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.case-switch button[aria-pressed='true'] {
+  background: var(--text);
+  color: var(--bg);
+}
+
+/* ---- AUI page ---- */
+.hub-about {
+  max-width: var(--column);
+  /* The header's meta row already ends in a rule; no second one here. */
+  margin-top: clamp(2rem, 5vw, 3rem);
+}
+
+.hub-quote {
+  max-width: 27ch;
+  margin: 0 0 0.9rem;
+  font-size: clamp(1.5rem, 3.1vw, 2.1rem);
+  font-weight: 450;
+  line-height: 1.18;
+  letter-spacing: -0.032em;
+  color: var(--text);
+}
+
+.hub-about > p:not(.hub-quote) {
+  max-width: 60ch;
+  margin: 0;
+  font-size: var(--fs-base);
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.hub-role {
+  margin: 1.25rem 0 0;
+  border-top: 1px solid var(--rule);
+}
+
+.hub-role > div {
+  display: grid;
+  grid-template-columns: 14rem minmax(0, 1fr);
+  gap: 0.25rem 2rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.hub-role dt {
+  font-size: var(--fs-base);
+  font-weight: 500;
+  color: var(--text);
+}
+
+.hub-role dd {
+  max-width: 60ch;
+  margin: 0;
+  font-size: var(--fs-base);
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 700px) {
+  .hub-role > div {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---- Payments tile: a ticket, and the reply held for review ---- */
+.pay-preview {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  background: var(--plate);
+  color: #20353d;
+  font-size: clamp(0.75rem, 1.5vw, 0.95rem);
+}
+
+.pay-preview-flow {
+  display: grid;
+  gap: 0.6rem;
+  width: min(100%, 23rem);
+  transition: transform 0.55s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.thumb-card:hover .pay-preview-flow {
+  transform: scale(1.035);
+}
+
+.pay-preview-msg {
+  justify-self: end;
+  max-width: 85%;
+  padding: 0.55rem 0.8rem;
+  border-radius: 0.8rem 0.8rem 0.2rem 0.8rem;
+  background: var(--tone-message-bg);
+}
+
+.pay-preview-reply {
+  display: grid;
+  gap: 0.4rem;
+  max-width: 90%;
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.8rem 0.8rem 0.8rem 0.2rem;
+  background: #fff;
+}
+
+.pay-preview-reply small {
+  justify-self: start;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: var(--tone-block-bg);
+  color: var(--tone-block-ink);
+  font-size: 0.78em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pay-preview-flow {
+    transition: none;
+  }
+  .thumb-card:hover .pay-preview-flow {
+    transform: none;
+  }
+}
+
+/* Space between the last note and a caption that runs under both columns. */
+.plate .story-with-notes > figcaption {
+  margin-top: 1.1rem;
+}
+
+/* ---- Path: the stages of an engagement on one line ---- */
+.path {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 0.4rem 0 0.2rem;
+  list-style: none;
+}
+
+.path li {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 0.3rem;
+  padding: 1.5rem 1rem 0 0;
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  color: var(--text-tirtiary);
+  transition: color 0.5s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+/* The line between stages, drawn as each stage is reached. */
+.path li::before,
+.path li::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--rule);
+}
+
+.path li::after {
+  background: var(--tone-result-mid);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.path li[data-on='true']::after {
+  transform: scaleX(1);
+}
+
+.path-mark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--bg);
+  box-shadow: inset 0 0 0 1px var(--rule-strong);
+  transition: background 0.5s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.5s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.path li[data-on='true'] .path-mark {
+  background: var(--tone-result-mid);
+  box-shadow: inset 0 0 0 1px var(--tone-result-mid);
+}
+
+.path strong {
+  font-weight: 550;
+  color: var(--text-secondary);
+  transition: color 0.5s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.path li[data-on='true'] strong {
+  color: var(--text);
+}
+
+.path li[data-on='true'] {
+  color: var(--text-secondary);
+}
+
+@media (max-width: 700px) {
+  .path {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .path li {
+    padding: 0 0 1.1rem 1.5rem;
+  }
+  .path li::before,
+  .path li::after {
+    top: 0;
+    bottom: 0;
+    left: 4px;
+    right: auto;
+    width: 1px;
+    height: auto;
+  }
+  .path li::after {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  .path li[data-on='true']::after {
+    transform: scaleY(1);
+  }
+  .path-mark {
+    top: 0.35em;
+  }
+}
+
+/* ---- Outcomes: what each difficulty turned into ---- */
+.outcomes {
+  margin: 1.5rem 0 0;
+  border-top: 1px solid var(--rule);
+}
+
+.outcomes > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 0.25rem 2rem;
+  padding: 0.95rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.outcomes dt {
+  font-weight: 500;
+  color: var(--text);
+}
+
+.outcomes dd {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 700px) {
+  .outcomes > div {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .path li,
+  .path li::after,
+  .path-mark,
+  .path strong {
+    transition: none;
+  }
+}
+
+/* The path ends at its last stage: no line running on past it. */
+.path li:last-child::before,
+.path li:last-child::after {
+  display: none;
+}

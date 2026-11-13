@@ -1,0 +1,65 @@
+.aui-work-preview {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  background: var(--plate);
+  color: #182b25;
+  font-size: clamp(.75rem, 1.6vw, 1rem);
+}
+/* The plate stays still and the diagram zooms, like the other home tiles. */
+.aui-work-flow {
+  display: grid;
+  justify-items: center;
+  gap: clamp(12px, 2vw, 24px);
+  width: 100%;
+  transition: transform 0.55s cubic-bezier(0.2, 0, 0.2, 1);
+}
+.thumb-card:hover .aui-work-flow {
+  transform: scale(1.035);
+}
+@media (prefers-reduced-motion: reduce) {
+  .aui-work-flow { transition: none; }
+  .thumb-card:hover .aui-work-flow { transform: none; }
+}
+.aui-work-inputs,
+.aui-work-results {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .5rem;
+  width: min(100%, 25rem);
+  text-align: center;
+}
+.aui-work-inputs span,
+.aui-work-results span {
+  padding: .55rem .25rem;
+  border-radius: .45rem;
+  background: #fff;
+}
+.aui-work-results span {
+  background: #d8e8dd;
+}
+.aui-work-check {
+  position: relative;
+  display: flex;
+  gap: .75rem;
+  padding: .65rem .8rem;
+  border-radius: .45rem;
+  background: #244438;
+  color: #fff;
+}
+.aui-work-check::before,
+.aui-work-check::after {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #244438;
+  content: '↓';
+}
+.aui-work-check::before { bottom: 100%; }
+.aui-work-check::after { top: 100%; }
+.aui-work-check span + span {
+  padding-left: .75rem;
+  border-left: 1px solid #9bb1a4;
+}

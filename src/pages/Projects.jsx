@@ -11,7 +11,7 @@ const groups = [
       {
         title: "Savoring Weather Clock",
         label: "Meta Design Lab",
-        description: "Arduino-based interactive clock merging weather data, AI, and psychology.",
+        description: "A home device that turns live weather into a prompt to notice it.",
         to: "/projects/weather-clock",
       },
     ],
@@ -22,19 +22,19 @@ const groups = [
       {
         title: "Mah's Jong",
         label: "Cornell · Game Design",
-        description: "Competitive Mahjong-inspired 1v1 strategy game built in C++/CUGL.",
+        description: "Project lead on a two-player strategy game built in C++ on the CUGL framework.",
         to: "/projects/mahsjong",
       },
       {
         title: "Death of a Deal",
         label: "Cornell · Game Design",
-        description: "A Java/LibGDX physics platformer exploring narrative-driven decision making.",
+        description: "A physics platformer built in Java with LibGDX by a team of nine.",
         to: "/projects/death-of-a-deal",
       },
       {
         title: "Tojiba Crash",
         label: "Sanko Game Corp",
-        description: "Web-based game inspired by Nanaca Crash, developed at Sanko Game Corp.",
+        description: "A browser game built for a client in HTML5, CSS and JavaScript.",
         to: "/projects/tojiba-crash",
       },
     ],
@@ -45,10 +45,9 @@ export default function Projects() {
   return (
     <Page className="projects-container">
       <div>
-        <span className="cs-eyebrow">Prototypes &amp; games</span>
-        <h1 className="cs-title">Projects</h1>
+                <h1 className="cs-title">Projects</h1>
         <p className="cs-subtitle">
-          A physical-computing prototype and three games.
+          A physical-computing prototype and three games, from Cornell and a client project.
         </p>
       </div>
 

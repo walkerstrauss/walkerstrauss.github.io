@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { CaseLayout } from '../components/case/Case.jsx';
 import Page from '../components/Page.jsx';
 import Reveal from '../components/Reveal.jsx';
-import weatherClockImg from '../assets/weather-clock/clock.png';
-import weatherClockInsideImg from '../assets/weather-clock/inside2.png';
+import ClockFigure from '../components/weatherclock/ClockFigure.jsx';
+import InsideFigure from '../components/weatherclock/InsideFigure.jsx';
 
 export default function WeatherClock() {
   return (
@@ -11,138 +12,64 @@ export default function WeatherClock() {
       <div className="cs-hero">
         <span className="cs-eyebrow">Meta Design Lab · Cornell University</span>
         <h1 className="cs-title">Savoring Weather Clock</h1>
-        <p className="cs-subtitle">An ambient home device translating live weather data into reflective prompts.</p>
+        <p className="cs-subtitle">A home device that turns live weather into a prompt to notice it.</p>
       </div>
 
+      <CaseLayout>
       <Reveal as="section" className="cs-section">
         <h2>Overview</h2>
 
         <p>
-          The <strong>Savoring Weather Clock</strong> is an interactive home device that transforms live weather data
-          into poetic and sensory experiences. Developed within the <em>Meta Design Lab</em> at Cornell University under
-          the guidance of <strong>Professor Jay Yoon</strong>, the project explores how design and computation can
-          encourage reflection, gratitude, and environmental awareness. I led the backend system architecture and
-          overall product design, creating the logic that connects the clock’s sensors, lighting, motion, and display
-          into a single expressive system. <strong>Gaeul Han</strong> and I co-developed the concept through weekly
-          brain-writing sessions with Professor Yoon, and <strong>Xinyi Zhou</strong> later joined to help implement the
-          physical system, focusing on the motor, touch sensor, and interactive lighting.
+          The Savoring Weather Clock is a home device that turns live weather into a short prompt to notice it, using light, motion and a line of generated text. It was built in the Meta Design Lab at Cornell under Professor Jay Yoon. I led product design and wrote the system code. Gaeul Han and I developed the concept, and Xinyi Zhou built the motor, touch sensor and lighting.
         </p>
       </Reveal>
 
       <Reveal as="section" className="cs-section">
-        <h2>Concept and Intent</h2>
+        <h2>Concept</h2>
         <p>
-          The Savoring Weather Clock began as part of an exploration in the Meta Design Lab into technologies that help
-          people slow down and notice the world around them. The central question was how an everyday object might make
-          environmental awareness feel emotional rather than informational. Drawing from <em>savoring theory</em> in
-          positive psychology, we envisioned a device that interprets real-time weather data and responds with gentle
-          movement, light, and language. The goal was not to alert or inform, but to quietly invite reflection. The
-          clock transforms temperature, humidity, and wind into moments of poetic attention that fit naturally into the
-          rhythm of daily life.
+          The lab was exploring technology that helps people slow down. The question for this project was how an everyday object could make the weather something a person notices, not information they check. The design draws on <em>savoring theory</em> from positive psychology: the clock is not meant to alert or inform.
         </p>
       </Reveal>
 
       <Reveal as="section" className="cs-section">
-        <h2>Design Process</h2>
+        <h2>Process</h2>
         <p>
-          The project developed through a series of iterative idea exchanges in the lab. Each week, Gaeul and I created
-          new concept sketches and wrote short descriptions of potential interactions, then shared and refined them in
-          meetings with Professor Yoon. Through this process, we explored how physical gestures and poetic language
-          could represent natural changes in a way that felt personal and calm. The idea of a weather clock emerged from
-          these conversations as a metaphor for time, attention, and change. Once the conceptual direction was
-          established, <strong>Xinyi Zhou</strong> joined the project to help prototype the system and develop its
-          physical expressivity through motor behavior and lighting.
+          Each week Gaeul and I sketched concepts and wrote short descriptions of possible interactions, then refined them with Professor Yoon. The weather clock came out of those sessions. Once the direction was set, Xinyi Zhou joined to prototype the motor behavior and lighting.
         </p>
 
         <div 
           className="project-image"
           style={{ margin: '2rem 0' }}
         >
-          <img 
-            src={weatherClockImg} 
-            alt="The Savoring Weather Clock prototype showing lighting and display integration"
-            style={{
-              width: '100%',
-              maxWidth: '400px'
-            }}
-          />
+          <ClockFigure label="The Savoring Weather Clock prototype showing lighting and display integration" />
         </div>
       </Reveal>
 
       <Reveal as="section" className="cs-section">
-        <h2>Interaction Framework</h2>
+        <h2>Interaction</h2>
         <p>
-          I structured the interaction logic of the clock around four savoring strategies: sensory-perceptual
-          sharpening, counting blessings, memory building, and sharing with others. Each weather condition activates a
-          distinct combination of light, motion, and generated text that encourages a short moment of reflection. When
-          it rains, the device might emit a soft blue ripple and display a message about stillness. On a clear day, it
-          might produce a warm amber glow and a phrase about warmth or renewal. The system is designed to move at a
-          slower tempo than most devices, creating an atmosphere of awareness that unfolds gently over time.
+          I organized the clock’s behavior around four savoring strategies: sensory-perceptual sharpening, counting blessings, memory building, and sharing with others. Each weather condition triggers its own combination of light, motion and generated text. Rain might bring a soft blue ripple and a line about stillness; a clear day, a warm amber glow. The clock moves more slowly than most devices on purpose.
         </p>
       </Reveal>
 
       <Reveal as="section" className="cs-section">
-        <h2>System Integration</h2>
+        <h2>System</h2>
         <p>
-          My main responsibility was connecting all the modules into a cohesive system. I designed and programmed the
-          backend architecture using an <em>Arduino UNO R4 WiFi</em> microcontroller that receives real-time weather
-          data from the Google Maps Weather API, parses it using <em>ArduinoJson</em>, and requests a short reflective message
-          from the OpenAI API. I wrote modular code for the lighting, motor, display, and touch components, creating a
-          shared timing model that synchronizes the emotional rhythm of the device. The challenge was not only to make
-          the system functional but to make it feel alive and responsive. Every sequence of movement, color, and text
-          was adjusted to evoke a sense of presence and emotional coherence.
+          An <em>Arduino UNO R4 WiFi</em> fetches live weather from the Google Maps Weather API, parses it with <em>ArduinoJson</em>, and requests a short message from the OpenAI API. I wrote separate modules for the lighting, motor, display and touch sensor, and a shared timing model that keeps them in step.
         </p>
 
         <div 
           className="project-image"
           style={{ margin: '2rem 0' }}
         >
-          <img 
-            src={weatherClockInsideImg} 
-            alt="The inside of the Savoring Weather Clock prototype showing the parts and wiring"
-            style={{
-              width: '100%',
-              maxWidth: '400px'
-            }}
-          />
+          <InsideFigure label="The inside of the Savoring Weather Clock prototype showing the parts and wiring" />
         </div>
       </Reveal>
 
       <Reveal as="section" className="cs-section">
-        <h2>Collaboration and Refinement</h2>
+        <h2>Design decisions</h2>
         <p>
-          While I managed the system logic and data flow, <strong>Xinyi Zhou</strong> focused on the physical
-          implementation. She developed the motor gestures, calibrated the touch sensor, and choreographed the light
-          patterns that define the clock’s visible personality. Together, we iterated on timing and tone to make sure
-          the physical and digital elements moved in harmony. The collaboration allowed us to merge two perspectives:
-          mine centered on the system’s behavioral logic and emotional mapping, and hers on the tactile and sensory
-          qualities that bring those ideas to life.
-        </p>
-      </Reveal>
-
-      <Reveal as="section" className="cs-section">
-        <h2>Product Design Contributions</h2>
-        <p>
-          As design lead, I was responsible for defining the clock’s character and emotional rhythm. I built a system
-          that translates weather data into expressive states, wrote the logic that connects them, and documented each
-          behavior in narrative form to preserve design intent during implementation. I also guided decisions about
-          when the clock should speak or remain silent, and how to time its transitions so they would feel natural. My
-          goal was to make the device feel companionable and intentional, not reactive or performative. Through this
-          process, the clock became a model for designing emotion-centered technology that responds to the world
-          quietly, but meaningfully.
-        </p>
-      </Reveal>
-
-      <Reveal as="section" className="cs-section">
-        <h2>Reflection</h2>
-        <p>
-          Working on the Savoring Weather Clock with <strong>Professor Jay Yoon</strong>, <strong>Gaeul Han</strong>,
-          and <strong>Xinyi Zhou</strong> showed me how product design can blend research, art, and engineering into a
-          single practice. The project taught me to think of data as an expressive material and interaction as a form of
-          empathy. It deepened my understanding of how technology can be poetic, how software can support emotional
-          nuance, and how collaborative design can turn abstract theory into tangible experience. The finished prototype
-          embodies this approach, functioning not only as a device that reports the weather but as one that invites
-          awareness and gratitude for the simple act of noticing it.
+          I decided when the clock speaks and when it stays silent, and how long its transitions take. I documented each behavior in narrative form so the intent survived implementation.
         </p>
       </Reveal>
 
@@ -158,6 +85,7 @@ export default function WeatherClock() {
         <Link to="/projects" className="back-link">← Back to Projects</Link>
       </Reveal>
 
+      </CaseLayout>
     </Page>
   );
 }

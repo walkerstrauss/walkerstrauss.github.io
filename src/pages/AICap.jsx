@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { CaseLayout } from '../components/case/Case.jsx';
 import Page from '../components/Page.jsx';
 import Reveal from '../components/Reveal.jsx';
 import SurveyBars from '../components/aicap/SurveyBars.jsx';
@@ -29,6 +30,7 @@ export default function AICap() {
         </div>
       </div>
 
+      <CaseLayout>
       <Reveal as="section" className="cs-section">
         <h2>Problem</h2>
         <p>
@@ -224,20 +226,11 @@ export default function AICap() {
         </p>
       </Reveal>
 
-      <Reveal as="section" className="cs-section">
-        <h2>Reflection</h2>
-        <p>
-          Designing AICap reinforced for me that good interaction design is as
-          much about emotion as it is about logic. It also showed me how a
-          design framework can guide AI behavior so it feels deliberate and
-          coherent.
-        </p>
-      </Reveal>
-
       <Reveal as="section" className="cs-links">
         <a href="https://onki.ai" target="_blank" rel="noopener noreferrer" className="project-link">Visit Onki →</a>
         <Link to="/" className="back-link">← Back to Work</Link>
       </Reveal>
+      </CaseLayout>
     </Page>
   );
 }

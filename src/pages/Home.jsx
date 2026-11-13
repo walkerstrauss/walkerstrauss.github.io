@@ -1,109 +1,103 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import Page from '../components/Page.jsx';
 import Reveal from '../components/Reveal.jsx';
-import MahsjongThumb from '../assets/mahsjong/mahsjong-thumb.mp4';
-import WeatherClockThumb from '../assets/weather-clock/weatherclock-thumb.png';
-import FMRIThumb from '../assets/fmri/fmri-thumb.png';
-import LeavePreview from '../components/LeavePreview.jsx';
+import { Tile, Tiles } from '../components/Tiles.jsx';
+import AUIWorkPreview from '../components/AUIWorkPreview.jsx';
 import AICapPreview from '../components/aicap/AICapPreview.jsx';
 
-const projects = [
+/* Work: the case studies from jobs. Then prototypes, research and games. */
+const work = [
   {
-    title: "Agents that act on records under policy",
-    subtitle: "AUI · Two demo agents for financial services and HR: card disputes and leave requests.",
-    link: "/aui",
-    preview: LeavePreview,
+    title: 'Building and deploying enterprise agents at AUI',
+    line: 'AUI · Reference agents that act on records under policy, and a payments support agent taken to production.',
+    to: '/aui',
+    preview: AUIWorkPreview,
   },
   {
-    title: "Voice and touch for wine recommendations",
-    subtitle: "Onki · Led kiosk interaction design and tested how the assistant handled shopper preferences",
-    link: "/projects/aicap",
+    title: 'Voice and touch for wine recommendations',
+    line: 'Onki · Led kiosk interaction design and tested how the assistant handled shopper preferences.',
+    to: '/projects/aicap',
     // Coded kiosk cycling through the flow, the same component as the case study.
     preview: AICapPreview,
   },
+];
+
+/* Everything else is a plain list: a title and one line each. */
+const more = [
   {
-    title: "Savoring Weather Clock",
-    subtitle: "Arduino-based Interactive Clock Merging Weather Data, AI, and Psychology",
-    link: "/projects/weather-clock",
-    image: WeatherClockThumb,
+    label: 'Meta Design Lab',
+    title: 'Savoring Weather Clock',
+    line: 'A home device that turns live weather into a prompt to notice it.',
+    to: '/projects/weather-clock',
   },
   {
-    title: "fMRI Study on Food Imagery",
-    subtitle: "Exploring Hypothalamic Responses to Food Cues",
-    link: "/research/fmri-study",
-    image: FMRIThumb,
+    label: 'Cornell · Research',
+    title: 'fMRI study on food imagery',
+    line: 'Ran scan sessions and wrote the scripts that prepared imaging data for analysis.',
+    to: '/research/fmri-study',
   },
   {
-    title: "Mah's Jong",
-    subtitle: "Competitive Mahjong-inspired 1v1 Strategy Game",
-    link: "/projects/mahsjong",
-    video: MahsjongThumb,
+    label: 'Cornell · Game design',
+    title: 'Mah’s Jong',
+    line: 'Project lead on a two-player strategy game built in C++.',
+    to: '/projects/mahsjong',
   },
 ];
 
 const contacts = [
-  { label: "Email", href: "mailto:walkerstrauss@gmail.com" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/walkerstrauss" },
-  { label: "GitHub", href: "https://github.com/walkerstrauss" },
+  { label: 'Email', href: 'mailto:walkerstrauss@gmail.com' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/walkerstrauss' },
+  { label: 'GitHub', href: 'https://github.com/walkerstrauss' },
 ];
+
+/* The name, what he does, and where to reach him: centered, and still. It
+   fades in once with the rest of the page and does nothing on scroll. */
+function Hero() {
+  return (
+    <Reveal className="home-container hero" stagger>
+      <Reveal.Item as="h1">Walker Strauss</Reveal.Item>
+      <Reveal.Item as="p" className="hero-statement">
+        Building human-centered conversational AI products for regulated industries
+      </Reveal.Item>
+      <Reveal.Item className="contact-links">
+        {contacts.map((c) => (
+          <a key={c.label} href={c.href} target="_blank" rel="noopener noreferrer">
+            {c.label}
+          </a>
+        ))}
+      </Reveal.Item>
+    </Reveal>
+  );
+}
 
 export default function Home() {
   return (
-    <Page>
-      <div className="home-container">
-        <div
-          className="hero"
-        >
-          <h1>Walker Strauss</h1>
+    <Page className="home">
+      <Hero />
 
-          <h2>
-            Building human-centered conversational AI products for regulated industries
-          </h2>
-
-          <div className="contact-links">
-            {contacts.map((c) => (
-              <a
-                key={c.label}
-                href={c.href}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {c.label}
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <Reveal className="thumb-grid" stagger>
-        {projects.map((proj) => (
-          <Reveal.Item as={Link} key={proj.link} to={proj.link} className="thumb-card">
-            <div className="thumb-media">
-              {proj.preview ? (
-                <proj.preview />
-              ) : proj.video ? (
-                <video
-                  src={proj.video}
-                  className="thumb-image"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                />
-              ) : (
-                <img src={proj.image} alt={proj.title} className="thumb-image" />
-              )}
-            </div>
-
-            <div className="thumb-caption">
-              <h3>{proj.title}</h3>
-              <p>{proj.subtitle}</p>
-            </div>
-          </Reveal.Item>
+      <Tiles cols={2} label="Work">
+        {work.map((item) => (
+          <Tile key={item.to} to={item.to} title={item.title} line={item.line}>
+            <item.preview />
+          </Tile>
         ))}
-      </Reveal>
+      </Tiles>
 
+      <section className="tiles-group">
+        <span className="section-label">Projects and research</span>
+        <Reveal className="cs-index" stagger>
+          {more.map((item) => (
+            <Reveal.Item as={Link} key={item.to} to={item.to} className="cs-index-item">
+              <div className="cs-index-label">{item.label}</div>
+              <div>
+                <h3 className="cs-index-title">{item.title}</h3>
+                <p className="cs-index-desc">{item.line}</p>
+              </div>
+              <span className="cs-index-arrow" aria-hidden="true">→</span>
+            </Reveal.Item>
+          ))}
+        </Reveal>
+      </section>
     </Page>
   );
 }
