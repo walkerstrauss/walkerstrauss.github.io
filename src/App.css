@@ -223,7 +223,7 @@ footer p {
 }
 
 .navbar .logo {
-  font-weight: 550;
+  font-weight: 400;
   color: var(--text);
   text-decoration: none;
   font-size: var(--fs-base);

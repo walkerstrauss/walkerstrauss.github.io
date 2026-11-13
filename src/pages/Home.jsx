@@ -8,15 +8,15 @@ import AICapPreview from '../components/aicap/AICapPreview.jsx';
 
 /*
  * The whole site on one page, in the case-study layout: the outline on the
- * left is the path from research to product, and the blue dot follows it down.
- * Order is Walker's choice (S341): research first, then projects, then the
- * two jobs. Each stop links to its own page.
+ * left runs from the most recent work back to the research it grew from, and
+ * the blue dot follows it down. Order is Walker's choice (S342): reverse
+ * chronological. Each stop links to its own page.
  */
 const SECTIONS = [
-  { id: 'research', label: 'Research' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'onki', label: 'Onki' },
   { id: 'aui', label: 'AUI' },
+  { id: 'onki', label: 'Onki' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'research', label: 'Research' },
 ];
 
 const research = [
@@ -89,13 +89,17 @@ export default function Home() {
       </Reveal>
 
       <CaseLayout sections={SECTIONS}>
-        <Beat id="research" eyebrow="Research · Cornell" title="Psychology and neuroscience research">
-          <p>The behavioral and cognitive research that grounds how I design.</p>
-          <Rows items={research} />
-        </Beat>
-
-        <Beat id="projects" eyebrow="Projects" title="A physical-computing prototype and three games">
-          <Rows items={projects} />
+        <Beat id="aui" eyebrow="AUI · Dec 2025 – Nov 2026" title="Enterprise agents, from first build to production">
+          <p>
+            In Product Operations I built reference agents, took two
+            customers’ support agents from requirements to release, and
+            onboarded customer teams.
+          </p>
+          <Tiles cols={1}>
+            <Tile to="/aui" title="Building and deploying enterprise agents at AUI" line="Two case studies: reference agents, and two customer support rollouts">
+              <AUIWorkPreview />
+            </Tile>
+          </Tiles>
         </Beat>
 
         <Beat id="onki" eyebrow="Onki" title="A wine kiosk shoppers can talk to or tap">
@@ -110,17 +114,13 @@ export default function Home() {
           </Tiles>
         </Beat>
 
-        <Beat id="aui" eyebrow="AUI · Dec 2025 – Nov 2026" title="Enterprise agents, from first build to production">
-          <p>
-            In Product Operations I built reference agents, took two
-            customers’ support agents from requirements to release, and
-            onboarded customer teams.
-          </p>
-          <Tiles cols={1}>
-            <Tile to="/aui" title="Building and deploying enterprise agents at AUI" line="Two case studies: reference agents, and two customer support rollouts">
-              <AUIWorkPreview />
-            </Tile>
-          </Tiles>
+        <Beat id="projects" eyebrow="Projects" title="A physical-computing prototype and three games">
+          <Rows items={projects} />
+        </Beat>
+
+        <Beat id="research" eyebrow="Research · Cornell" title="Psychology and neuroscience research">
+          <p>The behavioral and cognitive research that grounds how I design.</p>
+          <Rows items={research} />
         </Beat>
       </CaseLayout>
     </Page>

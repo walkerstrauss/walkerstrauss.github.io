@@ -72,10 +72,9 @@ const CONTACTS = [
 ];
 
 function Navbar() {
-  const { pathname } = useLocation();
   return (
     <nav className="navbar">
-      <Link to="/" className="logo" data-hidden={pathname === '/' ? 'true' : undefined}>Walker Strauss</Link>
+      <Link to="/" className="logo">Walker Strauss</Link>
       <div className="nav-links">
         {CONTACTS.map((c) => (
           <a key={c.label} href={c.href} target="_blank" rel="noopener noreferrer">{c.label}</a>
