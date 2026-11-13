@@ -1454,14 +1454,15 @@ footer p {
 
 /* ============================================================
    AICAP KIOSK: coded recreation of the Onki prototype screen.
-   Redrawn in the site's own colours and type (Walker, S355).
+   The screen keeps the prototype's gold and green; ad panels, type and
+   everything around the screen use the site's colours (Walker, S355, S361).
    ============================================================ */
 .kiosk {
-  --k-olive: #e5eff3;
-  --k-pale: #f6f8fa;
+  --k-olive: #e3e7c0;
+  --k-pale: #f3f4e4;
   --k-ink: #1d1d20;
   --k-muted: #6b6b70;
-  --k-tag: #3f7a99;
+  --k-tag: #a69477;
   --k-ring: #1d1d20;
   position: relative;
   container-type: inline-size;
@@ -1484,7 +1485,7 @@ footer p {
 }
 
 .k-camera.is-sensing {
-  background: #8fc0d6;
+  background: #9fd39a;
 }
 
 .k-camera.is-sensing::before,
@@ -1493,7 +1494,7 @@ footer p {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 1px solid #8fc0d6;
+  border: 1px solid #9fd39a;
   animation: k-ripple 2s ease-out infinite;
 }
 
@@ -1597,7 +1598,7 @@ footer p {
   width: 3.2em;
   height: 3.2em;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #b9d6e3, #3f7a99 70%);
+  background: radial-gradient(circle at 30% 30%, #f0c79c, #c9a77a 55%, #cfd5a6);
 }
 
 .k-eyes {
@@ -1631,7 +1632,7 @@ footer p {
   width: 1.4em;
   height: 1.4em;
   border-radius: 50%;
-  background: #3f7a99;
+  background: #6f8a6e;
   color: #fff;
 }
 
@@ -2015,12 +2016,12 @@ footer p {
 .cs-decisions > .ax-scrub { margin: 1.25rem 0 3rem; }
 
 .ax-scrub {
-  --k-olive: #e5eff3;
-  --k-pale: #f6f8fa;
+  --k-olive: #e3e7c0;
+  --k-pale: #f3f4e4;
   --k-ink: #1d1d20;
   --k-muted: #6b6b70;
-  --k-tag: #3f7a99;
-  --k-select: #3f7a99;
+  --k-tag: #a69477;
+  --k-select: #4f8a4c;
   position: relative;
   height: var(--ax-len);
   margin: 0;
@@ -2122,7 +2123,7 @@ footer p {
 .ax-caption-card p { flex: 1; }
 
 .ax-caption-card mark {
-  background: #d3e4ec;
+  background: #f5e7a8;
   color: inherit;
   padding: 0 0.1em;
   border-radius: 2px;
@@ -2143,7 +2144,7 @@ footer p {
   width: 2.9em;
   height: 2.9em;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #b9d6e3, #3f7a99 70%);
+  background: radial-gradient(circle at 30% 30%, #f0c79c, #c9a77a 55%, #cfd5a6);
 }
 
 .ax-eyes { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 0.4em; }
@@ -2158,7 +2159,7 @@ footer p {
   width: 1.3em;
   height: 1.3em;
   border-radius: 50%;
-  background: #3f7a99;
+  background: #6f8a6e;
   color: #fff;
 }
 

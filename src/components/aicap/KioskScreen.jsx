@@ -84,14 +84,14 @@ function Avatar({ speaking, muted }) {
 }
 
 export function Bottle({ tone = 'red', className = '', children }) {
-  const fill = tone === 'white' ? '#c9dbe4' : tone === 'blank' ? '#1d1d20' : '#20353d';
+  const fill = tone === 'white' ? '#cfc58a' : tone === 'blank' ? '#1d1d20' : '#2a1719';
   const cap = tone === 'white' ? '#8a8f96' : '#1d1d20';
   return (
     <div className={`k-bottle k-bottle-${tone} ${className}`}>
       <svg viewBox="0 0 60 200" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
         <path d="M23 6h14v44c0 9 17 20 17 38v104a5 5 0 0 1-5 5H11a5 5 0 0 1-5-5V88c0-18 17-29 17-38z" fill={fill} />
         <rect x="23" y="4" width="14" height="22" rx="2" fill={cap} />
-        {tone !== 'blank' && <rect x="9" y="112" width="42" height="52" rx="1.5" fill="#f6f8fa" />}
+        {tone !== 'blank' && <rect x="9" y="112" width="42" height="52" rx="1.5" fill="#efe9d8" />}
       </svg>
       {children}
     </div>
