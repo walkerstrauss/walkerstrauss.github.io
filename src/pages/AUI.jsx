@@ -20,8 +20,8 @@ const CASES = [
   {
     to: '/aui/payments',
     preview: PaymentsPreview,
-    title: 'Taking a payments support agent from requirements to rollout',
-    line: 'Scoping what the agent could do, and letting the support team review it before it went live.',
+    title: 'Taking two customer support agents from requirements to rollout',
+    line: 'Payments and transit support: scoping, ticketing integration, and review by each support team before release.',
   },
 ];
 
@@ -37,8 +37,8 @@ export default function AUI() {
       <header className="cs-hero">
         <h1 className="cs-title">Building and deploying enterprise agents at AUI</h1>
         <p className="cs-subtitle">
-          I built reference agents, took a customer’s support agent from
-          requirements to production, and onboarded customer teams onto the
+          I built reference agents, took two customers’ support agents from
+          requirements to release, and onboarded customer teams onto the
           tools to build their own.
         </p>
         <div className="cs-meta">
@@ -79,7 +79,7 @@ export default function AUI() {
       </section>
 
       <section className="cs-links">
-        <Link to="/" className="back-link">← Back to Work</Link>
+        <Link to="/" className="back-link">← Back to home</Link>
       </section>
     </Page>
   );

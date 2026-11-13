@@ -1,29 +1,40 @@
 import { Link } from 'react-router-dom';
 import Page from '../components/Page.jsx';
 import Reveal from '../components/Reveal.jsx';
+import { Beat, CaseLayout } from '../components/case/Case.jsx';
 import { Tile, Tiles } from '../components/Tiles.jsx';
 import AUIWorkPreview from '../components/AUIWorkPreview.jsx';
 import AICapPreview from '../components/aicap/AICapPreview.jsx';
 
-/* Work: the case studies from jobs. Then prototypes, research and games. */
-const work = [
+/*
+ * The whole site on one page, in the case-study layout: the outline on the
+ * left is the path from research to product, and the blue dot follows it down.
+ * Order is Walker's choice (S341): research first, then projects, then the
+ * two jobs. Each stop links to its own page.
+ */
+const SECTIONS = [
+  { id: 'research', label: 'Research' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'onki', label: 'Onki' },
+  { id: 'aui', label: 'AUI' },
+];
+
+const research = [
   {
-    title: 'Enterprise agents at AUI, from first build to production',
-    line: 'Product Operations · Built reference agents, took a customer’s payments support agent live, and onboarded customer teams.',
-    to: '/aui',
-    preview: AUIWorkPreview,
+    label: '2023 – 2025',
+    title: 'fMRI study on food imagery and the hypothalamus',
+    line: 'Affect and Cognition Lab. Helped run scan sessions and wrote the scripts that prepared imaging and behavioral data for analysis.',
+    to: '/research/fmri-study',
   },
   {
-    title: 'A wine kiosk shoppers can talk to or tap',
-    line: 'Onki · Led interaction design for an in-store kiosk. A shopper survey made touch a complete path, not a backup for voice.',
-    to: '/projects/aicap',
-    // Coded kiosk cycling through the flow, the same component as the case study.
-    preview: AICapPreview,
+    label: '2023',
+    title: 'Visual vs. textual environmental education',
+    line: 'Independent study with 172 undergraduates comparing how images, infographics and text change environmental attitudes.',
+    to: '/research/visual-vs-textual',
   },
 ];
 
-/* Everything else is a plain list: a title and one line each. */
-const more = [
+const projects = [
   {
     label: 'Meta Design Lab',
     title: 'Savoring Weather Clock',
@@ -31,73 +42,87 @@ const more = [
     to: '/projects/weather-clock',
   },
   {
-    label: 'Cornell · Research',
-    title: 'fMRI study on food imagery',
-    line: 'Ran scan sessions and wrote the scripts that prepared imaging data for analysis.',
-    to: '/research/fmri-study',
+    label: 'Cornell · Game design',
+    title: 'Mah’s Jong',
+    line: 'Project lead on a two-player mahjong race. A case study in five design decisions.',
+    to: '/projects/mahsjong',
   },
   {
     label: 'Cornell · Game design',
-    title: 'Mah’s Jong',
-    line: 'Project lead on a two-player strategy game built in C++.',
-    to: '/projects/mahsjong',
+    title: 'Death of a Deal',
+    line: 'A physics platformer built in Java with LibGDX by a team of nine.',
+    to: '/projects/death-of-a-deal',
+  },
+  {
+    label: 'Sanko Game Corp',
+    title: 'Tojiba Crash',
+    line: 'A browser game built for a client in HTML5, CSS and JavaScript.',
+    to: '/projects/tojiba-crash',
   },
 ];
 
-const contacts = [
-  { label: 'Email', href: 'mailto:walkerstrauss@gmail.com' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/walkerstrauss' },
-  { label: 'GitHub', href: 'https://github.com/walkerstrauss' },
-];
-
-/* The name, what he does, and where to reach him: centered, and still. It
-   fades in once with the rest of the page and does nothing on scroll. */
-function Hero() {
+function Rows({ items }) {
   return (
-    <Reveal className="home-container hero" stagger>
-      <Reveal.Item as="h1">Walker Strauss</Reveal.Item>
-      <Reveal.Item as="p" className="hero-statement">
-        Building human-centered conversational AI products for regulated industries
-      </Reveal.Item>
-      <Reveal.Item className="contact-links">
-        {contacts.map((c) => (
-          <a key={c.label} href={c.href} target="_blank" rel="noopener noreferrer">
-            {c.label}
-          </a>
-        ))}
-      </Reveal.Item>
+    <Reveal className="cs-index" stagger>
+      {items.map((item) => (
+        <Reveal.Item as={Link} key={item.to} to={item.to} className="cs-index-item">
+          <div className="cs-index-label">{item.label}</div>
+          <div>
+            <h3 className="cs-index-title">{item.title}</h3>
+            <p className="cs-index-desc">{item.line}</p>
+          </div>
+          <span className="cs-index-arrow" aria-hidden="true">→</span>
+        </Reveal.Item>
+      ))}
     </Reveal>
   );
 }
 
 export default function Home() {
   return (
-    <Page className="home">
-      <Hero />
+    <Page className="cs-page home">
+      <Reveal className="hero" stagger>
+        <Reveal.Item as="h1">Walker Strauss</Reveal.Item>
+        <Reveal.Item as="p" className="hero-statement">
+          Building human-centered conversational AI products for regulated industries
+        </Reveal.Item>
+      </Reveal>
 
-      <Tiles cols={2} label="Work">
-        {work.map((item) => (
-          <Tile key={item.to} to={item.to} title={item.title} line={item.line}>
-            <item.preview />
-          </Tile>
-        ))}
-      </Tiles>
+      <CaseLayout sections={SECTIONS}>
+        <Beat id="research" eyebrow="Research · Cornell" title="Psychology and neuroscience research">
+          <p>The behavioral and cognitive research that grounds how I design.</p>
+          <Rows items={research} />
+        </Beat>
 
-      <section className="tiles-group">
-        <span className="section-label">Projects and research</span>
-        <Reveal className="cs-index" stagger>
-          {more.map((item) => (
-            <Reveal.Item as={Link} key={item.to} to={item.to} className="cs-index-item">
-              <div className="cs-index-label">{item.label}</div>
-              <div>
-                <h3 className="cs-index-title">{item.title}</h3>
-                <p className="cs-index-desc">{item.line}</p>
-              </div>
-              <span className="cs-index-arrow" aria-hidden="true">→</span>
-            </Reveal.Item>
-          ))}
-        </Reveal>
-      </section>
+        <Beat id="projects" eyebrow="Projects" title="A physical-computing prototype and three games">
+          <Rows items={projects} />
+        </Beat>
+
+        <Beat id="onki" eyebrow="Onki" title="A wine kiosk shoppers can talk to or tap">
+          <p>
+            I led interaction design for an in-store kiosk. A shopper survey
+            made touch a complete path, not a backup for voice.
+          </p>
+          <Tiles cols={1}>
+            <Tile to="/projects/aicap" title="Voice and touch for wine recommendations" line="Read the case study">
+              <AICapPreview />
+            </Tile>
+          </Tiles>
+        </Beat>
+
+        <Beat id="aui" eyebrow="AUI · Dec 2025 – Nov 2026" title="Enterprise agents, from first build to production">
+          <p>
+            In Product Operations I built reference agents, took two
+            customers’ support agents from requirements to release, and
+            onboarded customer teams.
+          </p>
+          <Tiles cols={1}>
+            <Tile to="/aui" title="Building and deploying enterprise agents at AUI" line="Two case studies: reference agents, and two customer support rollouts">
+              <AUIWorkPreview />
+            </Tile>
+          </Tiles>
+        </Beat>
+      </CaseLayout>
     </Page>
   );
 }

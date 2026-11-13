@@ -60,7 +60,7 @@ export default function TojibaCrash() {
         >
           View on GitHub →
         </a>
-        <Link to="/projects" className="back-link">← Back to Projects</Link>
+        <Link to="/" className="back-link">← Back to home</Link>
       </Reveal>
 
       </CaseLayout>

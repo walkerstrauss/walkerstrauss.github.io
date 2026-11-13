@@ -351,7 +351,8 @@
 /* ---- Path: the stages of an engagement on one line ---- */
 .path {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
   gap: 0;
   margin: 0;
   padding: 0.4rem 0 0.2rem;
@@ -427,6 +428,7 @@
 
 @media (max-width: 700px) {
   .path {
+    grid-auto-flow: row;
     grid-template-columns: minmax(0, 1fr);
   }
   .path li {
@@ -496,4 +498,14 @@
 .path li:last-child::before,
 .path li:last-child::after {
   display: none;
+}
+
+/* A screenshot or recording on a plate. */
+.case-shot,
+.plate .cs-demo-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  border-radius: 8px;
 }

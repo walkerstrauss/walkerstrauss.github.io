@@ -4,7 +4,8 @@
    TOKENS
    ============================================================ */
 :root {
-  --bg: #fafafa;
+  /* Close to white with a slight grey-blue (S342). Plates sit a step darker. */
+  --bg: #f6f8fa;
   --text: #1d1d20;
   --text-secondary: #4a4a52;
   --text-tirtiary: #6b6b70;
@@ -19,7 +20,7 @@
   --link-hover: #1d1d20;
   color-scheme: light;
 
-  --nav-bg: rgba(250, 250, 250, 0.82);
+  --nav-bg: rgba(246, 248, 250, 0.84);
 
   /* One content cap for the whole site: shells, section columns and article
      bodies all stop at the same 1280px edge. */
@@ -29,7 +30,7 @@
   --column: 54rem;
   /* The one gap between labelled blocks, on every page. */
   --section-gap: clamp(3.5rem, 8vw, 6rem);
-  --plate: #f0f1ee;
+  --plate: #edf0f3;
   --page-max: 1280px;
 
   /* The AUI mark is drawn for a light ground, so its plate is pinned to the
@@ -194,16 +195,18 @@ footer p {
 }
 
 /* ---- Navbar ---- */
-/* Site chrome sits on the same shell as the page below it, so the name lines
-   up with the left edge of the content and the links with its right edge. */
+/* Site chrome: the name sits at the left edge of the window and the links at
+   the right edge, at every width. Walker's choice (S341): the header is not
+   held to the page column. */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1.5rem;
-  width: min(100% - var(--gutter) * 2, var(--page-max));
-  margin: 0 auto;
-  padding: 0;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0 var(--nav-pad);
   height: 64px;
   box-sizing: border-box;
 }
@@ -665,38 +668,51 @@ footer p {
 /* ============================================================
    HOME
    ============================================================ */
-.home-container.hero {
-  padding: clamp(4.5rem, 11vw, 8rem) 0 clamp(1rem, 3vw, 2rem);
+/* The name and line as they were on the earlier site: centered, light. */
+.hero {
+  padding: clamp(2.5rem, 7vw, 5rem) 0 clamp(2.5rem, 7vw, 4.5rem);
   text-align: center;
 }
 
 .hero h1 {
-  margin: 0;
-  font-size: clamp(2.4rem, 6vw, 4rem);
-  font-weight: 500;
-  line-height: 1.05;
-  letter-spacing: -0.045em;
+  margin: 0 0 1.15rem;
+  font-size: clamp(2.2rem, 5.7vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -0.048em;
   color: var(--text);
 }
 
 .hero-statement {
-  max-width: 34ch;
-  margin: 1.25rem auto 0;
-  font-size: clamp(1.1rem, 2vw, 1.35rem);
-  font-weight: 400;
-  line-height: 1.45;
-  letter-spacing: -0.015em;
+  max-width: 22ch;
+  margin: 0 auto;
+  font-size: clamp(1.2rem, 2.8vw, 1.8rem);
+  font-weight: 350;
+  line-height: 1.22;
+  letter-spacing: -0.04em;
   color: var(--text-secondary);
-  text-wrap: balance;
+}
+
+/* Inside a section of the home page a tile takes the column's width. */
+.case-body .tiles-group {
+  width: auto;
+  margin-top: 1.75rem;
+}
+
+.case-body .cs-index {
+  margin-top: 1.5rem;
+}
+
+.tiles[data-cols='1'] {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.tiles[data-cols='1'] .thumb-media {
+  aspect-ratio: 16 / 9;
 }
 
 .contact-links {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-  margin-top: 2.25rem;
-  font-size: var(--fs-sm);
 }
 
 .contact-links a {

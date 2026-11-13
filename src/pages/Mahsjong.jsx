@@ -1,106 +1,157 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { CaseLayout } from '../components/case/Case.jsx';
 import Page from '../components/Page.jsx';
-import Reveal from '../components/Reveal.jsx';
+import { Beat, CaseLayout, Instead, Plate } from '../components/case/Case.jsx';
 import demoVideo from '../assets/mahsjong/gameplay.mp4';
-import MahsjongImg from '../assets/mahsjong/mj.png';
+import boardImg from '../assets/mahsjong/mahsjong_6400.PNG';
+import whiteboardImg from '../assets/mahsjong/whiteboard.png';
+import celestialImg from '../assets/mahsjong/mahsjong_6491.PNG';
+import discardImg from '../assets/mahsjong/mahsjong_6487.PNG';
+import timerImg from '../assets/mahsjong/mahsjong_6412.PNG';
+
+/*
+ * Mah's Jong as a case: the design decisions the team's documents and the
+ * repository history actually record, with who did what. Evidence: the rules
+ * PDF, the two architecture specifications, the team report, the level design
+ * slides and the commit history (S341). No reasons or playtest results are
+ * written down in those documents, so none are claimed here.
+ */
+const SECTIONS = [
+  { id: 'game', label: 'The game' },
+  { label: 'Decisions', group: true },
+  { id: 'race', label: 'A race, not a score', sub: true },
+  { id: 'celestial', label: 'Celestial tiles', sub: true },
+  { id: 'turns', label: 'Guided turns', sub: true },
+  { id: 'timer', label: 'Timed turns', sub: true },
+  { id: 'tutorial', label: 'Playable tutorial', sub: true },
+  { id: 'role', label: 'My role' },
+];
+
+function Shot({ src, alt }) {
+  return <img className="case-shot" src={src} alt={alt} loading="lazy" />;
+}
 
 export default function Mahsjong() {
   return (
     <Page className="cs-page">
-      <div className="cs-hero">
-        <span className="cs-eyebrow">Cornell · Game Design</span>
+      <header className="cs-hero">
         <h1 className="cs-title">Mah’s Jong</h1>
-        <p className="cs-subtitle">A two-player strategy game based on mahjong, built in C++ on the CUGL framework.</p>
-      </div>
-
-      <CaseLayout>
-      <Reveal as="section" className="cs-section">
-        <h2>Overview</h2>
-        <div 
-            className="project-image"
-            style={{ margin: '2rem 0' }}
-        >
-            <img 
-            src={MahsjongImg} 
-            alt="Mah's Jong poster"
-            style={{
-                width: '100%',
-                maxWidth: '400px'
-            }}
-            />
+        <p className="cs-subtitle">
+          A two-player race to build a mahjong hand, made by a student team in
+          C++ on the CUGL framework. I was project lead and built several of
+          its scenes and systems.
+        </p>
+        <div className="cs-meta">
+          <div><h4>Course</h4><p>Advanced Game Development, Cornell</p></div>
+          <div><h4>My role</h4><p>Project lead, programmer</p></div>
+          <div><h4>Timeline</h4><p>Feb – Jun 2025</p></div>
         </div>
-      
-        <p>
-          Mah’s Jong is a two-player strategy game based on mahjong, built in C++ on the CUGL framework in Cornell’s Advanced Game Development course. I was project lead and also worked on design and programming.
-        </p>
-      </Reveal>
+      </header>
 
-      <Reveal as="section" className="cs-section">
-        <h2>Project lead</h2>
-        <p>
-          I ran weekly meetings, kept the production schedule, and coordinated the designers and programmers. I wrote the task descriptions that turned design goals into programming work and kept the sprint boards current in Notion.
-        </p>
-      </Reveal>
+      <CaseLayout sections={SECTIONS}>
+        <Beat id="game" eyebrow="The game" title="Two players race to complete a mahjong hand.">
+          <p>
+            A full hand is four sets of three and a pair. Each turn a player
+            draws from the pile or the discard, then discards. Taking the
+            discard means revealing a permanent set. The pile is a visible
+            layered grid, and eight zodiac “Celestial” tiles help a player or
+            disrupt their opponent.
+          </p>
+          <Plate label="The final board">
+            <Shot src={boardImg} alt="The game board: a grid of pile tiles in the middle, each player’s revealed sets, and the player’s hand along the bottom" />
+          </Plate>
+        </Beat>
 
-      <Reveal as="section" className="cs-section">
-        <h2>Design</h2>
-        <p>
-          The aim was to keep the feel of physical tiles while adding abilities and action tiles that change each match. I worked with the designers on the interface layout, the tutorial flow and the balance of game effects.
-        </p>
-      </Reveal>
-
-      <Reveal as="section" className="cs-section">
-        <h2>Programming</h2>
-        <p>
-          I built the animation system behind the tile interactions: an <em>AnimationController</em> that handles fading, scaling and sprite-sheet transitions, and an <em>AnimatedNode</em> class that unifies motion and visual updates. Tile selection, pile shuffling and drag-and-drop were built on it. I also wrote the tutorial and information scenes.
-        </p>
-      </Reveal>
-
-      <Reveal as="section" className="cs-section">
-        <h2>Final build</h2>
-        <p>
-          By the closed beta and final showcase, the game had complete animation systems, an in-game tutorial and tuned balance.
-        </p>
-      </Reveal>
-
-        <Reveal>
-        <h3>Gameplay Demo</h3>
-
-        <video
-          src={demoVideo}
-          controls
-          playsInline
-          className="cs-demo-video"
-          style={{ maxWidth: '900px', margin: '2rem 0' }}
-        />
-
-        <div
-          className="cs-caption"
-          style={{ marginBottom: '2rem' }}
+        <Beat
+          id="race"
+          eyebrow="Decision 1"
+          title={<><Instead>Instead of a solo scoring game against a boss,</Instead>the game became a one-on-one race.</>}
         >
-          Demo gameplay footage captured from the final build. 
-          <br />
-          <em>
-            Note: There is a slight mismatch in timing between the top and bottom displays in this recording that does
-            not exist in the actual game.
-          </em>
+          <p>
+            The first rules had draw, play and score phases, a shop, and a
+            “Grandma” boss with hit points. The team’s revised design dropped
+            the scoring and the boss. I removed the grandma tiles and the
+            score display from the build.
+          </p>
+          <Plate tone="problem" kind="Before" label="An early sketch of the hand, the pile and tile effects">
+            <Shot src={whiteboardImg} alt="Whiteboard sketch of a hand, a grid of pile tiles and a note about an effect on the opponent’s cards" />
+          </Plate>
+        </Beat>
+
+        <Beat
+          id="celestial"
+          eyebrow="Decision 2"
+          title={<><Instead>Instead of generic action tiles,</Instead>special tiles became Celestial tiles with three roles.</>}
+        >
+          <p>
+            The designers grouped them as Support, Risky and Disruptor. I took
+            part in brainstorming the early action-tile designs and built the
+            animations that show an opponent’s Celestial tile taking effect.
+          </p>
+          <Plate tone="solution" kind="After" label="A Celestial tile in use: the player picks a row of the pile to rearrange">
+            <Shot src={celestialImg} alt="The board dimmed, with the prompt Select the row you want to rearrange" />
+          </Plate>
+        </Beat>
+
+        <Beat
+          id="turns"
+          eyebrow="Decision 3"
+          title={<><Instead>Instead of an end-turn button,</Instead>the game ends the turn and shows what can be done next.</>}
+        >
+          <p>
+            I first built an end-turn button, then limited it to the moments
+            a turn could end, then replaced it with automatic turn ending and
+            on-screen guides for each action.
+          </p>
+          <Plate tone="solution" kind="After" label="The guide for discarding">
+            <Shot src={discardImg} alt="The board with a highlighted zone labelled Drag here to discard" />
+          </Plate>
+        </Beat>
+
+        <Beat id="timer" eyebrow="Decision 4" title="Turns are timed: 45 seconds, up from the first 30.">
+          <p>
+            I implemented the turn timer, which ends the turn when it runs
+            out, and lengthened it to 45 seconds. A teammate later reworked
+            the timers.
+          </p>
+          <Plate label="The turn timer in play">
+            <Shot src={timerImg} alt="The board during a turn with the timer showing 35 seconds" />
+          </Plate>
+        </Beat>
+
+        <Beat
+          id="tutorial"
+          eyebrow="Decision 5"
+          title={<><Instead>Instead of a tutorial that plays once at start-up,</Instead>the tutorial became a playable single-player scene.</>}
+        >
+          <p>
+            A teammate built the first tutorial. I rebuilt it with another
+            programmer as a scene the player plays through, from a designer’s
+            Figma layout.
+          </p>
+        </Beat>
+
+        <Beat id="role" eyebrow="My role" title="Project lead, and a programmer on the game’s scenes.">
+          <p>
+            As project lead I assigned the team’s tasks, wrote the detailed
+            task descriptions, and communicated between the designers and the
+            programmers. In code I built the discard pile and its interface;
+            the settings, game-over, info and help scenes; and the
+            AnimatedNode class. I started the animation controller and the
+            tutorial scene, which teammates and I finished together.
+          </p>
+          <Plate label="Gameplay from the final build">
+            <video src={demoVideo} controls playsInline className="cs-demo-video" />
+          </Plate>
+          <p className="cs-caption">
+            The top and bottom displays are slightly out of sync in this
+            recording. They are not in the game.
+          </p>
+        </Beat>
+
+        <div className="cs-links">
+          <Link to="/" className="back-link">← Back to home</Link>
+          <a href="https://github.com/walkerstrauss/mahsjong" target="_blank" rel="noopener noreferrer" className="project-link">View on GitHub →</a>
         </div>
-      </Reveal>
-
-      <Reveal as="section" className="cs-links">
-        <a
-          href="https://github.com/walkerstrauss/mahsjong"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="project-link"
-        >
-          View on GitHub →
-        </a>
-        <Link to="/projects" className="back-link">← Back to Projects</Link>
-      </Reveal>
-
       </CaseLayout>
     </Page>
   );

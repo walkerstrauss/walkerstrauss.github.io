@@ -13,8 +13,6 @@ import { AnimatePresence, MotionConfig } from 'framer-motion';
 import './App.css';
 
 import Home from './pages/Home.jsx';
-import Projects from './pages/Projects.jsx';
-import Research from './pages/Research.jsx';
 import AUI from './pages/AUI.jsx';
 import AUIPayments from './pages/AUIPayments.jsx';
 import AUIReferenceAgents from './pages/AUIReferenceAgents.jsx';
@@ -48,8 +46,8 @@ function AnimatedRoutes() {
         <Route path="/aui/reference-agents" element={<AUIReferenceAgents />} />
         {/* The leave case moved into the reference agents case; keep its old address working. */}
         <Route path="/aui-employee-leave" element={<Navigate to="/aui/reference-agents" replace />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/research" element={<Research />} />
+        <Route path="/projects" element={<Navigate to="/" replace />} />
+        <Route path="/research" element={<Navigate to="/" replace />} />
         <Route path="/projects/aicap" element={<AICap />} />
         <Route path="/projects/mahsjong" element={<Mahsjong />} />
         <Route path="/projects/weather-clock" element={<WeatherClock />} />
@@ -65,30 +63,23 @@ function AnimatedRoutes() {
   );
 }
 
-/*
- * Three sections that don't overlap. Work: the case studies from jobs (AUI,
- * Onki), which lead the home page. Projects: prototypes and games. Research:
- * the psychology and neuroscience studies. A case study lights the section it
- * belongs to, wherever its address happens to sit.
- */
-const WORK_PATHS = ['/', '/aui', '/aui/payments', '/aui/reference-agents', '/projects/aicap'];
+/* The header is the name and how to reach him. The work is all on the home
+   page, so there are no section links (S341). */
+const CONTACTS = [
+  { label: 'Email', href: 'mailto:walkerstrauss@gmail.com' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/walkerstrauss' },
+  { label: 'GitHub', href: 'https://github.com/walkerstrauss' },
+];
 
 function Navbar() {
   const { pathname } = useLocation();
-  const inWork = WORK_PATHS.includes(pathname);
-  /* On the home page the name is the headline, so the header leaves it out. */
   return (
     <nav className="navbar">
       <Link to="/" className="logo" data-hidden={pathname === '/' ? 'true' : undefined}>Walker Strauss</Link>
       <div className="nav-links">
-        <NavLink to="/" end className={() => (inWork ? 'active' : undefined)}>Work</NavLink>
-        <NavLink
-          to="/projects"
-          className={({ isActive }) => (isActive && !inWork ? 'active' : undefined)}
-        >
-          Projects
-        </NavLink>
-        <NavLink to="/research">Research</NavLink>
+        {CONTACTS.map((c) => (
+          <a key={c.label} href={c.href} target="_blank" rel="noopener noreferrer">{c.label}</a>
+        ))}
       </div>
     </nav>
   );

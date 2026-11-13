@@ -74,7 +74,7 @@ export default function VisualVsTextual() {
         >
           View Full Paper (PDF) →
         </a>
-        <Link to="/research" className="back-link">← Back to Research</Link>
+        <Link to="/" className="back-link">← Back to home</Link>
       </Reveal>
 
       </CaseLayout>

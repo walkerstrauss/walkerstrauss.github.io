@@ -6,13 +6,16 @@ import PaymentsPath from '../components/aui/PaymentsPath.jsx';
 import { Check, MessageToDraft, Thread } from '../components/thread/Thread.jsx';
 
 /*
- * One case: a payments support agent, from requirements to production. The
- * customer is not named and every figure is a fictional illustration.
+ * One case: two customer support agents (a payments company and a transit
+ * app) taken from requirements to release. Customers are not named and every
+ * figure is a fictional illustration. Sources: S071, S219–S220, S232, S328,
+ * S341, AUI-012, AUI-013.
  */
 const SECTIONS = [
   { id: 'problem', label: 'Problem' },
   { label: 'Decisions', group: true },
   { id: 'requirements', label: 'Requirements as decisions', sub: true },
+  { id: 'integration', label: 'Ticketing integration', sub: true },
   { id: 'tests', label: 'Test the decision', sub: true },
   { id: 'review', label: 'Review before rollout', sub: true },
   { id: 'linked-state', label: 'User-linked state', sub: true },
@@ -24,16 +27,18 @@ export default function AUIPayments() {
   return (
     <Page className="cs-page">
       <header className="cs-hero">
-        <h1 className="cs-title">Taking a payments support agent from requirements to rollout</h1>
+        <h1 className="cs-title">Taking two customer support agents from requirements to rollout</h1>
         <p className="cs-subtitle">
-          I scoped and led the migration of a payments support agent: what it
-          could answer, when it should hand a ticket to a person, and how the
-          support team could review its behavior before it went live.
+          I scoped the requirements from scratch and owned the migration of
+          support agents for a payments company and a transit app: what each
+          agent could answer, how it connected to the customer’s ticketing
+          system, and how the support team reviewed its behavior before
+          release.
         </p>
         <div className="cs-meta">
           <div><h4>Organization</h4><p><a href="https://www.aui.io/" target="_blank" rel="noopener noreferrer">Augmented Intelligence (AUI)</a></p></div>
           <div><h4>My role</h4><p>Product Operations (Agents)</p></div>
-          <div><h4>Status</h4><p className="status-live">Live in production</p></div>
+          <div><h4>Scope</h4><p>Two customer migrations: payments and transit support</p></div>
         </div>
       </header>
 
@@ -44,11 +49,11 @@ export default function AUIPayments() {
             take the correct actions on their tickets.
           </p>
           <Trio items={[
-            ['The people', 'A support team, and the customers writing in about account access and payment status.'],
-            ['The goal', 'Take the agent live in the team’s existing help desk.'],
+            ['The people', 'Two support teams, and the customers and riders writing in to them.'],
+            ['The goal', 'Move each team’s agent onto AUI inside the ticketing system they already used.'],
             ['The constraint', 'The team had to see how it would handle their tickets before it could act on one.'],
           ]} />
-          <Plate label="From requirements to production">
+          <Plate label="From requirements to release">
             <PaymentsPath />
           </Plate>
         </Beat>
@@ -60,7 +65,12 @@ export default function AUIPayments() {
         >
           <p>
             A status question might need account verification or another
-            detail. Some cases needed a handoff to a person.
+            detail. Some cases needed a handoff to a person. For the transit
+            agent, I set aside an inherited build and its test cases and
+            started again from the support responsibilities the customer had
+            agreed to. That audit surfaced missing and incorrect behavior,
+            including when to close a ticket and how to answer subscription
+            questions.
           </p>
           <Plate tone="solution" kind="Solution" label="A support requirement as agent decisions">
             <Thread caption="Illustrative example.">
@@ -76,8 +86,34 @@ export default function AUIPayments() {
         </Beat>
 
         <Beat
+          id="integration"
+          eyebrow="Decision 2 · Ticketing integration"
+          title="The integration was tested inside each customer’s own ticketing system, with their engineers."
+        >
+          <p>
+            Both agents ran inside the customer’s existing ticketing system. I
+            tested that integration and worked with the customer to set up
+            the webhook calls from their help desk to our endpoints. For the
+            payments customer, I worked with their head of customer success
+            and their engineers to get test accounts and to match what their
+            APIs returned to the customer states the agent had to recognize.
+            One endpoint said a document upload was required but did not
+            return the upload link; their engineers gave me a development
+            environment and endpoints to validate against.
+          </p>
+          <Plate label="How a ticket reaches the agent and comes back">
+            <ol className="path" data-on-all="true" role="list" aria-label="A ticket’s route through the integration">
+              <li data-on="true"><span className="path-mark" aria-hidden="true" /><strong>Ticket</strong><span>A customer writes in to the help desk</span></li>
+              <li data-on="true"><span className="path-mark" aria-hidden="true" /><strong>Webhook</strong><span>The help desk calls the agent’s endpoint</span></li>
+              <li data-on="true"><span className="path-mark" aria-hidden="true" /><strong>Customer APIs</strong><span>The agent looks up the account’s state</span></li>
+              <li data-on="true"><span className="path-mark" aria-hidden="true" /><strong>Reply or handoff</strong><span>Written back to the same ticket</span></li>
+            </ol>
+          </Plate>
+        </Beat>
+
+        <Beat
           id="tests"
-          eyebrow="Decision 2"
+          eyebrow="Decision 3"
           title={<><Instead>Instead of judging how a reply reads,</Instead>each test checks what the agent decided.</>}
         >
           <p>
@@ -101,14 +137,20 @@ export default function AUIPayments() {
 
         <Beat
           id="review"
-          eyebrow="Decision 3"
+          eyebrow="Decision 4"
           title={<><Instead>Instead of asking the team to trust test results,</Instead>they reviewed proposed replies to their own tickets.</>}
         >
           <p>
-            I presented the agent to the customer’s team and revised it over
-            rounds of feedback. What gave them the confidence to deploy was
-            seeing in real time how it would respond to their incoming
-            tickets, with nothing sent.
+            I replayed each customer’s existing tickets through the agent,
+            presented the results to their team, and revised it over rounds
+            of feedback. In one round, the transit customer explained why a
+            reply should change: the subscription is managed through the
+            rider’s app store account, so the agent should send the rider
+            there and say why. I wrote that as rules for the follow-up and
+            its wording. What gave the teams the confidence to deploy was
+            seeing in real time how the agent would respond to their
+            incoming tickets, with nothing sent. Release then went out in
+            phases.
           </p>
           <Plate tone="solution" kind="Solution" label="The reply is proposed; the ticket is untouched">
             <PaymentsReview />
@@ -117,16 +159,14 @@ export default function AUIPayments() {
 
         <Beat
           id="linked-state"
-          eyebrow="Decision 4 · User-linked state"
+          eyebrow="Decision 5 · User-linked state"
           title={<><Instead>Instead of asking the model to choose between the old email and the new one,</Instead>the runtime keeps one current value.</>}
         >
           <p>
-            This is where a real use case shaped the runtime. The engine’s
-            strength is that code decides, and a model isn’t asked to decide
-            what a model shouldn’t. Once this is configured, the agent is
-            never asked whether to use the old email or the new one. I
-            prototyped and validated the behavior, and the team shipped it as
-            a reusable runtime feature.
+            This is where a real use case shaped the runtime. Code decides
+            which value is current, so the model is never asked whether to
+            use the old email or the new one. I prototyped and validated the
+            behavior, and the team shipped it as a reusable runtime feature.
           </p>
           <Plate tone="solution" kind="Solution" label="The correction replaces the old value; nothing is left to choose">
             <Thread caption="Fictional conversation.">
@@ -142,14 +182,14 @@ export default function AUIPayments() {
           </Plate>
         </Beat>
 
-        <Beat id="outcome" eyebrow="Outcome" title="The team saw what the agent would do before it acted, and deployed it.">
-          <Plate tone="solution" kind="Result" label="Requirements to production">
+        <Beat id="outcome" eyebrow="Outcome" title="Both teams saw what their agent would do before it acted, and released it.">
+          <Plate tone="solution" kind="Result" label="Requirements to release">
             <PaymentsPath done />
           </Plate>
           <dl className="outcomes">
             <div>
-              <dt>The customer</dt>
-              <dd>Deployed the agent after reviewing its behavior on their own tickets. It is live in production.</dd>
+              <dt>The customers</dt>
+              <dd>Each released its agent in phases after reviewing its behavior on their own tickets.</dd>
             </div>
             <div>
               <dt>Review before rollout</dt>
@@ -164,9 +204,9 @@ export default function AUIPayments() {
 
         <Beat id="takeaway" eyebrow="Takeaway" title="Real requirements are what shape a runtime.">
           <p>
-            Both product changes started as something this customer needed.
-            The answer was the same each time: let code decide, and don’t ask
-            a model to decide what a model shouldn’t.
+            Review before rollout and user-linked state both started as
+            something a customer needed on their own tickets, and both are
+            now available to every team that builds on the product.
           </p>
         </Beat>
 

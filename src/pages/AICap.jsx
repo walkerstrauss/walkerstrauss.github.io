@@ -228,7 +228,7 @@ export default function AICap() {
 
       <Reveal as="section" className="cs-links">
         <a href="https://onki.ai" target="_blank" rel="noopener noreferrer" className="project-link">Visit Onki →</a>
-        <Link to="/" className="back-link">← Back to Work</Link>
+        <Link to="/" className="back-link">← Back to home</Link>
       </Reveal>
       </CaseLayout>
     </Page>

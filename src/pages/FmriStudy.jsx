@@ -44,7 +44,7 @@ export default function FmriStudy() {
       </Reveal>
 
       <Reveal as="section" className="cs-links">
-        <Link to="/research" className="back-link">← Back to Research</Link>
+        <Link to="/" className="back-link">← Back to home</Link>
       </Reveal>
 
       </CaseLayout>
