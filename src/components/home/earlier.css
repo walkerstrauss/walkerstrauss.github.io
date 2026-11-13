@@ -1,0 +1,103 @@
+/* Home cards for the Cornell work. Shares .mini, .mini-step, .mini-route and
+   .mini-end with the AUI tiles. */
+.ec {
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+  gap: 0.75rem;
+  padding: 1rem;
+  font-size: clamp(0.72rem, 1vw, 0.85rem);
+}
+
+.ec-col {
+  grid-template-columns: minmax(0, 1fr);
+  align-content: center;
+  justify-items: start;
+  gap: 0.6rem;
+  padding: 1rem 1.25rem;
+}
+
+.ec-clock {
+  position: relative;
+  aspect-ratio: 1;
+  width: 100%;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: #fff;
+}
+
+.ec-clock img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* The round window on the drawing, measured from the image. */
+.ec-window {
+  position: absolute;
+  left: 33.4%;
+  top: 34.4%;
+  width: 11.2%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  mix-blend-mode: multiply;
+}
+
+.ec-trace {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.ec-cell {
+  display: grid;
+  gap: 0.1rem;
+  padding: 0.45rem 0.7rem;
+  border-radius: 0.6rem;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(32, 53, 61, 0.08);
+  font-weight: 550;
+  color: var(--text);
+}
+
+.ec-cell small,
+.ec-hand small {
+  font-size: 0.8em;
+  font-weight: 400;
+  color: var(--text-tirtiary);
+}
+
+.ec-question {
+  padding: 0.6rem 0.85rem;
+  border-radius: 1rem 1rem 1rem 0.3rem;
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 6px 16px -10px rgba(32, 53, 61, 0.55);
+}
+
+.ec-route {
+  width: 100%;
+}
+
+.ec-by {
+  font-size: 0.8em;
+  color: var(--text-tirtiary);
+}
+
+.ec-hand {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.ec-hand > span {
+  display: inline-flex;
+  gap: 4px;
+  --mj-w: clamp(22px, 2.3vw, 30px);
+}
+
+@media (max-width: 900px) {
+  .ec {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ec-clock {
+    display: none;
+  }
+}

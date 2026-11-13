@@ -44,9 +44,9 @@ const ROUTE = {
   nodes: ['Ticket', 'Webhook', 'Customer APIs', 'Reply or handoff'],
 };
 
-const stepsIn = (scene) => (scene.kind === 'route' ? scene.nodes.length : scene.cells ? 4 : 3);
+const stepsIn = (scene) => scene.steps ?? (scene.kind === 'route' ? scene.nodes.length : scene.cells ? 4 : 3);
 
-function useScenes(scenes) {
+export function useScenes(scenes) {
   const ref = useRef(null);
   const inView = useInView(ref, { amount: 0.5 });
   const reduced = useReducedMotion();

@@ -3,10 +3,7 @@ import Reveal from '../components/Reveal.jsx';
 import { Tile, Tiles } from '../components/Tiles.jsx';
 import { AUIHomePreview } from '../components/aui/CasePreview.jsx';
 import AICapPreview from '../components/aicap/AICapPreview.jsx';
-import WeatherClockPreview from '../components/weatherclock/WeatherClockPreview.jsx';
-import FmriPreview from '../components/fmri/FmriPreview.jsx';
-import { Hand, Pile } from '../components/mahsjong/parts.jsx';
-import '../components/mahsjong/mahsjong.css';
+import { FmriCard, MahsjongCard, WeatherClockCard } from '../components/home/EarlierPreviews.jsx';
 
 /*
  * Home, in two eras (S345).
@@ -28,7 +25,7 @@ export default function Home() {
       </Reveal>
 
 
-      <Tiles cols={2} label="Work" note="Two products, one question: what should the AI decide, and when should it yield?">
+      <Tiles cols={2} label="Work">
         <Tile
           to="/aui"
           title="AUI: what the model decides, what code decides, what a person reviews"
@@ -45,18 +42,15 @@ export default function Home() {
         </Tile>
       </Tiles>
 
-      <Tiles cols={3} label="Earlier, at Cornell" note="Where the cognitive science comes from: psychology research, and design projects built on it.">
+      <Tiles cols={3} label="Earlier, at Cornell">
         <Tile to="/projects/weather-clock" title="Savoring Weather Clock" line="Meta Design Lab. A home device that turns live weather into a prompt to notice it.">
-          <WeatherClockPreview />
+          <WeatherClockCard />
         </Tile>
         <Tile to="/projects/mahsjong" title="Mah’s Jong" line="Project lead on a two-player mahjong race.">
-          <div className="mj-card" aria-hidden="true">
-            <Pile rows={[['6b', '*', '2d', '7c'], ['1b', '8c', '4d']]} />
-            <Hand tiles={['2b', '3b', '4b', '5d', '5d', '5d']} />
-          </div>
+          <MahsjongCard />
         </Tile>
         <Tile to="/research/fmri-study" title="fMRI study on food imagery" line="Affect and Cognition Lab. Ran scan sessions and wrote the data-preparation scripts.">
-          <FmriPreview />
+          <FmriCard />
         </Tile>
       </Tiles>
     </Page>
