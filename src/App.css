@@ -4350,3 +4350,93 @@ a:hover,
 .home .page-section .cs-index {
   margin-top: 0;
 }
+
+/* ---- Home eras: a line under the label, and small cards for earlier work ---- */
+.tiles-note {
+  margin: -0.35rem 0 1.5rem;
+  max-width: 44rem;
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  color: var(--text);
+}
+
+.tiles[data-cols='4'] {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.tiles[data-cols='4'] .thumb-media {
+  aspect-ratio: 4 / 3;
+}
+
+.tiles[data-cols='4'] .thumb-caption h3 {
+  font-size: 1rem;
+}
+
+.tiles[data-cols='4'] .thumb-caption p {
+  font-size: 0.875rem;
+}
+
+.thumb-media > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 900px) {
+  .tiles[data-cols='4'] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.cond {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6%;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 12%;
+  box-sizing: border-box;
+  background: var(--accent-soft);
+}
+
+.cond-card {
+  display: grid;
+  gap: 0.4rem;
+  justify-items: center;
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  color: var(--tone-message-ink);
+}
+
+.cond-card i {
+  display: grid;
+  align-content: center;
+  gap: 12%;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  padding: 14%;
+  box-sizing: border-box;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.cond-img {
+  background: linear-gradient(160deg, #8fb7c9 0 55%, #6f9a6a 55%) !important;
+}
+
+.cond-card i.cond-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 10%;
+}
+
+.cond-chart b { flex: 1; background: var(--accent); border-radius: 2px; }
+.cond-chart b:nth-child(1) { height: 40%; }
+.cond-chart b:nth-child(2) { height: 75%; }
+.cond-chart b:nth-child(3) { height: 55%; }
+.cond-text b { display: block; height: 3px; border-radius: 2px; background: #9aa7ad; }
+.cond-text b:last-child { width: 60%; }

@@ -13,10 +13,11 @@ import { revealVariants, staggerVariants, viewport } from '../lib/motion.js';
  */
 const MotionLink = motion.create(Link);
 
-export function Tiles({ cols = 2, label, children }) {
+export function Tiles({ cols = 2, label, note, children }) {
   return (
     <section className="tiles-group">
       {label && <Reveal as="span" className="section-label">{label}</Reveal>}
+      {note && <Reveal as="p" className="tiles-note">{note}</Reveal>}
       <motion.div
         className="tiles"
         data-cols={cols}
