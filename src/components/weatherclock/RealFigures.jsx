@@ -10,7 +10,10 @@ import './clock.css';
  */
 
 const DOTS = [];
-for (let r = 0; r < 5; r += 1) for (let c = 0; c < 5; c += 1) DOTS.push([74 + c * 5.5, 94 + r * 5.5]);
+for (let r = 0; r < 5; r += 1) for (let c = 0; c < 5; c += 1) {
+  const x = 74 + c * 5.5; const y = 94 + r * 5.5;
+  if (Math.hypot(x - 85, y - 105) < 12.5) DOTS.push([x, y]);
+}
 
 function Shell({ dim }) {
   return (
@@ -48,7 +51,8 @@ export function ClockDrawing({ view = 'front', glow, text, turns = 0, hot, class
         <>
           <circle className="ck-window" cx="85" cy="105" r="15" style={{ fill: glow || undefined }} data-lit={glow ? 'true' : undefined} />
           <g className="ck-dots" data-lit={glow ? 'true' : undefined}>{DOTS.map(([x, y]) => <circle key={`${x}-${y}`} cx={x} cy={y} r="1.3" />)}</g>
-          <rect className="ck-display" x="52" y="150" width="78" height="62" rx="3" />
+          <rect className="ck-display" x="52" y="150" width="78" height="62" rx="5" />
+          <g className="ck-lines" data-off={text ? 'true' : undefined}><path d="M64 170 L118 170" /><path d="M64 181 L118 181" /><path d="M64 192 L98 192" /></g>
           <foreignObject x="56" y="154" width="70" height="54">
             <div className="ck-text" data-on={text ? 'true' : 'false'}>{text}</div>
           </foreignObject>

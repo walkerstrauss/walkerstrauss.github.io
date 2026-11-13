@@ -10,8 +10,8 @@
 .ck rect,
 .ck circle {
   fill: none;
-  stroke: var(--text);
-  stroke-width: 1.6;
+  stroke: #6b7a82;
+  stroke-width: 1.4;
   stroke-linejoin: round;
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;
@@ -45,7 +45,8 @@
 }
 
 .ck .ck-window {
-  fill: #eef1f3;
+  fill: #f3ead6;
+  stroke: #d9c9a3;
   transition: fill 1.4s cubic-bezier(0.2, 0, 0.2, 1);
 }
 
@@ -61,8 +62,18 @@
 
 .ck .ck-display,
 .ck .ck-part.ck-dark {
-  fill: #23282b;
-  stroke: #23282b;
+  fill: #e6eaec;
+  stroke: #c9d1d5;
+}
+
+.ck .ck-lines path {
+  stroke: #aab4b9;
+  stroke-width: 2;
+  transition: opacity 0.8s ease;
+}
+
+.ck .ck-lines[data-off='true'] path {
+  opacity: 0;
 }
 
 .ck-text {
@@ -73,7 +84,7 @@
   font-size: 8px;
   line-height: 1.25;
   font-style: italic;
-  color: #e9edf0;
+  color: #2c3a41;
   opacity: 0;
   transition: opacity 1.2s cubic-bezier(0.2, 0, 0.2, 1);
 }
