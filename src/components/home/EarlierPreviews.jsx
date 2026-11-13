@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { EASE } from '../../lib/motion.js';
 import { useScenes } from '../aui/CasePreview.jsx';
 import { MjTile } from '../mahsjong/parts.jsx';
-import clockDrawing from '../../assets/weather-clock/clock.png';
+import { ClockDrawing } from '../weatherclock/RealFigures.jsx';
 import '../case/case.css';
 import './earlier.css';
 
@@ -14,10 +14,10 @@ import './earlier.css';
  */
 
 /* Weather Clock: live weather becomes light and a line of text on the clock.
-   The drawing is the project's own; the window colour is laid over it. */
+   The clock is redrawn from the project's diagrams in the site's line style. */
 const WEATHER = [
-  { steps: 3, weather: 'Rain', light: 'Soft blue ripple', text: 'A line about stillness', glow: '#7fb2cf' },
-  { steps: 3, weather: 'Clear day', light: 'Warm amber glow', text: 'A line to notice it', glow: '#e9b04a' },
+  { steps: 3, weather: 'Rain', light: 'Soft blue ripple', text: 'A line about stillness', glow: '#6fb4dd' },
+  { steps: 2, weather: 'Clear day', light: 'Warm amber glow', glow: '#f0b24a' },
 ];
 
 export function WeatherClockCard() {
@@ -25,38 +25,41 @@ export function WeatherClockCard() {
   const s = WEATHER[at.scene];
   return (
     <div className="mini ec" ref={ref} aria-hidden="true">
-      <div className="ec-clock">
-        <img src={clockDrawing} alt="" />
-        <motion.i
-          className="ec-window"
-          animate={{ backgroundColor: at.step >= 2 ? s.glow : 'rgba(255,255,255,0)' }}
-          transition={{ duration: 1.2, ease: EASE }}
-        />
-      </div>
+      <ClockDrawing className="ec-clock" glow={at.step >= 2 ? s.glow : undefined} turns={at.scene * 2 + (at.step >= 2 ? 2 : 0)} text={at.step >= 3 && s.text ? s.text.toLowerCase() : ''} />
       <AnimatePresence mode="wait" initial={false}>
         <motion.div key={at.scene} className="ec-trace" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
           <span className="ec-cell mini-step" data-on={at.step >= 1}><small>Live weather</small>{s.weather}</span>
           <span className="ec-cell mini-step" data-on={at.step >= 2}><small>Light</small>{s.light}</span>
-          <span className="ec-cell mini-step" data-on={at.step >= 3}><small>On the display</small>{s.text}</span>
+          {s.text && <span className="ec-cell mini-step" data-on={at.step >= 3}><small>On the display</small>{s.text}</span>}
         </motion.div>
       </AnimatePresence>
     </div>
   );
 }
 
-/* fMRI study: the question, then the data path Walker scripted. */
-const FMRI = [{ steps: 5 }];
-const PATH = ['Scan session', 'DICOM to NIfTI', 'Organized as BIDS', 'Quality checks'];
+/* fMRI study: the question as a plain research heading, then the data path
+   Walker scripted, shown as files. Nothing chat-like. */
+const FMRI = [{ steps: 4 }];
+const PATH = [
+  ['Scanner', 'sub-01.dcm', false],
+  ['Converted', 'sub-01_bold.nii', true],
+  ['Organized', 'BIDS/sub-01/func/', true],
+  ['Checked', 'alignment · completeness', true],
+];
 
 export function FmriCard() {
   const [ref, at] = useScenes(FMRI);
   return (
-    <div className="mini ec ec-col" ref={ref} aria-hidden="true">
-      <span className="ec-question mini-step" data-on={at.step >= 1}>How does the hypothalamus respond to images of food?</span>
-      <ol className="mini-route ec-route" role="list">
-        {PATH.map((n, i) => <li key={n} data-on={at.step >= i + 2 ? 'true' : 'false'}>{n}</li>)}
+    <div className="mini ec ec-col ec-fmri" ref={ref} aria-hidden="true">
+      <span className="ec-rq"><small>Research question</small>How does the hypothalamus respond to images of food?</span>
+      <ol className="ec-files" role="list">
+        {PATH.map(([k, v, mine], i) => (
+          <li key={k} data-on={at.step >= i + 1 ? 'true' : 'false'} data-mine={mine}>
+            <small>{k}</small><code>{v}</code>
+          </li>
+        ))}
       </ol>
-      <span className="ec-by">Steps 2–4: scripts I wrote</span>
+      <span className="ec-by"><i /> My scripts</span>
     </div>
   );
 }

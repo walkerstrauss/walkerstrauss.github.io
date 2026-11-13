@@ -1,0 +1,182 @@
+/* The Weather Clock in the site's line style. */
+.ck {
+  display: block;
+  width: 100%;
+  max-height: 100%;
+  overflow: visible;
+}
+
+.ck path,
+.ck rect,
+.ck circle {
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.ck .ck-shell path:first-child {
+  fill: #fff;
+}
+
+.ck .ck-shell[data-dim='true'] path {
+  stroke: #b9c2c7;
+}
+
+.ck .ck-thin {
+  stroke-width: 1.2;
+}
+
+.ck .ck-vane path,
+.ck .ck-vane circle {
+  stroke: #b4473a;
+}
+
+.ck .ck-vane circle {
+  fill: #f7e7e3;
+}
+
+.ck-arm {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 1.8s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.ck .ck-window {
+  fill: #eef1f3;
+  transition: fill 1.4s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.ck .ck-dots circle {
+  stroke: none;
+  fill: rgba(32, 53, 61, 0.35);
+  transition: fill 1.4s ease;
+}
+
+.ck .ck-dots[data-lit='true'] circle {
+  fill: rgba(255, 255, 255, 0.75);
+}
+
+.ck .ck-display,
+.ck .ck-part.ck-dark {
+  fill: #23282b;
+  stroke: #23282b;
+}
+
+.ck-text {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  text-align: center;
+  font-size: 8px;
+  line-height: 1.25;
+  font-style: italic;
+  color: #e9edf0;
+  opacity: 0;
+  transition: opacity 1.2s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.ck-text[data-on='true'] {
+  opacity: 1;
+}
+
+.ck .ck-part {
+  fill: #fff;
+  transition: fill 0.45s ease, stroke 0.45s ease;
+}
+
+.ck .ck-part.ck-board {
+  fill: var(--accent-soft);
+}
+
+.ck .ck-part[data-hot='true'] {
+  fill: var(--accent);
+  stroke: var(--accent);
+}
+
+.ck-fig {
+  display: grid;
+  grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+  gap: clamp(1.25rem, 5vw, 3rem);
+  align-items: center;
+  justify-content: center;
+}
+
+.ck-steps {
+  display: grid;
+  gap: 0.2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ck-steps li {
+  display: grid;
+  gap: 0.1rem;
+  padding: 0.6rem 0 0.6rem 0.9rem;
+  border-left: 2px solid var(--rule);
+  opacity: 0.35;
+  transition: opacity 0.45s ease, border-color 0.45s ease;
+}
+
+.ck-steps li[data-on='true'] { opacity: 0.7; }
+
+.ck-steps li[data-now='true'] {
+  opacity: 1;
+  border-left-color: var(--accent);
+}
+
+.ck-steps strong { font-weight: 550; }
+
+.ck-steps span {
+  font-size: 0.9em;
+  color: var(--text-secondary);
+}
+
+.ck-map {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  align-items: start;
+}
+
+.ck-col {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.ck-col small {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tirtiary);
+}
+
+.ck-col span {
+  padding: 0.5rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  background: #fff;
+  font-size: 0.875rem;
+  line-height: 1.25;
+}
+
+.ck-col span[data-key='true'] {
+  background: var(--tone-result-bg);
+  color: var(--tone-result-ink);
+  border-color: transparent;
+  font-weight: 550;
+}
+
+@media (max-width: 700px) {
+  .ck-fig { grid-template-columns: minmax(0, 1fr); }
+  .ck-fig .ck { max-width: 11rem; margin: 0 auto; }
+  .ck-map { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ck-arm, .ck .ck-window, .ck-text, .ck .ck-part, .ck-steps li { transition: none; }
+}
