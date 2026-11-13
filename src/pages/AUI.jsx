@@ -16,20 +16,17 @@ export default function AUI() {
   return (
     <Page className="cs-page">
       <header className="cs-hero">
-        <h1 className="cs-title">
-          Conversational AI for reliability and policy-adherence in regulated
-          workflows at scale
-        </h1>
+        <h1 className="cs-title">Agents that act on records under policy</h1>
         <p className="cs-subtitle">
-          I drove runtime improvement and builder experience design for a
-          neuro-symbolic agent platform through rapid prototyping, iterative
-          agent development, and feedback from customer onboarding and
-          developer enablement.
+          I designed and built two demo agents at Augmented Intelligence: one
+          files card disputes, one submits leave requests. Each reads the
+          person’s own records and checks policy before it writes.
         </p>
         <div className="cs-meta">
           <div><h4>Organization</h4><p>Augmented Intelligence (AUI)</p></div>
           <div><h4>My role</h4><p>Product Operations (Agents)</p></div>
           <div><h4>Timeline</h4><p>Dec 2025 – Nov 2026</p></div>
+          <div><h4>Status</h4><p>Demo agents on mock data</p></div>
         </div>
       </header>
 

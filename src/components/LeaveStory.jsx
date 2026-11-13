@@ -7,6 +7,31 @@ import { Thread, Facts, MessageToDraft, Check, Reply } from './thread/Thread.jsx
  * Illustrative: fictional employee, policy and wording. Not a product surface.
  */
 
+/* The four design decisions, listed beside the conversation. Each lights when
+   the block it shaped is about to play. */
+const DECISIONS = [
+  {
+    from: 0,
+    label: 'Start a structured request from the first message',
+    rule: 'Otherwise the agent re-asks for what it was just told, and nothing can be checked.',
+  },
+  {
+    from: 2,
+    label: 'Derive the facts a rule needs before the rule runs',
+    rule: '“Two weeks” isn’t a number the policy can compare. The calendar makes it one.',
+  },
+  {
+    from: 3,
+    label: 'Block with the rule and its inputs in the reply',
+    rule: 'A block without its reason is a dead end. With the numbers, the employee knows what to change.',
+  },
+  {
+    from: 4,
+    label: 'Edit the same request, run the same check',
+    rule: 'The start date stays. Only the working days and the check change, and the write waits for both.',
+  },
+];
+
 /* The three steps that reach the leave decision. */
 function balanceCheck(days, daysNote, verdict) {
   const block = verdict === 'block';
@@ -24,7 +49,10 @@ function balanceCheck(days, daysNote, verdict) {
 
 export default function LeaveStory() {
   return (
-    <Thread caption="Illustrative conversation, policy and record. Fictional data; not a product interface.">
+    <Thread
+      notes={DECISIONS}
+      caption="Illustrative conversation, policy and record. Fictional data; not a product interface."
+    >
       <Facts
         index={0}
         label="From the record, before the first message"

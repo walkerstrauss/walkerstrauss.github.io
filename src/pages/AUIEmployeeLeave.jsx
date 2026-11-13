@@ -6,7 +6,9 @@ import LeaveResearch from '../components/LeaveResearch.jsx';
 import SameDecisionReplay from '../components/SameDecisionReplay.jsx';
 import { useSteps } from '../lib/useSteps.js';
 
-/* Small before/after pair in the stage's vocabulary: bubble, chips, fields. */
+/* The problem and its answer as one pair of replies, in the thread's own
+   vocabulary. Plays with scroll: the dead end first, then the reply that shows
+   its reason. */
 function Bubble({ who, tone, children }) {
   return (
     <div className="dec-bubble" data-tone={tone}>
@@ -16,33 +18,26 @@ function Bubble({ who, tone, children }) {
   );
 }
 
-function Fields({ rows }) {
-  return (
-    <dl className="dec-fields">
-      {rows.map(([label, value, note]) => (
-        <div key={label}>
-          <dt>{label}</dt>
-          <dd>{value}{note && <small>{note}</small>}</dd>
-        </div>
-      ))}
-    </dl>
-  );
-}
-
-/* The decision and its reason are text. The pair plays with scroll: what
-   happens without the decision, then what happens with it. */
-function Decision({ title, why, before, after }) {
+function BlockedPair() {
   const [ref, step] = useSteps(2);
   return (
-    <div className="dec" ref={ref}>
-      <h4>{title}</h4>
-      <p>{why}</p>
+    <figure className="dec-solo" ref={ref}>
       <div className="dec-pair">
-        <div className="dec-cell step" data-on={step >= 1}><span>Without</span>{before}</div>
+        <div className="dec-cell step" data-on={step >= 1}>
+          <span>A block with no reason</span>
+          <Bubble who="Agent" tone="block">I’m unable to submit that request.</Bubble>
+        </div>
         <i aria-hidden="true" className="step-fade" data-on={step >= 2}>→</i>
-        <div className="dec-cell step" data-on={step >= 2}><span>With</span>{after}</div>
+        <div className="dec-cell step" data-on={step >= 2}>
+          <span>A block with the rule and its inputs</span>
+          <Bubble who="Agent · Request blocked" tone="block">
+            <span className="leave-days"><span><b>10</b>requested</span><span><b>6</b>available</span></span>
+            Would one week work?
+          </Bubble>
+        </div>
       </div>
-    </div>
+      <figcaption>Illustrative replies.</figcaption>
+    </figure>
   );
 }
 
@@ -79,6 +74,7 @@ export default function AUIEmployeeLeave() {
           every time, before anything is written. A rule can’t run on a
           sentence, so the request has to become structured facts first.
         </p>
+        <BlockedPair />
       </section>
 
       <section className="cs-section" aria-labelledby="leave-request-walkthrough">
@@ -101,36 +97,6 @@ export default function AUIEmployeeLeave() {
           before it writes one.
         </p>
         <LeaveResearch />
-      </section>
-
-      <section className="cs-section">
-        <h2>Decisions</h2>
-        <div className="dec-grid">
-          <Decision
-            title="Start a structured request from the first message"
-            why="Otherwise the agent re-asks for what it was just told, and nothing can be checked."
-            before={<Bubble who="Agent">Which dates did you have in mind, and for how long?</Bubble>}
-            after={<Fields rows={[['Type', 'Vacation'], ['Start date', 'June 7'], ['Length', '2 weeks']]} />}
-          />
-          <Decision
-            title="Derive the facts a rule needs before the rule runs"
-            why="“Two weeks” isn’t a number the policy can compare. The calendar makes it one."
-            before={<Bubble who="Employee" tone="message">two weeks off starting June 7</Bubble>}
-            after={<Bubble who="Calculated"><span className="leave-days"><span><b>10</b>working days</span></span></Bubble>}
-          />
-          <Decision
-            title="Block with the rule and its inputs in the reply"
-            why="A block without its reason is a dead end. With the numbers, the employee knows what to change."
-            before={<Bubble who="Agent" tone="block">I’m unable to submit that request.</Bubble>}
-            after={<Bubble who="Agent · Request blocked" tone="block"><span className="leave-days"><span><b>10</b>requested</span><span><b>6</b>available</span></span>Would one week work?</Bubble>}
-          />
-          <Decision
-            title="Edit the same request, run the same check"
-            why="The start date stays. Only the working days and the check change, and the write waits for both."
-            before={<Bubble who="Agent">Let’s start over. What dates would you like?</Bubble>}
-            after={<Fields rows={[['Start date', 'June 7', 'kept'], ['Working days', '10 → 5', 'recalculated'], ['Rule', '5 ≤ 6', 'within policy']]} />}
-          />
-        </div>
       </section>
 
       <section className="cs-section">

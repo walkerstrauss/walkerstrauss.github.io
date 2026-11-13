@@ -10,8 +10,8 @@ import AICapPreview from '../components/aicap/AICapPreview.jsx';
 
 const projects = [
   {
-    title: "Conversational AI for reliability and policy-adherence in regulated workflows at scale",
-    subtitle: "AUI · Demo agents for financial services and HR, built to act on records under policy.",
+    title: "Agents that act on records under policy",
+    subtitle: "AUI · Two demo agents for financial services and HR: card disputes and leave requests.",
     link: "/aui",
     preview: LeavePreview,
   },

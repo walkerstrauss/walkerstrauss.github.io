@@ -4246,3 +4246,15 @@ footer p {
 .sv-bar[data-on="true"] {
   transform: scaleX(1);
 }
+
+/* The single before/after pair under Problem on the leave case. */
+.dec-solo {
+  max-width: 44rem;
+  margin: 1.75rem 0 0;
+}
+
+.dec-solo > figcaption {
+  margin-top: .8rem;
+  font-size: var(--fs-xs);
+  color: var(--text-tirtiary);
+}
