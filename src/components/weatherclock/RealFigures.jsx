@@ -15,17 +15,82 @@ import './clock.css';
 /* A pattern byte is a hue on the LED matrix: 0xfe white, 0xff off. */
 const colour = (b) => (b === 0xff ? null : b === 0xfe ? '#ffffff' : `hsl(${Math.round((b / 255) * 360)} 85% 60%)`);
 
+/*
+ * The house is a real box put through one camera, so every edge, the round
+ * window, the display and the chimney share the same perspective. Proportions
+ * and viewpoint are measured from diagram1.png: front wall W wide, walls H
+ * high, roof rising R to a centred ridge, D deep, seen from the front-right
+ * and slightly above.
+ */
+const W = 1; const H = 1; const R = 0.45; const D = 0.47;
+const YAW = (42 * Math.PI) / 180; const PITCH = (13 * Math.PI) / 180; const CAM = 9;
+const raw = (x, y, z) => {
+  const sx = x * Math.cos(YAW) + z * Math.sin(YAW);
+  const d = -x * Math.sin(YAW) + z * Math.cos(YAW);
+  const sy = y * Math.cos(PITCH) + d * Math.sin(PITCH);
+  const depth = d * Math.cos(PITCH) - y * Math.sin(PITCH);
+  const k = CAM / (CAM + depth);
+  return [sx * k, sy * k];
+};
+const SCALE = 172; const OX = 34; const OY = 300;
+const P = (x, y, z = 0) => { const [u, v] = raw(x, y, z); return [OX + u * SCALE, OY - v * SCALE]; };
+const pts = (list) => list.map((p) => P(...p).map((n) => n.toFixed(1)).join(',')).join(' ');
+const roofY = (x) => H + (R * (W - x)) / (W / 2);
+
+const FRONT = pts([[0, 0], [0, H], [W / 2, H + R], [W, H], [W, 0]]);
+const SIDE = pts([[W, 0, 0], [W, H, 0], [W, H, D], [W, 0, D]]);
+const ROOF = pts([[W / 2, H + R, 0], [W / 2, H + R, D], [W, H, D], [W, H, 0]]);
+const GROUND = pts([[-0.06, 0, -0.1], [W + 0.1, 0, -0.1], [W + 0.1, 0, D + 0.12], [-0.06, 0, D + 0.12]]);
+
+/* Round window on the front wall, just under the eaves. */
+const WIN = { x: 0.5, y: 0.93, r: 0.115 };
+const WINDOW = pts(Array.from({ length: 40 }, (_, i) => {
+  const a = (i / 40) * Math.PI * 2;
+  return [WIN.x + WIN.r * Math.cos(a), WIN.y + WIN.r * Math.sin(a)];
+}));
+const CELL = (WIN.r * 2) / 8;
+const LEDS = Array.from({ length: 64 }, (_, i) => {
+  const r = Math.floor(i / 8); const c = i % 8;
+  const x0 = WIN.x - WIN.r + c * CELL + CELL * 0.14; const y1 = WIN.y + WIN.r - r * CELL - CELL * 0.14;
+  const x1 = x0 + CELL * 0.72; const y0 = y1 - CELL * 0.72;
+  return pts([[x0, y0], [x0, y1], [x1, y1], [x1, y0]]);
+});
+
+/* Text display on the lower front wall. */
+const DISP = { x0: 0.11, x1: 0.88, y0: 0.14, y1: 0.57 };
+const DISPLAY = pts([[DISP.x0, DISP.y0], [DISP.x0, DISP.y1], [DISP.x1, DISP.y1], [DISP.x1, DISP.y0]]);
+const dp = (u, v) => [DISP.x0 + u * (DISP.x1 - DISP.x0), DISP.y0 + v * (DISP.y1 - DISP.y0)];
+const LINES = [[0.12, 0.88, 0.7], [0.12, 0.88, 0.5], [0.12, 0.6, 0.3]].map(([u0, u1, v]) => pts([dp(u0, v), dp(u1, v)]));
+/* The display's own plane as a matrix, so real text sits on it. */
+const TW = 120; const TH = 68;
+const TEXT_MATRIX = (() => {
+  const tl = P(DISP.x0, DISP.y1); const tr = P(DISP.x1, DISP.y1); const bl = P(DISP.x0, DISP.y0);
+  return `matrix(${[(tr[0] - tl[0]) / TW, (tr[1] - tl[1]) / TW, (bl[0] - tl[0]) / TH, (bl[1] - tl[1]) / TH, tl[0], tl[1]].map((n) => n.toFixed(4)).join(' ')})`;
+})();
+
+/* Reset button, low on the side wall. */
+const BUTTON = pts([[W, 0.05, 0.08], [W, 0.14, 0.08], [W, 0.14, 0.24], [W, 0.05, 0.24]]);
+
+/* Chimney on the right roof slope, holding the vane. */
+const CH = { x0: 0.64, x1: 0.8, z0: 0.12, z1: 0.3, top: H + R * 0.72 + 0.1 };
+const CH_FRONT = pts([[CH.x0, roofY(CH.x0), CH.z0], [CH.x0, CH.top, CH.z0], [CH.x1, CH.top, CH.z0], [CH.x1, roofY(CH.x1), CH.z0]]);
+const CH_SIDE = pts([[CH.x1, roofY(CH.x1), CH.z0], [CH.x1, CH.top, CH.z0], [CH.x1, CH.top, CH.z1], [CH.x1, roofY(CH.x1), CH.z1]]);
+const CH_TOP = pts([[CH.x0, CH.top, CH.z0], [CH.x0, CH.top, CH.z1], [CH.x1, CH.top, CH.z1], [CH.x1, CH.top, CH.z0]]);
+const VX = (CH.x0 + CH.x1) / 2; const VZ = (CH.z0 + CH.z1) / 2; const VTOP = CH.top + 0.13;
+const POST = pts([[VX, CH.top, VZ], [VX, VTOP, VZ]]);
+const ARM = pts([[VX - 0.13, VTOP, VZ], [VX + 0.13, VTOP, VZ]]);
+const CUPS = [P(VX - 0.13, VTOP, VZ), P(VX + 0.13, VTOP, VZ)];
+
 /* The light behind the round window, showing one frame of a weather's pattern. */
 function Matrix({ weather, frame = 0 }) {
   const frames = weather ? PATTERNS[weather] : null;
   const rows = frames ? frames[frame % frames.length] : null;
   return (
     <g className="ck-matrix" clipPath="url(#ck-window)">
-      <circle className="ck-window" cx="91" cy="123" r="17" />
-      {Array.from({ length: 64 }, (_, i) => {
-        const r = Math.floor(i / 8); const c = i % 8;
-        const fill = rows ? colour(rows[r][c]) : null;
-        return <rect key={i} className="ck-led" x={75 + c * 4.1} y={107 + r * 4.1} width="3.1" height="3.1" rx="0.8" style={{ fill: fill || undefined }} data-on={fill ? 'true' : undefined} />;
+      <polygon className="ck-window" points={WINDOW} />
+      {LEDS.map((points, i) => {
+        const fill = rows ? colour(rows[Math.floor(i / 8)][i % 8]) : null;
+        return <polygon key={i} className="ck-led" points={points} style={{ fill: fill || undefined }} />;
       })}
     </g>
   );
@@ -51,37 +116,31 @@ export function ClockDrawing({ view = 'front', weather, frame, text, turns = 0, 
   }
   return (
     <svg className={`ck ${className}`} viewBox="0 0 250 345" role="img" aria-label="The weather clock: a small house with a weather vane, a round window of light and a text display">
-      <defs><clipPath id="ck-window"><circle cx="91" cy="123" r="17" /></clipPath></defs>
-      <ellipse className="ck-shadow" cx="130" cy="330" rx="112" ry="10" />
-      {/* side wall, roof slope, front wall */}
-      <path className="ck-wall ck-side" d="M169.5 120 L232.5 107 L232.5 306 L169.5 328 Z" />
-      <path className="ck-wall ck-roof" d="M91.5 22.5 L159 10 L232.5 107 L169.5 120 Z" />
-      <path className="ck-wall" d="M18 97.5 L91.5 22.5 L169.5 120 L169.5 328 L18 298 Z" />
-      {/* chimney and vane */}
+      <defs><clipPath id="ck-window"><polygon points={WINDOW} /></clipPath></defs>
+      <polygon className="ck-ground" points={GROUND} />
+      <polygon className="ck-wall ck-roof" points={ROOF} />
+      <polygon className="ck-wall ck-side" points={SIDE} />
+      <polygon className="ck-wall" points={FRONT} />
       <g className="ck-chimney" data-hot={hot === 'servo'}>
-        <path className="ck-part" d="M161 68 L180 72 L180 100 L161 78 Z" />
-        <path className="ck-part" d="M180 72 L196 66 L196 92 L180 100 Z" />
-        <path className="ck-part" d="M161 68 L177 62 L196 66 L180 72 Z" />
+        <polygon className="ck-part ck-ch-top" points={CH_TOP} />
+        <polygon className="ck-part ck-ch-side" points={CH_SIDE} />
+        <polygon className="ck-part" points={CH_FRONT} />
       </g>
       <g className="ck-vane">
-        <path d="M178 66 L178 36" />
+        <polyline points={POST} />
         <g className="ck-arm" style={{ transform: `rotateY(${turns * 180}deg)` }}>
-          <path d="M158 34 L198 34" />
-          <ellipse cx="158" cy="34" rx="8" ry="7" />
-          <ellipse cx="198" cy="34" rx="8" ry="7" />
+          <polyline points={ARM} />
+          {CUPS.map(([x, y]) => <ellipse key={x} cx={x} cy={y} rx="6" ry="7.5" />)}
         </g>
       </g>
-      {/* round window with the light behind it */}
-      <g data-hot={hot === 'light'} className="ck-hotwrap"><Matrix weather={weather} frame={frame} /></g>
-      <circle className="ck-rim" cx="91" cy="123" r="17" data-hot={hot === 'light'} />
-      {/* text display */}
-      <path className="ck-part ck-dark" data-hot={hot === 'display'} d="M35 187 L151 199 L151 292 L35 283 Z" />
-      <g className="ck-lines" data-off={text ? 'true' : undefined}><path d="M50 215 L136 224" /><path d="M50 232 L136 241" /><path d="M50 249 L104 254.5" /></g>
-      <foreignObject x="40" y="196" width="106" height="86">
+      <Matrix weather={weather} frame={frame} />
+      <polygon className="ck-rim" points={WINDOW} data-hot={hot === 'light'} />
+      <polygon className="ck-part ck-dark" data-hot={hot === 'display'} points={DISPLAY} />
+      <g className="ck-lines" data-off={text ? 'true' : undefined}>{LINES.map((l) => <polyline key={l} points={l} />)}</g>
+      <foreignObject x="0" y="0" width={TW} height={TH} transform={TEXT_MATRIX}>
         <div className="ck-text" data-on={text ? 'true' : 'false'}>{text}</div>
       </foreignObject>
-      {/* push button on the side wall */}
-      <path className="ck-part" data-hot={hot === 'button'} d="M176 298 L189 294.5 L189 311 L176 315 Z" />
+      <polygon className="ck-part" data-hot={hot === 'button'} points={BUTTON} />
     </svg>
   );
 }

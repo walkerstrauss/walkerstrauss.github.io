@@ -25,16 +25,30 @@
 
 /* Three faces of a pale metal box, as in the exterior diagram. */
 .ck .ck-wall {
-  fill: #f4f6f7;
-  stroke: #aab5ba;
+  fill: #eef1f3;
+  stroke: #9fabb1;
+  stroke-linejoin: round;
 }
 
 .ck .ck-side {
-  fill: #dfe5e8;
+  fill: #d3dadf;
 }
 
 .ck .ck-roof {
-  fill: #e9edef;
+  fill: #e2e7ea;
+}
+
+.ck .ck-ground {
+  fill: rgba(17, 24, 39, 0.06);
+  stroke: none;
+}
+
+.ck .ck-chimney .ck-ch-side {
+  fill: #cfd7dc;
+}
+
+.ck .ck-chimney .ck-ch-top {
+  fill: #f4f6f7;
 }
 
 .ck .ck-chimney .ck-part {
@@ -42,10 +56,12 @@
   stroke: #aab5ba;
 }
 
-.ck .ck-vane path,
+.ck .ck-vane polyline,
 .ck .ck-vane ellipse {
   stroke: #b9523d;
-  stroke-width: 1.6;
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
 }
 
 .ck .ck-vane ellipse {
@@ -70,6 +86,7 @@
 }
 
 .ck .ck-rim {
+  fill: none;
   stroke: #aab5ba;
   stroke-width: 1.4;
   transition: stroke 0.6s ease;
@@ -90,13 +107,13 @@
   stroke: #3f474b;
 }
 
-.ck .ck-lines path {
+.ck .ck-lines polyline {
   stroke: rgba(255, 255, 255, 0.38);
   stroke-width: 2.4;
   transition: opacity 0.8s ease;
 }
 
-.ck .ck-lines[data-off='true'] path {
+.ck .ck-lines[data-off='true'] polyline {
   opacity: 0;
 }
 
@@ -110,7 +127,6 @@
   font-style: italic;
   color: #f1f4f5;
   opacity: 0;
-  transform: skewY(5.5deg);
   transition: opacity 1.2s cubic-bezier(0.2, 0, 0.2, 1);
 }
 
