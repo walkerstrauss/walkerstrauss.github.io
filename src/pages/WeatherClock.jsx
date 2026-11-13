@@ -19,8 +19,8 @@ const SECTIONS = [
 ];
 
 const ROLES = [
-  ['Me', 'Led product design and wrote the system code.'],
-  ['Gaeul Han', 'Developed the concept with me.'],
+  ['Me', 'Interaction design and product design. I also wrote the system code.'],
+  ['Gaeul Han', 'Modeling and building the clock.'],
   ['Xinyi Zhou', 'Built the motor, touch sensor and lighting.'],
 ];
 
