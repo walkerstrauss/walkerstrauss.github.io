@@ -1,0 +1,79 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Page from '../components/Page.jsx';
+import Reveal from '../components/Reveal.jsx';
+
+/* Case studies from jobs (AUI, Onki) live under Work on the home page. */
+const groups = [
+  {
+    heading: "Physical computing",
+    items: [
+      {
+        title: "Savoring Weather Clock",
+        label: "Meta Design Lab",
+        description: "Arduino-based interactive clock merging weather data, AI, and psychology.",
+        to: "/projects/weather-clock",
+      },
+    ],
+  },
+  {
+    heading: "Games",
+    items: [
+      {
+        title: "Mah's Jong",
+        label: "Cornell · Game Design",
+        description: "Competitive Mahjong-inspired 1v1 strategy game built in C++/CUGL.",
+        to: "/projects/mahsjong",
+      },
+      {
+        title: "Death of a Deal",
+        label: "Cornell · Game Design",
+        description: "A Java/LibGDX physics platformer exploring narrative-driven decision making.",
+        to: "/projects/death-of-a-deal",
+      },
+      {
+        title: "Tojiba Crash",
+        label: "Sanko Game Corp",
+        description: "Web-based game inspired by Nanaca Crash, developed at Sanko Game Corp.",
+        to: "/projects/tojiba-crash",
+      },
+    ],
+  },
+];
+
+export default function Projects() {
+  return (
+    <Page className="projects-container">
+      <div>
+        <span className="cs-eyebrow">Prototypes &amp; games</span>
+        <h1 className="cs-title">Projects</h1>
+        <p className="cs-subtitle">
+          A physical-computing prototype and three games.
+        </p>
+      </div>
+
+      {groups.map((group) => (
+        <React.Fragment key={group.heading}>
+          <h2 className="cs-index-group">{group.heading}</h2>
+          <Reveal className="cs-index" stagger>
+            {group.items.map((p) => (
+              <Reveal.Item as={Link} key={p.to} to={p.to} className="cs-index-item">
+                <div className="cs-index-label">{p.label}</div>
+                <div>
+                  <h3 className="cs-index-title">{p.title}</h3>
+                  <p className="cs-index-desc">{p.description}</p>
+                </div>
+                <span className="cs-index-arrow" aria-hidden="true">→</span>
+              </Reveal.Item>
+            ))}
+          </Reveal>
+        </React.Fragment>
+      ))}
+
+      <div className="cs-links">
+        <Link to="/research" className="project-link">Browse research →</Link>
+        <Link to="/" className="back-link">← Back to Home</Link>
+      </div>
+    </Page>
+  );
+}
