@@ -23,16 +23,16 @@ const colour = (b) => (b === 0xff ? null : b === 0xfe ? '#ffffff' : `hsl(${Math.
  * and slightly above.
  */
 const W = 1; const H = 1; const R = 0.45; const D = 0.47;
-const YAW = (42 * Math.PI) / 180; const PITCH = (13 * Math.PI) / 180; const CAM = 9;
+const YAW = (42 * Math.PI) / 180; const CAM = 9; const EYE = 2.1;
+/* Two-point perspective: upright edges stay upright, as in the diagram; the
+   eye sits above the roof, so level edges fall toward the near corner. */
 const raw = (x, y, z) => {
   const sx = x * Math.cos(YAW) + z * Math.sin(YAW);
   const d = -x * Math.sin(YAW) + z * Math.cos(YAW);
-  const sy = y * Math.cos(PITCH) + d * Math.sin(PITCH);
-  const depth = d * Math.cos(PITCH) - y * Math.sin(PITCH);
-  const k = CAM / (CAM + depth);
-  return [sx * k, sy * k];
+  const k = CAM / (CAM + d);
+  return [sx * k, (y - EYE) * k + EYE];
 };
-const SCALE = 172; const OX = 34; const OY = 300;
+const SCALE = 172; const OX = 34; const OY = 305;
 const P = (x, y, z = 0) => { const [u, v] = raw(x, y, z); return [OX + u * SCALE, OY - v * SCALE]; };
 const pts = (list) => list.map((p) => P(...p).map((n) => n.toFixed(1)).join(',')).join(' ');
 const roofY = (x) => H + (R * (W - x)) / (W / 2);
@@ -72,7 +72,7 @@ const TEXT_MATRIX = (() => {
 const BUTTON = pts([[W, 0.05, 0.08], [W, 0.14, 0.08], [W, 0.14, 0.24], [W, 0.05, 0.24]]);
 
 /* Chimney on the right roof slope, holding the vane. */
-const CH = { x0: 0.64, x1: 0.8, z0: 0.12, z1: 0.3, top: H + R * 0.72 + 0.1 };
+const CH = { x0: 0.68, x1: 0.83, z0: 0.12, z1: 0.3, top: H + R * 0.64 + 0.09 };
 const CH_FRONT = pts([[CH.x0, roofY(CH.x0), CH.z0], [CH.x0, CH.top, CH.z0], [CH.x1, CH.top, CH.z0], [CH.x1, roofY(CH.x1), CH.z0]]);
 const CH_SIDE = pts([[CH.x1, roofY(CH.x1), CH.z0], [CH.x1, CH.top, CH.z0], [CH.x1, CH.top, CH.z1], [CH.x1, roofY(CH.x1), CH.z1]]);
 const CH_TOP = pts([[CH.x0, CH.top, CH.z0], [CH.x0, CH.top, CH.z1], [CH.x1, CH.top, CH.z1], [CH.x1, CH.top, CH.z0]]);
