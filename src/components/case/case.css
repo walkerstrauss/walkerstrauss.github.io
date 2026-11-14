@@ -141,6 +141,12 @@
   margin-top: 0.9rem;
 }
 
+/* Text that follows a figure gets the same gap as text before one. */
+.plate + p,
+.cs-section .plate + p {
+  margin-top: 1.75rem;
+}
+
 .plate[data-tone='problem'] {
   border-color: transparent;
   background: color-mix(in srgb, var(--tone-block-mid) 14%, var(--bg));
