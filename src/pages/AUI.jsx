@@ -66,9 +66,8 @@ export default function AUI() {
           <div>
             <dt>60–90%</dt>
             <dd>
-              lower inference cost across three production migrations, as{' '}
-              <a href="https://www.aui.io/results" target="_blank" rel="noopener noreferrer">AUI reports</a>.
-              I worked on those migrations: API mapping, workflow adaptation and regression testing.
+              <a href="https://www.aui.io/results" target="_blank" rel="noopener noreferrer">lower inference cost</a>{' '}
+              across three production migrations I drove through API mapping, workflow adaptation and regression testing.
             </dd>
           </div>
           <div>

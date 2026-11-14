@@ -150,3 +150,65 @@
 @media (prefers-reduced-motion: reduce) {
   .mj-tile, .mj-pile-row, .mj-sets, .mj-timer-arc { transition: none; }
 }
+
+/* ---- First rules: phases, a scored turn, a boss ---- */
+.mj-first { justify-items: stretch; gap: 1.5rem; }
+.mj-first .path li { font-size: 0.85rem; }
+.mj-score { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; align-items: start; }
+.mj-score-list, .mj-boss { display: grid; gap: 0.45rem; justify-items: stretch; }
+.mj-score-row { display: flex; justify-content: space-between; gap: 1rem; padding: 0.4rem 0.75rem; border-radius: 8px; background: var(--plate); }
+.mj-score-row b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.mj-score-total { background: var(--tone-block-bg); color: var(--tone-block-ink); font-weight: 600; }
+.mj-boss { justify-items: start; }
+.mj-hp { display: block; width: 100%; height: 10px; border-radius: 999px; background: var(--plate); overflow: hidden; }
+.mj-hp i { display: block; height: 100%; background: var(--tone-block-mid); transform-origin: left; transition: transform 0.5s cubic-bezier(0.2, 0, 0.2, 1); }
+
+/* ---- Sprint plan: lanes by priority ---- */
+.mj-sprint { display: grid; border-top: 1px solid var(--rule); font-size: 0.85rem; }
+.mj-lane { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid var(--rule); align-items: start; }
+.mj-prio { display: grid; gap: 0.1rem; }
+.mj-prio b { font-size: 1.5rem; font-weight: 500; line-height: 1; color: var(--text-tirtiary); }
+.mj-prio[data-top='true'] b { color: var(--text); }
+.mj-prio small, .mj-task small { font-size: 0.72rem; color: var(--text-tirtiary); }
+.mj-tasks { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.mj-task { display: grid; gap: 0.15rem; max-width: 17rem; padding: 0.5rem 0.75rem; border-radius: 10px; background: var(--plate); line-height: 1.35; color: var(--text); }
+.mj-task[data-me='true'] { background: var(--tone-message-bg); color: var(--tone-message-ink); }
+.mj-task[data-me='true'] small { color: var(--tone-message-ink); opacity: 0.75; }
+
+@media (max-width: 700px) {
+  .mj-score { grid-template-columns: minmax(0, 1fr); }
+  .mj-lane { grid-template-columns: 3rem minmax(0, 1fr); }
+  .mj-task { max-width: none; width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .mj-hp i { transition: none; } }
+
+/* ---- Celestial roles, three across ---- */
+.mj-three { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; gap: 1.25rem; }
+.mj-rolecol { justify-items: start; text-align: left; --mj-w: clamp(18px, 2.4vw, 24px); }
+.mj-effects { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.3rem; font-size: 0.78rem; line-height: 1.4; color: var(--text-secondary); min-height: 6.5rem; align-content: start; }
+
+/* ---- Tutorial lessons ---- */
+.mj-lessons { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.4rem; width: 100%; max-width: 19rem; --mj-w: 20px; }
+.mj-lessons li { display: grid; grid-template-columns: 5rem minmax(0, 1fr); align-items: center; gap: 0.75rem; padding: 0.45rem 0.7rem; border-radius: 10px; background: var(--plate); transition: opacity 0.45s ease, background 0.45s ease; }
+.mj-lessons li[data-state='next'] { opacity: 0.4; }
+.mj-lessons li[data-state='now'] { background: var(--tone-message-bg); color: var(--tone-message-ink); font-weight: 550; }
+
+/* ---- Taking the discard ---- */
+.mj-discard { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; --mj-w: clamp(20px, 3vw, 28px); }
+
+/* ---- Screens and systems ---- */
+.mj-screens-fig { justify-items: start; gap: 0.7rem; }
+.mj-screens { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.mj-screen { padding: 0.5rem 0.85rem; border: 1px solid var(--rule); border-radius: 10px; background: var(--bg); transition: background 0.45s ease, color 0.45s ease, border-color 0.45s ease; }
+.mj-screen[data-mine='built'], .mj-legend i[data-mine='built'] { background: var(--tone-message-bg); border-color: var(--tone-message-mid); color: var(--tone-message-ink); }
+.mj-screen[data-mine='shared'], .mj-legend i[data-mine='shared'] { border-style: dashed; border-color: var(--tone-message-mid); color: var(--tone-message-ink); }
+.mj-legend { display: flex; flex-wrap: wrap; gap: 1.25rem; font-size: 0.78rem; color: var(--text-secondary); }
+.mj-legend span { display: inline-flex; align-items: center; gap: 0.45rem; }
+.mj-legend i { display: inline-block; width: 0.9rem; height: 0.9rem; border: 1px solid var(--rule); border-radius: 4px; }
+
+.path li small { font-size: 0.72rem; color: var(--text-tirtiary); }
+
+@media (max-width: 700px) {
+  .mj-three, .mj-discard { grid-template-columns: minmax(0, 1fr); }
+  .mj-effects { min-height: 0; }
+}

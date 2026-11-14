@@ -62,23 +62,43 @@ export function RaceFigure() {
   );
 }
 
-/* Decision 2: three roles, and one Celestial tile in use on the pile. */
+/* Decision 2: the eight Celestial tiles in their three roles, with one tile
+   from each role in use. Names and effects are from the team's level design
+   slides. */
+const ROLES = [
+  ['Support', ['Rat’s Gambit: draw any tile from the pile', 'Pig’s Fortune: draw any tile from the discard', 'Dragon’s Dance: rearrange a row of the pile']],
+  ['Risky', ['Monkey’s Bargain: trade one tile with the opponent', 'Rooster’s Crow: shuffle the pile']],
+  ['Disruptor', ['Ox’s Burden: two random tiles can’t be used in a set', 'Rabbit’s Leap: change the rank of an opponent’s tile', 'Snake’s Molt: change the suit of an opponent’s tile']],
+];
+
 export function CelestialFigure() {
-  const [ref, step] = useSteps(5);
-  const rows = step >= 5 ? [PILE[0], ['4d', '*', '*', '6b'], PILE[2]] : PILE;
+  const [ref, step] = useSteps(6);
+  const row = step >= 2 ? ['4d', '*', '*', '6b'] : PILE[1];
+  const traded = step >= 4;
+  const molted = step >= 6;
   return (
-    <div className="mj-fig mj-two" ref={ref}>
-      <div className="mj-col">
-        <small className="mj-kicker">Three roles</small>
-        {['Support', 'Risky', 'Disruptor'].map((role, i) => (
-          <span key={role} className="mj-role step" data-on={step >= i + 1}><MjTile t="*" />{role}</span>
-        ))}
+    <div className="mj-fig mj-three" ref={ref}>
+      <div className="mj-col mj-rolecol step" data-on={step >= 1}>
+        <span className="mj-role"><MjTile t="*" />{ROLES[0][0]}</span>
+        <ul className="mj-effects">{ROLES[0][1].map((x) => <li key={x}>{x}</li>)}</ul>
+        <small className="mj-kicker">Dragon’s Dance</small>
+        <Pile rows={[row]} litRow={0} />
+        <Tag className="step-fade" data-on={step >= 2} tone="result">Row rearranged</Tag>
       </div>
-      <div className="mj-col step" data-on={step >= 4}>
-        <small className="mj-kicker">One in use</small>
-        <Prompt>Select the row you want to rearrange</Prompt>
-        <Pile rows={rows} litRow={1} dimOthers />
-        <Tag className="step-fade" data-on={step >= 5} tone="result">Row rearranged</Tag>
+      <div className="mj-col mj-rolecol step" data-on={step >= 3}>
+        <span className="mj-role"><MjTile t="*" />{ROLES[1][0]}</span>
+        <ul className="mj-effects">{ROLES[1][1].map((x) => <li key={x}>{x}</li>)}</ul>
+        <small className="mj-kicker">Monkey’s Bargain</small>
+        <span className="mj-racer"><small>You</small><Hand tiles={['2b', '3b', traded ? '4b' : '9c']} lit={[2]} /></span>
+        <span className="mj-racer"><small>Opponent</small><Hand tiles={['7c', '8c', traded ? '9c' : '4b']} lit={[2]} /></span>
+        <Tag className="step-fade" data-on={traded} tone="result">One tile traded: both sets complete</Tag>
+      </div>
+      <div className="mj-col mj-rolecol step" data-on={step >= 5}>
+        <span className="mj-role"><MjTile t="*" />{ROLES[2][0]}</span>
+        <ul className="mj-effects">{ROLES[2][1].map((x) => <li key={x}>{x}</li>)}</ul>
+        <small className="mj-kicker">Snake’s Molt</small>
+        <span className="mj-racer"><small>Opponent</small><Hand tiles={['7c', '8c', molted ? '9d' : '9c']} lit={[2]} /></span>
+        <Tag className="step-fade" data-on={molted} tone="block">Suit changed: the set is broken</Tag>
       </div>
     </div>
   );
@@ -127,9 +147,20 @@ export function TimerFigure() {
   );
 }
 
-/* Decision 5: watched once at start-up became a scene the player plays. */
+/* Decision 5: watched once at start-up became a scene the player plays.
+   The five lessons are the tutorial's own scene files (tu-drawFromPile,
+   tu-drawDiscarded, tu-dragToDiscard, tu-playset, tu-playCelestialTile). */
+const LESSONS = [
+  ['Draw from the pile', ['6b', '2d', '7c'], [1]],
+  ['Draw the discarded tile', ['5d'], [0]],
+  ['Drag to discard', ['9c'], [0]],
+  ['Play a set', ['5d', '5d', '5d'], [0, 1, 2]],
+  ['Play a Celestial tile', ['*'], [0]],
+];
+
 export function TutorialFigure() {
-  const [ref, step] = useSteps(4);
+  const [ref, step] = useSteps(2 + LESSONS.length);
+  const at = step - 3;
   return (
     <div className="mj-fig mj-two" ref={ref}>
       <div className="mj-col step" data-on={step >= 1}>
@@ -137,14 +168,198 @@ export function TutorialFigure() {
         <span className="mj-slide" data-cut={step >= 2}><i>▶</i></span>
         <small>Plays once at start-up</small>
       </div>
-      <div className="mj-col step" data-on={step >= 3}>
-        <small className="mj-kicker">Rebuilt</small>
-        <Pile rows={[PILE[0].slice(0, 3), PILE[2]]} />
-        <span className="mj-played">
-          <Hand tiles={['2b', '3b', '4b', '5d']} lit={step >= 4 ? [3] : []} />
-          <i className="mj-finger step-fade" data-on={step >= 4} aria-hidden="true" />
-        </span>
-        <Tag className="step-fade" data-on={step >= 4} tone="result">A single-player scene the player plays through</Tag>
+      <div className="mj-col step" data-on={step >= 2}>
+        <small className="mj-kicker">Rebuilt: five lessons, each one played</small>
+        <ol className="mj-lessons" role="list">
+          {LESSONS.map(([name, tiles, lit], i) => (
+            <li key={name} data-state={i < at ? 'past' : i === at ? 'now' : 'next'}>
+              <Hand tiles={tiles} lit={i === at ? lit : []} />
+              <span>{name}</span>
+            </li>
+          ))}
+        </ol>
+        <Tag className="step-fade" data-on={at >= LESSONS.length - 1} tone="result">A single-player scene the player plays through</Tag>
+      </div>
+    </div>
+  );
+}
+
+/* Decision 1, before: the first rules as written (Mah's Jong Rules.pdf).
+   Four phases a turn, points for sets, and a boss with hit points. The
+   scores are the document's own example, turn 3. */
+const PHASES = ['Draw', 'Play', 'Score', 'Shop'];
+const SCORED = [['Three of a kind', '+3'], ['Three of a kind', '+3'], ['Combo', '+3'], ['Pair', '+2']];
+
+export function FirstRulesFigure() {
+  const [ref, step] = useSteps(PHASES.length + SCORED.length + 1);
+  const scored = Math.max(0, Math.min(SCORED.length, step - PHASES.length));
+  const won = step > PHASES.length + SCORED.length - 1 && scored === SCORED.length;
+  return (
+    <div className="mj-fig mj-first" ref={ref}>
+      <ol className="path" role="list" aria-label="The four phases of a turn in the first rules">
+        {PHASES.map((ph, i) => (
+          <li key={ph} data-on={step >= i + 1 ? 'true' : 'false'}><span className="path-mark" aria-hidden="true" /><strong>{ph}</strong></li>
+        ))}
+      </ol>
+      <div className="mj-score step" data-on={step >= PHASES.length}>
+        <div className="mj-score-list">
+          <small className="mj-kicker">One turn, scored</small>
+          {SCORED.map(([what, pts], i) => (
+            <span key={i} className="mj-score-row step-fade" data-on={scored >= i + 1}><span>{what}</span><b>{pts}</b></span>
+          ))}
+          <span className="mj-score-row mj-score-total step-fade" data-on={scored >= SCORED.length}><span>Turn total</span><b>+11</b></span>
+        </div>
+        <div className="mj-boss">
+          <small className="mj-kicker">“Grandma” · boss hit points</small>
+          <span className="mj-hp" aria-hidden="true"><i style={{ transform: `scaleX(${1 - scored / SCORED.length})` }} /></span>
+          <Tag className="step-fade" data-on={won} tone="block">Points beat the boss; no opponent</Tag>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* Leading the team: one sprint plan (Closed Beta, from the team report).
+   Every task had an owner, a due date and a priority from 1 to 5. Tasks are
+   the report's own, shortened; roles stand in for names. Lanes appear in
+   priority order. */
+const SPRINT = [
+  [5, [
+    ['Software lead', 'Match model for the shared state of a game', 'Apr 11'],
+    ['Programmer', 'Finish the animation controller, add special-tile animations', 'Apr 13'],
+    ['Programmer', 'Finish the audio controller, add the first sounds', 'Apr 11'],
+    ['Programmer', 'Special tile: rearrange a row, with the designer’s UI', 'Apr 17'],
+    ['Me', 'Load every new scene and its UI into the game', 'Apr 14'],
+    ['Design lead', 'Design the action tile assets', 'Apr 9'],
+    ['UX lead', 'Export the tutorial page for the programmers', 'Apr 11'],
+  ]],
+  [4, [
+    ['UX lead', 'Tutorial page in Figma', 'Apr 9'],
+    ['Designer', 'Rework the gameplay scene from feedback', 'Apr 11'],
+    ['Programmer', 'Interface for drawing any tile', 'Apr 18'],
+  ]],
+  [3, [
+    ['Designer', 'Refine details in Figma', 'Apr 10'],
+    ['Programmer', 'Find the remaining music', 'Apr 17'],
+  ]],
+  [2, [
+    ['Design lead', 'Component sheet for the style guide', 'Apr 10'],
+    ['Design lead', 'Resize the grandma icon', 'Apr 8'],
+  ]],
+];
+
+export function SprintFigure() {
+  const [ref, step] = useSteps(SPRINT.length);
+  return (
+    <div className="mj-sprint" ref={ref} role="table" aria-label="One sprint’s tasks by priority">
+      {SPRINT.map(([prio, tasks], i) => (
+        <div key={prio} className="mj-lane step" data-on={step >= i + 1} role="row">
+          <span className="mj-prio" role="rowheader" data-top={prio === 5}><b>{prio}</b><small>priority</small></span>
+          <span className="mj-tasks" role="cell">
+            {tasks.map(([who, what, due]) => (
+              <span key={what} className="mj-task" data-me={who === 'Me'}>
+                <small>{who} · {due}</small>
+                {what}
+              </span>
+            ))}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* Between designers and programmers: how a designed screen reached the game. */
+const HANDOFF = [
+  ['Design', 'A designer lays out the screen in Figma'],
+  ['Export', 'The layout is exported as a scene file'],
+  ['Load', 'A programmer loads the scene into the game'],
+  ['Fit', 'Buttons, transitions and mobile sizing are checked'],
+];
+
+export function HandoffFigure() {
+  const [ref, step] = useSteps(HANDOFF.length);
+  return (
+    <ol className="path" ref={ref} role="list" aria-label="How a designed screen reached the game">
+      {HANDOFF.map(([k, v], i) => (
+        <li key={k} data-on={step >= i + 1 ? 'true' : 'false'}><span className="path-mark" aria-hidden="true" /><strong>{k}</strong><span>{v}</span></li>
+      ))}
+    </ol>
+  );
+}
+
+/* The game: taking the opponent's discard means showing a set for good. */
+export function DiscardFigure() {
+  const [ref, step] = useSteps(4);
+  const taken = step >= 3;
+  return (
+    <div className="mj-fig mj-discard" ref={ref}>
+      <div className="mj-col step" data-on={step >= 1}>
+        <small className="mj-kicker">Discard</small>
+        <Hand tiles={[taken ? '' : '6c']} lit={step === 2 ? [0] : []} />
+        <small>{taken ? 'Taken' : 'The opponent’s last discard'}</small>
+      </div>
+      <div className="mj-col step" data-on={step >= 2}>
+        <small className="mj-kicker">Your hand</small>
+        <Hand tiles={taken ? ['2b', '3b', '9d'] : ['2b', '3b', '6c', '6c', '9d']} lit={step === 2 ? [2, 3] : []} />
+        <small>{taken ? 'Three tiles left to work with' : 'Two tiles that the discard would complete'}</small>
+      </div>
+      <div className="mj-col step" data-on={taken}>
+        <small className="mj-kicker">Shown set</small>
+        <Hand tiles={['6c', '6c', '6c']} />
+        <Tag className="step-fade" data-on={step >= 4} tone="block">Face up for the rest of the game</Tag>
+      </div>
+    </div>
+  );
+}
+
+/* What each sprint put first. Dates: release tags in the repository and the
+   release task in the team report. Priorities: the report's own summaries of
+   the alpha and the closed beta plan. */
+const SPRINTS = [
+  ['Gameplay prototype', 'Mar 1', 'The rules, playable'],
+  ['Alpha', 'Mar 28', 'Every core mechanic working over the network; mobile controls and screen sizes'],
+  ['Closed beta', 'April', 'Animation, audio, the new special tiles, and scenes reworked from alpha feedback'],
+  ['Version 4.0', 'May 17', 'The last tagged release'],
+];
+
+export function SprintsFigure() {
+  const [ref, step] = useSteps(SPRINTS.length);
+  return (
+    <ol className="path" ref={ref} role="list" aria-label="What each sprint put first">
+      {SPRINTS.map(([name, when, what], i) => (
+        <li key={name} data-on={step >= i + 1 ? 'true' : 'false'}><span className="path-mark" aria-hidden="true" /><strong>{name}</strong><small>{when}</small><span>{what}</span></li>
+      ))}
+    </ol>
+  );
+}
+
+/* My role: the game's screens and systems, with the ones Walker built marked.
+   From the page's own list (commit history) and his done tasks in the team
+   report (the pause scene). */
+const SCREENS = [
+  ['Landing'], ['Menu'], ['Host and client'], ['Game'],
+  ['Discard pile', 'built'], ['Pause', 'built'], ['Settings', 'built'], ['Info', 'built'],
+  ['Help', 'built'], ['Game over', 'built'], ['Tutorial', 'shared'],
+];
+const SYSTEMS = [['AnimatedNode class', 'built'], ['Animation controller', 'shared']];
+
+export function ScreensFigure() {
+  const [ref, step] = useSteps(3);
+  const state = (kind) => (kind === 'built' && step >= 2) || (kind === 'shared' && step >= 3) ? kind : undefined;
+  return (
+    <div className="mj-fig mj-screens-fig" ref={ref}>
+      <small className="mj-kicker step" data-on={step >= 1}>Screens</small>
+      <div className="mj-screens step" data-on={step >= 1}>
+        {SCREENS.map(([name, kind]) => <span key={name} className="mj-screen" data-mine={state(kind)}>{name}</span>)}
+      </div>
+      <small className="mj-kicker step" data-on={step >= 1}>Systems</small>
+      <div className="mj-screens step" data-on={step >= 1}>
+        {SYSTEMS.map(([name, kind]) => <span key={name} className="mj-screen" data-mine={state(kind)}>{name}</span>)}
+      </div>
+      <div className="mj-legend">
+        <span className="step-fade" data-on={step >= 2}><i data-mine="built" />Built by me</span>
+        <span className="step-fade" data-on={step >= 3}><i data-mine="shared" />Started by me, finished with teammates</span>
       </div>
     </div>
   );

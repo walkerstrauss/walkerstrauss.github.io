@@ -47,7 +47,7 @@ export default function Home() {
       </div>
 
       <Tiles cols={3} label="How I got here">
-        <Tile id="neuroscience" to="/research/fmri-study" title="Neuroscience" line="Perception, emotion and memory: an fMRI study of how the brain evaluates images of food. Ran scan sessions and wrote the data-preparation scripts.">
+        <Tile id="neuroscience" to="/research/fmri-study" title="Neuroscience" line="Perception, emotion and memory: an fMRI study of how the brain evaluates images of food. Helped run scan sessions and wrote the data-preparation scripts.">
           <FmriCard />
         </Tile>
         <Tile id="game-design" to="/projects/mahsjong" title="Game design" line="Mapping the flow and the cases: project lead on Mah’s Jong, a two-player mahjong race.">

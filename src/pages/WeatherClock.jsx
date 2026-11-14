@@ -33,7 +33,7 @@ export default function WeatherClock() {
         <p className="cs-subtitle">A home device that turns live weather into a prompt to notice it.</p>
         <div className="cs-meta">
           <div><h4>Lab</h4><p>Meta Design Lab, Cornell, under Professor Jay Yoon</p></div>
-          <div><h4>My role</h4><p>Product design lead, system code</p></div>
+          <div><h4>My role</h4><p>Interaction and product design, system code</p></div>
           <div><h4>Built with</h4><p>Arduino UNO R4 WiFi</p></div>
         </div>
       </header>
