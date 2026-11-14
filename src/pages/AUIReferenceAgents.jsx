@@ -43,7 +43,7 @@ export default function AUIReferenceAgents() {
           </Plate>
           <Trio items={[
             ['The person', 'Wants something done: a charge disputed, time off booked. If it can’t be done, they need the reason and a next step.'],
-            ['The goal', 'Show a working agent in each domain.'],
+            ['The goal', 'A working agent in each domain for sales demos. They were also used as regression signals for the runtime.'],
             ['The constraint', 'A write has to follow policy the same way every time. Both agents ran on mock records and services.'],
           ]} />
         </Beat>
