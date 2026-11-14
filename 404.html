@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Walker Strauss</title>
+    <script>
+      // Temporary, for the type comparison in App.css: ?type=newsreader,
+      // ?type=instrument or ?type=inter, remembered for this browser tab.
+      (function () {
+        try {
+          var q = new URLSearchParams(location.search).get('type');
+          if (q) sessionStorage.setItem('type', q);
+          var t = q || sessionStorage.getItem('type');
+          var faces = { newsreader: 'Newsreader:opsz,wght@6..72,300..600', instrument: 'Instrument+Serif' };
+          if (t && faces[t]) {
+            document.documentElement.setAttribute('data-type', t);
+            var l = document.createElement('link');
+            l.rel = 'stylesheet';
+            l.href = 'https://fonts.googleapis.com/css2?family=' + faces[t] + '&display=swap';
+            document.head.appendChild(l);
+          }
+        } catch (e) { /* storage unavailable: default face */ }
+      })();
+    </script>
+    <script type="module" crossorigin src="/assets/index-DqUIgU1I.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DjRmffrO.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
