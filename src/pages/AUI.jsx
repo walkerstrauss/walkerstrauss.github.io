@@ -60,6 +60,26 @@ export default function AUI() {
           <div><h4>My role</h4><p>Product Operations (Agents)</p></div>
           <div><h4>Timeline</h4><p>Dec 2025 – Nov 2026</p></div>
         </div>
+        {/* Results first (S362). The cost figure is AUI's published one; the
+            contribution wording is Walker's approved framing (S167). */}
+        <dl className="results" aria-label="Results">
+          <div>
+            <dt>60–90%</dt>
+            <dd>
+              lower inference cost across three production migrations, as{' '}
+              <a href="https://www.aui.io/results" target="_blank" rel="noopener noreferrer">AUI reports</a>.
+              I worked on those migrations: API mapping, workflow adaptation and regression testing.
+            </dd>
+          </div>
+          <div>
+            <dt>2 agents released</dt>
+            <dd>Two customers’ support agents, released in phases after each team reviewed proposed replies to its own tickets.</dd>
+          </div>
+          <div>
+            <dt>2 product capabilities</dt>
+            <dd>Review before rollout and user-linked state started in that work and are now part of the product.</dd>
+          </div>
+        </dl>
       </header>
 
       <CaseLayout sections={SECTIONS}>

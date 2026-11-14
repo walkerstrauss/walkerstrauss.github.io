@@ -35,10 +35,6 @@ export default function AUIPayments() {
   return (
     <>
         <Beat id="roll-problem" eyebrow="Part 2 · A person reviews before release" title="A support team has to trust what an agent will do before it acts.">
-          <p>
-            The team needed a way to trust that, once deployed, the agent would
-            take the correct actions on their tickets.
-          </p>
           <Trio items={[
             ['The people', 'Two support teams, and the customers and riders writing in to them.'],
             ['The goal', 'Move each team’s agent onto AUI inside the ticketing system they already used.'],
@@ -82,8 +78,7 @@ export default function AUIPayments() {
           title="The integration was tested inside each customer’s own ticketing system, with their engineers."
         >
           <p>
-            Both agents ran inside the customer’s existing ticketing system. I
-            tested that integration and worked with the customer to set up
+            I tested the integration and worked with each customer to set up
             the webhook calls from their help desk to our endpoints. For the
             payments customer, I worked with their head of customer success
             and their engineers to get test accounts and to match what their
@@ -186,9 +181,6 @@ export default function AUIPayments() {
         </Beat>
 
         <Beat id="outcome" eyebrow="Outcome" title="Both teams saw what their agent would do before it acted, and released it.">
-          <Plate tone="solution" kind="Result" label="Requirements to release">
-            <PaymentsPath done />
-          </Plate>
           <dl className="outcomes">
             <div>
               <dt>The customers</dt>

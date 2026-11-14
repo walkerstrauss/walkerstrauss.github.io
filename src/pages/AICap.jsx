@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { CaseLayout, Plate } from '../components/case/Case.jsx';
+import Basis from '../components/case/Basis.jsx';
 import Page from '../components/Page.jsx';
 import Reveal from '../components/Reveal.jsx';
 import SurveyBars from '../components/aicap/SurveyBars.jsx';
@@ -121,13 +122,12 @@ export default function AICap() {
         </p>
 
         <h3 className="cs-subhead">Literature review</h3>
-        <ul className="cs-list">
-          <li><strong>Wake words feel awkward in public</strong> → the kiosk speaks first when a shopper comes close; the phrase is optional.</li>
-          <li><strong>Too much choice reduces conversion</strong> → recommend a few bottles at a time.</li>
-          <li><strong>Shoppers feel dismissed without tailored reasons</strong> → explain each pick against stated preferences.</li>
-          <li><strong>Finding products causes stress</strong> → say where each bottle is.</li>
-          <li><strong>Always support touch-only use</strong> → every voice action has a touch equivalent.</li>
-        </ul>
+        <p>
+          Alongside the survey I reviewed published research on voice
+          assistants in public places, how people respond to recommendations
+          and their explanations, and shopping behavior in stores. Each stage
+          below starts with the findings behind its rules.
+        </p>
       </Reveal>
 
       <section className="cs-section cs-decisions">
@@ -148,9 +148,24 @@ export default function AICap() {
           </ol>
         </Plate>
 
+        <Basis
+          rows={[
+            { finding: 'Wake-word failures and social awkwardness in public are the main things holding back voice assistants; a trial of starting by gaze instead was preferred in public.', source: 'Look and Talk: gaze-triggered activation of an AI assistant', rule: 'The kiosk starts the session itself when a shopper comes close. The wake phrase is optional.' },
+            { finding: 'People describe using voice commands around strangers as uncomfortable.', source: '(Non-)Interacting with Conversational Agents, 2020 · interviews, 29 people' },
+            { finding: '3 of 19 named feeling awkward using voice in a store as a top concern.', source: 'Our shopper survey', rule: 'A tap on “Let’s start” opens the same session.' },
+          ]}
+        />
+
         <StartDemo
           title="Browsing to first contact: Onki speaks first"
           intro="Saying a phrase out loud to a machine in an aisle is awkward, so a shopper never has to. The kiosk stays quiet while someone browses, offers a way in as they come nearer, and greets them itself at arm’s length. “Let’s start” opens the same session by touch."
+        />
+
+        <Basis
+          rows={[
+            { finding: 'People change how they talk to a conversational system when others are watching, and ask less when someone is waiting behind them.', source: 'Candello et al., CHI 2019', rule: 'Every voice action has a touch or text equivalent, and preset questions are always on screen.' },
+            { finding: 'One of 20 wanted voice alone. Eight preferred presets and buttons.', source: 'Our shopper survey', rule: 'Touch is a complete path through the session.' },
+          ]}
         />
 
         <PreferencesDemo
@@ -158,14 +173,35 @@ export default function AICap() {
           intro="Spoken input appears as text while the shopper talks, and each preference becomes a chip they can check and remove. “Show me matches” switches on once there is something to match; “Just surprise” is always available for a shopper who wants to skip ahead."
         />
 
+        <Basis
+          rows={[
+            { finding: 'Explaining a recommendation raises trust and makes the system’s reasoning easier to follow.', source: 'Chen, Lin & Yi, Journal of Retailing and Consumer Services, 2025', rule: 'Each pick says how it matches what the shopper asked for.' },
+            { finding: '10 of 19 worried recommendations would not be personal or accurate. 9 of 19 said stores have too many options.', source: 'Our shopper survey', rule: 'A few bottles at a time, each with its reason and its place on the shelf.' },
+          ]}
+        />
+
         <VoiceSyncDemo
           title="Recommendation: the voice leads, the screen follows"
           intro="The voice gives the short pitch: name, price, origin, a taste, and where to find the bottle. The card holds the detail to scan. I tied the card to the voice, so the screen always shows the wine being talked about."
         />
 
+        <Basis
+          rows={[
+            { finding: 'A sales robot with no way to interrupt it; in my notes I marked that as the gap between it and a human conversation.', source: 'Hanschmann, Gnewuch & Maedche, Saleshat, 2023', rule: 'A tap counts as an interruption, the same as speaking over the assistant.' },
+          ]}
+        />
+
         <InterruptDemo
           title="Recommendation: a tap interrupts, like speaking over it"
           intro="Shoppers tap while the assistant is still talking. I defined a tap as an interruption: the voice stops, the caption finishes its phrase so nothing is cut off mid-word, and the assistant answers the tap instead of finishing its old plan."
+        />
+
+        <Basis
+          rows={[
+            { finding: 'People unfamiliar with a product don’t know which questions to ask, and want the assistant to take the lead.', source: 'Hanschmann, Gnewuch & Maedche, Saleshat, 2023', rule: 'Recommend within two turns, then ask one question at a time.' },
+            { finding: 'People who know a domain prefer a fast, direct style; people who don’t choose better with a more guided one. Letting them switch worked best.', source: 'Kostric, Balog & Gadiraju, UMAP 2025', rule: 'Presets and “Just surprise” let a shopper skip ahead; questions guide the ones who want it.' },
+            { finding: '13 of 20 would choose the kiosk to explore at their own pace.', source: 'Our shopper survey' },
+          ]}
         />
 
         <RefineDemo

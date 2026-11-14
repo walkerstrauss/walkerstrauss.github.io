@@ -433,7 +433,7 @@
   }
 }
 
-/* Space between the last note and a caption that runs under both columns. */
+/* Space between the end of the thread and its caption. */
 .plate .story-with-notes > figcaption {
   margin-top: 1.1rem;
 }
@@ -613,4 +613,94 @@
 /* A paragraph that follows the three-column list needs air. */
 .trio + p {
   margin-top: 2rem;
+}
+
+/* ---- Basis: a finding, its source, and the design rule it led to ---- */
+.basis {
+  display: grid;
+  margin: 1.5rem 0 0;
+  border-top: 1px solid var(--rule);
+}
+
+.basis [role='row'] {
+  display: grid;
+  grid-template-columns: var(--split);
+  gap: 0.5rem var(--split-gap);
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--rule);
+  align-items: start;
+}
+
+.basis-head span {
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tirtiary);
+}
+
+.basis-finding {
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.basis-finding small {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: var(--fs-xs);
+  line-height: 1.4;
+  color: var(--text-tirtiary);
+}
+
+.basis-rule {
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+  background: var(--tone-result-bg);
+  color: var(--tone-result-ink);
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+}
+
+.basis-rule.is-empty { display: none; }
+
+.cs-decisions > .basis { margin: 3rem 0 0; }
+.cs-decisions > .basis + .ax-scrub { margin-top: 1.5rem; }
+
+@media (max-width: 700px) {
+  .basis-head { display: none !important; }
+  .basis [role='row'] { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---- Results: the outcome first, under a case header ---- */
+.results {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem 2rem;
+  margin: 1.75rem 0 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+}
+
+.results dt {
+  margin: 0 0 0.4rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+.results dd {
+  margin: 0;
+  max-width: 34ch;
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.results a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+
+@media (max-width: 700px) {
+  .results { grid-template-columns: minmax(0, 1fr); }
 }

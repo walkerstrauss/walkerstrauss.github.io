@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Beat, CaseLayout, Instead, Plate, Trio } from '../components/case/Case.jsx';
+import Basis from '../components/case/Basis.jsx';
 import Page from '../components/Page.jsx';
 import { CheckVsNotice, ConceptMap, InsideParts, InteractionChoice, ProcessTimeline, RearParts, WeatherToClock, WhenItSpeaks } from '../components/weatherclock/RealFigures.jsx';
 
@@ -55,12 +56,33 @@ export default function WeatherClock() {
           title={<><Instead>Instead of alerting or informing,</Instead>the clock is built on savoring theory.</>}
         >
           <p>
-            The design draws on savoring theory from positive psychology. I
-            organized the clock’s behavior around four savoring strategies:
-            sensory-perceptual sharpening, counting blessings, memory
-            building, and sharing with others. Each weather condition
-            triggers its own combination of light, motion and generated text.
+            The design draws on savoring theory from positive psychology:
+            the techniques people use to notice a good moment and make it
+            last. In December I went through the concept behavior by
+            behavior, named the savoring technique each one supports, and
+            used research on gratitude to change when the device speaks.
+            The clock that was built writes each line from the live weather
+            and one of ten savoring techniques.
           </p>
+          <Plate label="From my December 6 notes, on the concept that came before the clock">
+            <Basis
+              label="What the device does"
+              ruleLabel="The savoring technique it supports"
+              rows={[
+                { finding: 'Prompts you to notice the soft drizzle outside.', source: 'Read the Air, variation 2', rule: 'Sensory-perceptual sharpening' },
+                { finding: 'Waves, so you stop and appreciate the calm weather.', source: 'Read the Air, variation 2', rule: 'Counting blessings' },
+                { finding: 'Turns the day’s air into a picture you can keep.', source: 'Read the Air, variation 2', rule: 'Memory building, temporal awareness' },
+                { finding: 'A share button passes today’s weather to someone at home.', source: 'Read the Air, variation 3', rule: 'Sharing with others' },
+              ]}
+            />
+            <Basis
+              label="The research"
+              ruleLabel="What I changed"
+              rows={[
+                { finding: 'Gratitude felt in the moment has a larger effect than gratitude recalled afterwards.', source: 'Gratitude research discussed in the lab', rule: 'Prompt the person to appreciate the moment while it is happening, before the device asks anything of them.' },
+              ]}
+            />
+          </Plate>
           <Plate label="One change in the weather, on the clock">
             <WeatherToClock />
           </Plate>

@@ -3860,8 +3860,10 @@ footer p {
   top: 104px;
 }
 
+/* The caption stays under the thread. The sticky notes travel to the bottom
+   of the figure, so a caption spanning both columns ends up underneath them. */
 .story-with-notes > figcaption {
-  grid-column: 1 / -1;
+  grid-column: 1;
 }
 
 @container (max-width: 34rem) {

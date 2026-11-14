@@ -10,7 +10,7 @@ import { Check, Facts, MessageToDraft, Reply, Thread } from '../components/threa
  * figure that shows it), the full conversations on demand, and the result.
  * Every figure is illustrative, with fictional people, policies and wording.
  */
-const NOTE = 'Illustrative. Fictional data; not a product interface.';
+const NOTE = 'Illustrative, with fictional data.';
 
 function Walkthrough() {
   const [which, setWhich] = useState('dispute');
