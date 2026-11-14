@@ -40,7 +40,7 @@ const SPLIT = [
 ];
 
 const ROLE = [
-  ['Other customer agents', 'Built and maintained support agents for other AUI customers.'],
+  ['Other customer migrations', 'Drove migrations for other AUI customers. Those deployments are the ones behind the inference-cost result at the top of this page.'],
   ['Testing and evaluation', 'Wrote test conversations and checked agent behavior against requirements.'],
   ['Developer enablement', 'Onboarded customer teams onto AUI’s CLI and wrote reusable guidance for builders.'],
 ];
@@ -67,7 +67,8 @@ export default function AUI() {
             <dt>60–90%</dt>
             <dd>
               <a href="https://www.aui.io/results" target="_blank" rel="noopener noreferrer">lower inference cost</a>{' '}
-              across three production migrations I drove through API mapping, workflow adaptation and regression testing.
+              across three production deployments, where I drove the customer migrations: API mapping, workflow
+              adaptation and regression testing.
             </dd>
           </div>
           <div>
@@ -76,7 +77,7 @@ export default function AUI() {
           </div>
           <div>
             <dt>2 product capabilities</dt>
-            <dd>Review before rollout and user-linked state started in that work and are now part of the product.</dd>
+            <dd>Review before rollout and user-linked state, both prototyped with the team in that work, are now part of the product.</dd>
           </div>
         </dl>
       </header>

@@ -8,8 +8,8 @@ import { useSteps } from '../lib/useSteps.js';
 const ROUND = [
   ['Replay', 'A past ticket runs through the agent'],
   ['Proposed reply', 'The team reads it; nothing is sent'],
-  ['Feedback', 'The subscription is managed in the rider’s app store account'],
-  ['New rule', 'Send the rider there, and say why'],
+  ['Feedback', 'The subscription is managed in the user’s app store account'],
+  ['New rule', 'Send the user there, and say why'],
   ['Replay again', 'The team sees the revised reply'],
 ];
 
@@ -25,7 +25,7 @@ function FeedbackRound() {
 }
 
 /*
- * One case: two customer support agents (a payments company and a transit
+ * One case: two customer support agents (a payments company and a consumer
  * app) taken from requirements to release. Customers are not named and every
  * figure is a fictional illustration. Sources: S071, S219–S220, S232, S328,
  * S341, AUI-012, AUI-013.
@@ -36,7 +36,7 @@ export default function AUIPayments() {
     <>
         <Beat id="roll-problem" eyebrow="Part 2 · A person reviews before release" title="A support team has to trust what an agent will do before it acts.">
           <Trio items={[
-            ['The people', 'Two support teams, and the customers and riders writing in to them.'],
+            ['The people', 'Two support teams, and the people writing in to them.'],
             ['The goal', 'Move each team’s agent onto AUI inside the ticketing system they already used.'],
             ['The constraint', 'The team had to see how it would handle their tickets before it could act on one.'],
           ]} />
@@ -52,12 +52,11 @@ export default function AUIPayments() {
         >
           <p>
             A status question might need account verification or another
-            detail. Some cases needed a handoff to a person. For the transit
-            agent, I set aside an inherited build and its test cases and
-            started again from the support responsibilities the customer had
-            agreed to. That audit surfaced missing and incorrect behavior,
-            including when to close a ticket and how to answer subscription
-            questions.
+            detail. Some cases needed a handoff to a person. For the second
+            agent, I scoped the requirements from scratch, starting from the
+            support responsibilities the customer had agreed to. That
+            surfaced behavior the agent still needed, including when to
+            close a ticket and how to answer subscription questions.
           </p>
           <Plate tone="solution" kind="Solution" label="A support requirement as agent decisions">
             <Thread caption="Illustrative example.">
@@ -80,21 +79,21 @@ export default function AUIPayments() {
           <p>
             I tested the integration and worked with each customer to set up
             the webhook calls from their help desk to our endpoints. For the
-            payments customer, I worked with their head of customer success
-            and their engineers to get test accounts and to match what their
+            payments customer, I worked with their support leadership and
+            engineers to get test accounts and to match what their
             APIs returned to the customer states the agent had to recognize.
           </p>
-          <Plate label="One gap found while matching API responses to customer states">
-            <Thread caption="Illustrative layout of a real gap.">
-              <Check index={0} label="What the customer’s endpoint returned" cells={[
+          <Plate label="One requirement found while matching API responses to customer states">
+            <Thread caption="Illustrative.">
+              <Check index={0} label="What the response included" cells={[
                 { k: 'Document', v: 'Upload required' },
-                { k: 'Upload link', v: 'Not returned', tone: 'block' },
+                { k: 'Upload link', v: 'Not included yet' },
               ]} />
               <Check index={1} label="What the agent has to do with it" cells={[
                 { k: 'Recognize the state', v: 'A document is needed' },
-                { k: 'Tell the customer', v: 'Where to upload it', note: 'not possible without the link', tone: 'block' },
+                { k: 'Tell the customer', v: 'Where to upload it', note: 'needs the link' },
               ]} />
-              <Check index={2} label="Resolved with their engineers" cells={[
+              <Check index={2} label="Worked out with their engineers" cells={[
                 { k: 'They provided', v: 'A development environment' },
                 { k: 'And', v: 'Endpoints to validate against', tone: 'result' },
               ]} />
@@ -147,7 +146,7 @@ export default function AUIPayments() {
             incoming tickets, with nothing sent. Release then went out in
             phases.
           </p>
-          <Plate label="One round of feedback, from the transit customer">
+          <Plate label="One round of feedback, from one of the customers">
             <FeedbackRound />
           </Plate>
           <Plate tone="solution" kind="Solution" label="The reply is proposed; the ticket is untouched">
@@ -163,8 +162,10 @@ export default function AUIPayments() {
           <p>
             This is where a real use case shaped the runtime. Code decides
             which value is current, so the model is never asked whether to
-            use the old email or the new one. I prototyped and validated the
-            behavior, and the team shipped it as a reusable runtime feature.
+            use the old email or the new one. Building on an existing
+            profile type a colleague pointed me to, I prototyped and
+            validated the behavior, and the team shipped it as a reusable
+            runtime feature.
           </p>
           <Plate tone="solution" kind="Solution" label="The correction replaces the old value; nothing is left to choose">
             <Thread caption="Fictional conversation.">
