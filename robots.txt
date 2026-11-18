@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://walkerstrauss.com/sitemap.xml
