@@ -1,0 +1,1496 @@
+/* Case-study format: one reading column, section list beside it, beats with
+   one figure each. Uses the site's tokens only. */
+
+/* The page grid (tokens in App.css): the side list in columns 1–2, column 3
+   open, the body in 4–12. Text keeps to the first six of the body's nine
+   columns; figures take all nine. The cover sits on the same grid and
+   starts at column 1, the page's left edge. */
+.case,
+.ch {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--grid-gap);
+  align-items: start;
+}
+
+.case {
+  /* The header's meta row already ends in a rule; no second one here. */
+  margin-top: clamp(2rem, 5vw, 3rem);
+}
+
+.case-bar { grid-column: 1 / -1; }
+.case-body { grid-column: 4 / -1; min-width: 0; }
+
+.case-nav {
+  grid-column: 1 / span 2;
+  position: sticky;
+  top: 104px;
+  font-size: var(--fs-label);
+}
+
+.case-nav ol {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.case-nav li {
+  position: relative;
+  padding-left: 0.85rem;
+}
+
+.case-nav li[data-sub] {
+  margin-left: 0.9rem;
+}
+
+.case-nav-group {
+  color: var(--text-tirtiary);
+  transition: color 0.2s ease;
+}
+
+.case-nav-group[data-open='true'] {
+  color: var(--text-secondary);
+}
+
+.case-nav a {
+  color: var(--text-tirtiary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+/* The marker is one element shared by the list, so it travels to the
+   section being read instead of blinking on and off. */
+.case-nav-dot {
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--tone-message-mid);
+}
+
+.case-nav a:hover,
+.case-nav a[aria-current='true'] {
+  color: var(--text);
+}
+
+/* Below 1000px the side list gives way to the section bar, and the body
+   and header take all twelve columns. */
+@media (max-width: 1000px) {
+  .case-nav {
+    display: none;
+  }
+  .case-body {
+    grid-column: 1 / -1;
+  }
+}
+
+/* A beat (agent cases) and a plain section (every other case) are spaced and
+   measured the same way, so the pages scroll alike. */
+.beat,
+.case-body > .cs-section {
+  margin-top: var(--section-gap);
+  padding-top: 0;
+  border-top: 0;
+  /* Added to the page's 88px scroll padding: a jump lands 96px down. */
+  scroll-margin-top: 8px;
+}
+
+.beat:first-child,
+.case-body > .cs-section:first-child {
+  margin-top: 0.5rem;
+}
+
+.case-body > .cs-section > p,
+.case-body > .cs-section > .cs-list {
+  max-width: min(var(--measure), var(--span-text));
+  line-height: 1.7;
+}
+
+.case-body > .cs-links {
+  margin-top: var(--section-gap);
+}
+
+.beat-title {
+  /* The text columns; balanced so a statement breaks into even lines. */
+  max-width: var(--span-text);
+  text-wrap: balance;
+  margin: 0 0 0.9rem;
+  font-size: var(--fs-heading);
+  font-weight: 450;
+  line-height: 1.18;
+  letter-spacing: -0.032em;
+  color: var(--text);
+}
+
+.beat-instead {
+  color: var(--text-tirtiary);
+}
+
+.beat > p {
+  max-width: min(var(--measure), var(--span-text));
+  margin: 0 0 1.25rem;
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.beat > p a,
+.hub-about a {
+  color: inherit;
+  text-underline-offset: 3px;
+}
+
+/* ---- Plates ---- */
+.plate {
+  margin: 1.5rem 0 0;
+  padding: clamp(0.6rem, 1.4vw, 0.9rem);
+  border: 1px solid var(--rule-soft);
+  border-radius: 10px;
+  background: var(--tint);
+}
+
+.plate + .plate {
+  margin-top: 0.9rem;
+}
+
+/* Text that follows a figure gets the same gap as text before one. */
+.plate + p,
+.cs-section .plate + p {
+  margin-top: 1.75rem;
+}
+
+.plate[data-tone='problem'] {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--tone-block-mid) 14%, var(--bg));
+}
+
+.plate[data-tone='solution'] {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--tone-result-mid) 15%, var(--bg));
+}
+
+.plate-label {
+  margin: 0.15rem 0.3rem 0.65rem;
+  font-size: var(--fs-label);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text);
+}
+
+.plate-label span {
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.plate-card {
+  padding: clamp(1rem, 2.5vw, 1.6rem);
+  border-radius: 6px;
+  background: var(--bg);
+}
+
+.plate-card > figure {
+  margin: 0;
+}
+
+/* ---- Who / goal / constraint ---- */
+.trio {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem 2rem;
+  margin: 2rem 0 0;
+}
+
+.trio dt {
+  margin: 0 0 0.35rem;
+  font-size: var(--fs-label);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--text-tirtiary); font-family: var(--font-mono); font-feature-settings: normal;
+}
+
+.trio dd {
+  margin: 0;
+  font-size: var(--fs-label);
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 700px) {
+  .trio {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---- Switch between two walkthroughs ---- */
+.case-switch {
+  display: inline-flex;
+  gap: 0.25rem;
+  margin: 0.25rem 0 0;
+  padding: 0.2rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+}
+
+.case-switch button {
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-size: var(--fs-label);
+  color: var(--text-tirtiary);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.case-switch button[aria-pressed='true'] {
+  background: var(--text);
+  color: var(--bg);
+}
+
+/* ---- agent page ---- */
+.hub-about {
+  max-width: var(--measure);
+  /* The header's meta row already ends in a rule; no second one here. */
+  margin-top: clamp(2rem, 5vw, 3rem);
+}
+
+.hub-quote {
+  max-width: 27ch;
+  margin: 0 0 0.9rem;
+  font-size: clamp(1.5rem, 3.1vw, 2.1rem);
+  font-weight: 450;
+  line-height: 1.18;
+  letter-spacing: -0.032em;
+  color: var(--text);
+}
+
+.hub-about > p:not(.hub-quote) {
+  max-width: 60ch;
+  margin: 0;
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.hub-role {
+  margin: 1.25rem 0 0;
+  border-top: 1px solid var(--rule);
+}
+
+.hub-role > div {
+  display: grid;
+  grid-template-columns: 14rem minmax(0, 1fr);
+  gap: 0.25rem 2rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.hub-role dt {
+  font-size: var(--fs-body);
+  font-weight: 500;
+  color: var(--text);
+}
+
+.hub-role dd {
+  max-width: 60ch;
+  margin: 0;
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 700px) {
+  .hub-role > div {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---- agent tiles: the destination page, in miniature ---- */
+.mini {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 1.25rem;
+  box-sizing: border-box;
+  background: var(--plate);
+  color: var(--tone-message-ink);
+  font-size: clamp(0.8rem, 1.5vw, 1.02rem);
+  line-height: 1.4;
+}
+
+.mini-label {
+  position: absolute;
+  top: 0.9rem;
+  left: 1rem;
+  right: 1rem;
+  font-size: 0.7em;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--text-tirtiary); font-family: var(--font-mono); font-feature-settings: normal;
+}
+
+.mini-stage {
+  width: min(100%, 28rem);
+}
+
+.mini-thread {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.mini-step {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.4s cubic-bezier(0.2, 0, 0.2, 1), transform 0.4s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.mini-step[data-on='true'] {
+  opacity: 1;
+  transform: none;
+}
+
+.mini-msg {
+  justify-self: end;
+  max-width: 86%;
+  padding: 0.75rem 1.05rem;
+  border: 1px solid #20353d16;
+  border-radius: 1rem 1rem .25rem 1rem;
+  background: #e1ebf0;
+  color: #20353d;
+}
+
+.mini-reply {
+  justify-self: start;
+  max-width: 86%;
+  padding: 0.75rem 1.05rem;
+  border: 1px solid #20353d16;
+  border-radius: 1rem 1rem 1rem .25rem;
+  background: #fff;
+  color: var(--text);
+}
+
+.mini-cells {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.4rem;
+}
+
+.mini-cells > span {
+  display: grid;
+  gap: 0.1rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: .45rem;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(32, 53, 61, 0.08);
+  font-weight: 550;
+  color: var(--text);
+}
+
+.mini-cells small {
+  font-size: 0.78em;
+  font-weight: 400;
+  color: var(--text-tirtiary);
+}
+
+.mini-end {
+  justify-self: start;
+  padding: 0.5rem 0.95rem;
+  border-radius: .45rem;
+  font-weight: 550;
+}
+
+.mini-end[data-tone='block'] {
+  background: var(--tone-block-bg);
+  color: var(--tone-block-ink);
+}
+
+.mini-end[data-tone='result']::before {
+  content: '✓  ';
+}
+
+.mini-end[data-tone='result'] {
+  background: var(--tone-result-bg);
+  color: var(--tone-result-ink);
+}
+
+.mini-route {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: route;
+}
+
+.mini-route li {
+  counter-increment: route;
+  padding: 0.55rem 0.7rem;
+  border-radius: 0.45rem;
+  background: #fff;
+  color: var(--text-tirtiary);
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+.mini-route li::before {
+  content: counter(route) '  ';
+  font-variant-numeric: tabular-nums;
+  opacity: 0.6;
+}
+
+.mini-route li[data-on='true'] {
+  background: var(--tone-result-bg);
+  color: var(--tone-result-ink);
+}
+
+/* The path a reply takes to release: each stage lights green in turn. */
+.mini-stages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.15rem;
+}
+
+.mini-stages-item {
+  padding: 0.35rem 0.75rem;
+  border-radius: .45rem;
+  background: var(--tone-result-bg);
+  color: var(--tone-result-ink);
+  font-size: 0.86em;
+  font-weight: 550;
+}
+
+.mini-stages-item::before {
+  content: '✓  ';
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mini-step,
+  .mini-route li {
+    transition: none;
+  }
+}
+
+/* Space between the end of the thread and its caption. */
+.plate .story-with-notes > figcaption {
+  margin-top: 1.1rem;
+}
+
+/* ---- Path: the stages of an engagement on one line ---- */
+.path {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 0;
+  margin: 0;
+  padding: 0.4rem 0 0.2rem;
+  list-style: none;
+}
+
+.path li {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 0.3rem;
+  padding: 1.5rem 1rem 0 0;
+  font-size: var(--fs-label);
+  line-height: 1.5;
+  color: var(--text-tirtiary);
+  transition: color 0.5s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+/* The line between stages, drawn as each stage is reached. */
+.path li::before,
+.path li::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--rule);
+}
+
+.path li::after {
+  background: var(--tone-result-mid);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.path li[data-on='true']::after {
+  transform: scaleX(1);
+}
+
+.path-mark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--bg);
+  box-shadow: inset 0 0 0 1px var(--rule-strong);
+  transition: background 0.5s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.5s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.path li[data-on='true'] .path-mark {
+  background: var(--tone-result-mid);
+  box-shadow: inset 0 0 0 1px var(--tone-result-mid);
+}
+
+.path strong {
+  font-weight: 550;
+  color: var(--text-secondary);
+  transition: color 0.5s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.path li[data-on='true'] strong {
+  color: var(--text);
+}
+
+.path li[data-on='true'] {
+  color: var(--text-secondary);
+}
+
+@media (max-width: 700px) {
+  .path {
+    grid-auto-flow: row;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .path li {
+    padding: 0 0 1.1rem 1.5rem;
+  }
+  .path li::before,
+  .path li::after {
+    top: 0;
+    bottom: 0;
+    left: 4px;
+    right: auto;
+    width: 1px;
+    height: auto;
+  }
+  .path li::after {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  .path li[data-on='true']::after {
+    transform: scaleY(1);
+  }
+  .path-mark {
+    top: 0.35em;
+  }
+}
+
+/* ---- Outcomes: what each difficulty turned into ---- */
+.outcomes {
+  margin: 1.5rem 0 0;
+  border-top: 1px solid var(--rule);
+}
+
+.outcomes > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 0.25rem 2rem;
+  padding: 0.95rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.outcomes dt {
+  font-weight: 500;
+  color: var(--text);
+}
+
+.outcomes dd {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 700px) {
+  .outcomes > div {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .path li,
+  .path li::after,
+  .path-mark,
+  .path strong {
+    transition: none;
+  }
+}
+
+/* The path ends at its last stage: no line running on past it. */
+.path li:last-child::before,
+.path li:last-child::after {
+  display: none;
+}
+
+/* A screenshot or recording on a plate. */
+.case-shot,
+.plate .cs-demo-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  border-radius: 8px;
+}
+
+/* At phone width a thread needs a taller picture than a 3:2 tile gives. */
+@media (max-width: 560px) {
+  .tiles[data-cols] .thumb-media:has(.mini) {
+    aspect-ratio: 1 / 1;
+  }
+  .mini {
+    padding: 2.25rem 1rem 1rem;
+  }
+}
+
+/* A paragraph that follows the three-column list needs air. */
+.trio + p {
+  margin-top: 2rem;
+}
+
+/* ---- Basis: a finding, its source, and the design rule it led to ---- */
+.basis {
+  display: grid;
+  margin: 1.5rem 0 0;
+  border-top: 1px solid var(--rule);
+}
+
+.basis [role='row'] {
+  display: grid;
+  grid-template-columns: var(--split);
+  gap: 0.5rem var(--split-gap);
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--rule);
+  align-items: start;
+}
+
+.basis-head span {
+  font-size: var(--fs-label);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--text-tirtiary); font-family: var(--font-mono); font-feature-settings: normal;
+}
+
+.basis-finding {
+  font-size: var(--fs-label);
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.basis-finding small {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: var(--fs-label);
+  line-height: 1.4;
+  color: var(--text-tirtiary);
+}
+
+.basis-rule {
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+  background: var(--tone-result-bg);
+  color: var(--tone-result-ink);
+  font-size: var(--fs-label);
+  line-height: 1.45;
+}
+
+.basis-rule.is-empty { display: none; }
+
+.cs-decisions > .basis { margin: 3rem 0 0; }
+.cs-decisions > .basis + .ax-scrub { margin-top: 1.5rem; }
+
+@media (max-width: 700px) {
+  .basis-head { display: none !important; }
+  .basis [role='row'] { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---- Results: the outcome first, under a case header ---- */
+.results {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem 2rem;
+  margin: 1.75rem 0 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+}
+
+.results dt {
+  margin: 0 0 0.4rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+.results dd {
+  margin: 0;
+  max-width: 34ch;
+  font-size: var(--fs-label);
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.results a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+
+@media (max-width: 700px) {
+  .results { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---- The same beat on every case page ---- */
+.beat > .basis { margin: 1.75rem 0 0; }
+.beat > .ax-scrub { margin: 1.5rem 0 0; }
+.beat > .cs-subhead { margin: 2.75rem 0 0.9rem; }
+.beat > .trio + pre { margin-top: 1.75rem; }
+.plate-card > figure, .plate-card > .shelf-fig { margin: 0; }
+
+/* ---- agent research, drawn (components/agents/Spec.jsx) ----
+   A policy grid in the check-cell register: hairline cells on the plate's
+   white card, values in tabular numerals. The employee's row lifts into the
+   accent; the others recede; one rule band reads it. */
+.pm { margin: 0; display: grid; gap: 1rem; }
+.pm-grid { display: grid; gap: 0.4rem; }
+.pm-row {
+  display: grid;
+  grid-template-columns: minmax(8.5rem, 1.3fr) repeat(4, minmax(0, 1fr));
+  gap: 0.4rem;
+  align-items: stretch;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.pm-row > * {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: var(--bg);
+  transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+}
+.pm-row > b { font-size: var(--fs-label); font-weight: 600; font-variant-numeric: tabular-nums; color: var(--text); }
+.pm-row > [role='rowheader'] { font-size: var(--fs-label); font-weight: 500; color: var(--text); }
+.pm-head > * {
+  padding: 0 0.75rem 0.2rem;
+  border: 0;
+  background: none;
+  font-size: var(--fs-label);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--text-tirtiary); font-family: var(--font-mono); font-feature-settings: normal;
+}
+.pm-row[data-dim='true'] { opacity: 0.38; }
+.pm-row[data-mine='true'] > * {
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  background: var(--accent-soft, #e5eff3);
+  color: var(--accent);
+}
+.pm-you {
+  margin-top: 0.15rem;
+  font-size: var(--fs-label);
+  font-style: normal;
+  font-weight: 500;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.pm-you[data-on='true'] { opacity: 1; }
+.pm-rule {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  background: var(--tone-result-bg);
+  color: var(--tone-result-ink);
+}
+.pm-rule-label { font-size: var(--fs-label); font-weight: 400; letter-spacing: 0; text-transform: none; opacity: 0.8; font-family: var(--font-mono); font-feature-settings: normal;
+}
+.pm-rule-text { font-size: var(--fs-body); font-weight: 600; }
+.pm-rule-text i { font-style: normal; padding: 0 0.15rem; }
+.pm-rule-text u { text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.pm-rule-note { font-size: var(--fs-label); opacity: 0.85; }
+@media (max-width: 700px) {
+  .pm-row { grid-template-columns: minmax(0, 1.2fr) repeat(4, minmax(0, 1fr)); gap: 0.25rem; }
+  .pm-row > * { padding: 0.45rem 0.4rem; border-radius: 8px; }
+  .pm-row > b, .pm-row > [role='rowheader'] { font-size: 0.72rem; }
+  .pm-head > * { padding: 0 0.4rem; font-size: 0.6rem; letter-spacing: 0.04em; }
+}
+
+/* ============================================================
+   Motion and adaptive containers
+   One easing and one duration for everything that arrives on scroll, so
+   the page moves as one surface. Figures respond to the width of their own
+   container, not the window: a figure in a half-width panel lays out the
+   way it would on a phone.
+   ============================================================ */
+:root {
+  --ease-arrive: cubic-bezier(0.16, 1, 0.3, 1);
+  --t-arrive: 0.7s;
+}
+
+.step {
+  transform: translateY(12px);
+  transition: opacity var(--t-arrive) var(--ease-arrive), transform var(--t-arrive) var(--ease-arrive);
+}
+.step-fade { transition: opacity var(--t-arrive) var(--ease-arrive); }
+/* Thread parts are driven frame by frame by framer-motion; CSS must
+   not add its own transition on top, or the motion lags the scroll. */
+.story-bubble,
+.story-check .ls-check li,
+.story-chip,
+.story-label,
+.story-finding-text { transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease !important; }
+.story-bubble mark.story-mark { position: relative; box-shadow: none !important; }
+.story-mark-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.02em;
+  height: 0.45em;
+  border-radius: 0.15em;
+  background: #20353d22;
+  transform-origin: left center;
+  pointer-events: none;
+}
+.path li { transition: color var(--t-arrive) var(--ease-arrive); }
+.path li::after { transition-duration: var(--t-arrive) !important; transition-timing-function: var(--ease-arrive) !important; }
+
+/* Held figures crossfade between states instead of cutting. */
+.ax-layer {
+  transform: translateY(6px);
+  transition: opacity 0.45s var(--ease-arrive), transform 0.6s var(--ease-arrive), visibility 0s linear 0.45s;
+}
+.ax-layer[data-on='true'] {
+  transform: none;
+  transition: opacity 0.45s var(--ease-arrive) 0.08s, transform 0.6s var(--ease-arrive) 0.08s, visibility 0s;
+}
+.ax-notes li { transition: opacity 0.45s var(--ease-arrive), color 0.45s var(--ease-arrive); }
+
+@media (prefers-reduced-motion: reduce) {
+  .step, .story-bubble, .ax-layer { transform: none !important; transition: none !important; }
+}
+
+/* ---- Containers ---- */
+.beat { container-type: inline-size; container-name: beat; }
+.plate-card { container-type: inline-size; container-name: card; }
+
+/* A before and its after, side by side when there is room. */
+.plate-pair { margin-top: 1.5rem; display: grid; gap: 0.9rem; }
+.plate-pair > .plate { margin: 0; display: flex; flex-direction: column; }
+.plate-pair > .plate > .plate-card { flex: 1; display: grid; align-content: center; }
+@container beat (min-width: 44rem) {
+  .plate-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; }
+}
+
+/* Decision cells wrap to two across in a narrow card rather than cramp. */
+@container card (max-width: 30rem) {
+  .story-check .ls-check { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@container card (max-width: 20rem) {
+  .story-check .ls-check { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* A step path turns vertical in a narrow card, as it does on a phone. */
+@container card (max-width: 34rem) {
+  .path { grid-auto-flow: row; grid-template-columns: minmax(0, 1fr); }
+  .path li { padding: 0 0 1.1rem 1.5rem; }
+  .path li::before, .path li::after { top: 0; bottom: 0; left: 4px; right: auto; width: 1px; height: auto; }
+  .path li::after { transform: scaleY(0); transform-origin: top; }
+  .path li[data-on='true']::after { transform: scaleY(1); }
+  .path-mark { top: 0.35em; }
+}
+
+/* The policy grid tightens with its card. */
+@container card (max-width: 36rem) {
+  .pm-row { grid-template-columns: minmax(0, 1.2fr) repeat(4, minmax(0, 1fr)); gap: 0.25rem; }
+  .pm-row > * { padding: 0.45rem 0.4rem; border-radius: 8px; }
+  .pm-row > b, .pm-row > [role='rowheader'] { font-size: 0.72rem; }
+  .pm-head > * { padding: 0 0.4rem; font-size: 0.6rem; letter-spacing: 0.04em; }
+}
+
+/* The three-up trio stacks in a narrow section. */
+@container beat (max-width: 34rem) {
+  .trio { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---- agent research chart (components/agents/Spec.jsx) ----
+   Policies as strips of days. Hatched = notice before leave can start;
+   the dot = the start; filled bar = the longest stretch allowed. Drawn by
+   framer-motion as the figure scrolls through. */
+.pc { margin: 0; display: grid; gap: 0.9rem; }
+.pc-head,
+.pc-row {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, 0.9fr) minmax(0, 3fr) minmax(4.5rem, 0.6fr);
+  gap: 1rem;
+  align-items: center;
+}
+.pc-head {
+  font-size: var(--fs-label);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--text-tirtiary); font-family: var(--font-mono); font-feature-settings: normal;
+}
+.pc-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.9rem; letter-spacing: 0.04em; text-transform: none; font-weight: 500; }
+.pc-key { display: inline-block; width: 1.4rem; height: 0.55rem; margin-right: -0.5rem; border-radius: 3px; vertical-align: middle; }
+.pc-key-notice { background: repeating-linear-gradient(135deg, var(--text-tirtiary) 0 1.5px, transparent 1.5px 5px); opacity: 0.7; }
+.pc-key-start { width: 0.55rem; border-radius: 50%; background: var(--text); }
+.pc-key-stretch { background: var(--accent); }
+.pc-rows { display: grid; gap: 0.35rem; }
+.pc-row { position: relative; padding: 0.55rem 0.6rem; border-radius: 12px; }
+.pc-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: var(--accent-soft, #e5eff3);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
+  pointer-events: none;
+}
+.pc-name { position: relative; display: grid; gap: 0.05rem; line-height: 1.3; }
+.pc-name b { font-size: var(--fs-label); font-weight: 600; color: var(--text); }
+.pc-name span { font-size: var(--fs-label); color: var(--text-tirtiary); }
+.pc-name em { font-size: var(--fs-label); font-style: normal; font-weight: 600; color: var(--accent); }
+.pc-strip {
+  position: relative;
+  height: 1.6rem;
+  border-radius: 6px;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 calc(100% / 36 - 1px), var(--rule) calc(100% / 36 - 1px) calc(100% / 36)),
+    color-mix(in srgb, var(--plate, #edf0f3) 70%, var(--bg));
+}
+.pc-notice,
+.pc-stretch {
+  position: absolute;
+  top: 0.2rem;
+  bottom: 0.2rem;
+  border-radius: 4px;
+  transform-origin: left center;
+}
+.pc-notice { left: 0; background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--text-tirtiary) 70%, transparent) 0 1.5px, transparent 1.5px 5px); }
+.pc-stretch { background: var(--accent); display: flex; align-items: center; overflow: hidden; }
+.pc-stretch i { padding: 0 0.45rem 0 0.6rem; font-size: var(--fs-label); font-style: normal; font-weight: 600; color: #fff; white-space: nowrap; }
+/* The same label, set after a short bar on a narrow strip. */
+.pc-out {
+  display: none;
+  position: absolute;
+  top: 0.2rem;
+  bottom: 0.2rem;
+  align-items: center;
+  padding-left: 0.4rem;
+  font-size: var(--fs-label);
+  font-style: normal;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+}
+.pc-start {
+  position: absolute;
+  top: 50%;
+  width: 0.55rem;
+  height: 0.55rem;
+  margin: -0.275rem 0 0 -0.275rem;
+  border-radius: 50%;
+  background: var(--text);
+  box-shadow: 0 0 0 2px var(--bg);
+  z-index: 1;
+}
+.pc-below { position: relative; font-size: var(--fs-label); font-weight: 500; color: var(--text); }
+.pc-rule {
+  display: grid;
+  gap: 0.25rem;
+  margin-top: 0.3rem;
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  background: var(--tone-result-bg);
+  color: var(--tone-result-ink);
+}
+.pc-rule-label { font-size: var(--fs-label); font-weight: 400; letter-spacing: 0; text-transform: none; opacity: 0.8; font-family: var(--font-mono); font-feature-settings: normal;
+}
+.pc-rule-text { font-size: var(--fs-body); font-weight: 600; }
+.pc-rule-text u { text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.pc-rule-note { font-size: var(--fs-label); opacity: 0.85; }
+@container card (max-width: 34rem) {
+  .pc-head > span:first-child, .pc-head > span:last-child { display: none; }
+  .pc-head { grid-template-columns: minmax(0, 1fr); }
+  .pc-row { grid-template-columns: minmax(0, 1fr) auto; gap: 0.35rem 0.6rem; }
+  .pc-strip { grid-column: 1 / -1; grid-row: 2; }
+  .pc-below { grid-row: 1; grid-column: 2; font-size: var(--fs-label); color: var(--text-tirtiary); }
+  .pc-stretch[data-short] i { display: none; }
+  .pc-out { display: flex; }
+}
+
+/* ---- Case cover, shared by every case page ----
+   One meta line, the title, the claim, results. It is type only: everything
+   starts at the page's left edge, under the name in the site header, and
+   nothing sits beside it. */
+.ch {
+  margin: 0;
+  padding: clamp(3rem, 6vw, 5rem) 0 clamp(2.5rem, 5vw, 4rem);
+}
+.ch > * { grid-column: 1 / span 8; }
+@media (max-width: 1000px) {
+  .ch > * { grid-column: 1 / -1; }
+}
+.ch-meta {
+  margin: 0 0 0.75rem;
+  font-size: var(--fs-label);
+  color: var(--text-tirtiary);
+}
+.ch-meta span + span::before { content: ' · '; }
+.ch-meta a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.ch > .cs-title {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--fs-title);
+  letter-spacing: -0.024em;
+  line-height: 1.12;
+  max-width: none;
+  text-wrap: balance;
+  margin-bottom: 0.7rem;
+}
+.ch > .cs-subtitle {
+  font-size: var(--fs-body);
+  max-width: var(--measure);
+  margin-bottom: 1.5rem;
+}
+.ch-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 1rem 2rem;
+  margin: 0;
+  padding: 1.1rem 1.4rem;
+  background: var(--accent-soft);
+  border-radius: 14px;
+}
+.ch-results dt { display: grid; gap: 0.35rem; margin: 0 0 0.3rem; }
+.ch-results dt b {
+  font-size: var(--fs-title);
+  font-weight: 550;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: var(--accent);
+}
+.ch-results dt span { font-size: var(--fs-label); font-weight: 550; color: var(--text); }
+.ch-results dd { margin: 0; font-size: var(--fs-label); line-height: 1.5; max-width: 38ch; color: var(--text-secondary); }
+.ch-results a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.ch-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.5rem;
+  margin: 1rem 0 0;
+  font-size: var(--fs-label);
+  color: var(--text-tirtiary);
+}
+/* A fact's key is a mono label like every other key on the site; its value
+   reads as text. */
+.ch-facts { color: var(--text-secondary); }
+.ch-facts em { font-style: normal; font-weight: 400; color: var(--text-tirtiary); }
+[data-theme='dark'] .ch-results { background: rgba(120, 170, 200, 0.1); }
+[data-theme='dark'] .ch-results dt b { color: #8fbad3; }
+
+/* ---- Figures on the page ----
+   Replaces the card-in-a-card. Frames and tints are non-data ink (Tufte;
+   Wilke, “Balance the data and the context”): the plate's border, wash and
+   inner card carried no information. Grouping comes from proximity and one
+   hairline instead of a common region. The role word keeps the meaning-bound
+   tones (block / result) as text colour only. */
+.plate {
+  margin: 2rem 0 0;
+  padding: 0.85rem 0 0;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  border-radius: 0;
+  background: none;
+}
+.plate[data-tone='problem'],
+.plate[data-tone='solution'] { background: none; border-top-color: var(--rule); }
+.plate + .plate { margin-top: 2rem; }
+.plate-label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.6rem;
+  margin: 0 0 1.1rem;
+  font-size: var(--fs-label);
+  font-weight: 450;
+  color: var(--text-secondary);
+}
+.plate-label .plate-kind {
+  font-size: var(--fs-label);
+  font-weight: 550;
+  color: var(--text-tirtiary);
+}
+.plate[data-tone='problem'] .plate-kind { color: var(--tone-block-mid); }
+.plate[data-tone='solution'] .plate-kind { color: var(--tone-result-mid); }
+.plate-card { padding: 0; border-radius: 0; background: none; }
+.plate-pair { gap: 2rem; }
+
+/* ---- Mono for what the system writes ----
+   Field names, rule cells and role words are system output, so they take the
+   mono; the values a person reads stay in the sans. */
+.story-chip > em,
+.ls-check > li > span,
+.plate-label .plate-kind,
+.ch-facts em,
+.pc-name span,
+.pc-legend { font-family: var(--font-mono); font-style: normal; letter-spacing: 0; }
+.cs-title, .beat-title, .hero h1 { letter-spacing: -0.025em; }
+
+/* Numbers inside the header sentence, in the mono so they still catch
+   the eye without a stat box (data set in the text that explains it). */
+.cs-subtitle .num { font-family: var(--font-mono); font-size: 0.92em; font-weight: 400; color: var(--text); }
+.cs-subtitle a .num { color: inherit; }
+
+/* ---- Phone section bar ----
+   Location and progress on long pages once the side list is hidden. */
+.case-bar { display: none; }
+@media (max-width: 1000px) {
+  .case-bar {
+    display: block;
+    position: sticky;
+    top: var(--header-h, 64px);
+    z-index: 20;
+    margin: 0 -16px 1rem;
+    background: var(--bg);
+    border-bottom: 1px solid var(--rule);
+  }
+  .case-bar-button {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.6rem 16px;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-family: var(--font-mono);
+    font-size: var(--fs-label);
+    color: var(--text);
+    text-align: left;
+    cursor: pointer;
+  }
+  .case-bar-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .case-bar-chev { color: var(--text-tirtiary); font-size: var(--fs-body); line-height: 1; }
+  .case-bar-fill {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 2px;
+    background: var(--accent);
+    transform-origin: 0 50%;
+  }
+  .case-bar-list {
+    margin: 0;
+    padding: 0.25rem 16px 0.75rem;
+    list-style: none;
+    max-height: 60vh;
+    overflow: auto;
+  }
+  .case-bar-list li[data-sub='true'] { padding-left: 0.9rem; }
+  .case-bar-list a {
+    display: block;
+    padding: 0.45rem 0;
+    font-size: var(--fs-label);
+    color: var(--text-secondary);
+    text-decoration: none;
+  }
+  .case-bar-list a[aria-current='true'] { color: var(--text); font-weight: 550; }
+}
+
+/* ---- Home tiles: one control, a press, no fake UI ----
+   The preview is a picture (no pointer events inside it); the only signifier
+   is the "Read the case" line, and the tile answers hover and press. */
+.thumb-media { pointer-events: none; }
+.thumb-cta {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--text-secondary);
+}
+.thumb-cta span { display: inline-block; transition: transform 0.25s cubic-bezier(0.2, 0, 0.2, 1); }
+.thumb-card:hover .thumb-cta,
+.thumb-card:focus-visible .thumb-cta { color: var(--accent); }
+.thumb-card:hover .thumb-cta span,
+.thumb-card:focus-visible .thumb-cta span { transform: translateX(4px); }
+.thumb-card:active .thumb-media { transform: translateY(0) scale(0.99); transition-duration: 0.08s; }
+@media (prefers-reduced-motion: reduce) {
+  .thumb-cta span, .thumb-card:active .thumb-media { transition: none; transform: none; }
+}
+
+/* ==== Decided from content ====
+   Each kept for the job it does:
+   - Page titles in Newsreader: the title says who and what; a face with
+     character fits identity, and it separates the page's name from its
+     section headings.
+   - Eyebrows in the accent: they are the page's wayfinding (which decision
+     am I in), so they carry the colour that also marks the current section.
+   - Results: the numbers are the claim, so they get display size in the
+     title's serif, in a ruled ledger row (no tinted card).
+   - Figures: each sits on one flat surface, as an object placed on the page
+     (no card inside a card, no washes). Its role shows as a short edge in
+     the tone colour and the role word. */
+.ch > .cs-title {
+  font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  letter-spacing: -0.022em;
+  line-height: 1.1;
+}
+.beat .section-label,
+.home .section-label { color: var(--accent); }
+
+.ch-results {
+  margin: 0.5rem 0 0;
+  padding: 1.1rem 0 1.2rem;
+  background: none;
+  border-radius: 0;
+  border-top: 1px solid var(--rule-strong);
+  border-bottom: 1px solid var(--rule);
+  gap: 1rem 2.5rem;
+}
+.ch-results dt b {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: var(--fs-title);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--accent);
+}
+.ch-results dd { color: var(--text-secondary); }
+[data-theme='dark'] .ch-results { background: none; }
+/* The results' rules run the width of the page's grid; the figures keep
+   their own columns at the left. */
+@media (min-width: 1001px) {
+  .ch > .ch-results { grid-column: 1 / -1; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); }
+}
+
+.plate {
+  position: relative;
+  margin-top: 1.75rem;
+  padding: 1rem clamp(0.9rem, 2.4vw, 1.5rem) clamp(1rem, 2.4vw, 1.5rem);
+  border: 0;
+  border-radius: 4px;
+  background: var(--plate);
+}
+/* A Problem or Solution plate carries its tone along its whole top edge, in
+   the colour of its label; a plain plate has no edge. */
+.plate[data-tone]::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  border-radius: 4px 4px 0 0;
+  background: var(--rule-strong);
+}
+.plate[data-tone='problem']::before { background: var(--tone-block-mid); }
+.plate[data-tone='solution']::before { background: var(--tone-result-mid); }
+.plate[data-tone='problem'],
+.plate[data-tone='solution'] { background: var(--plate); }
+.plate + .plate { margin-top: 1rem; }
+/* Cells and chips sit on the page colour so they read on the figure surface. */
+.plate .ls-check > li,
+.plate .story-chip { background: var(--bg); }
+/* A hand sketch sits on the figure surface at its own proportions, multiplied
+   so the paper white drops into the surface. */
+.cs-sketch { display: block; width: 100%; height: auto; mix-blend-mode: multiply; }
+
+
+/* ---- What the agent said, and what it did ----
+   The bubble is one drawn ink line (the home drawing's shape). Notes are
+   small text, level with their words, on straight hairlines. */
+.tr {
+  position: relative;
+  display: grid;
+  /* The reply is held to the width at which each marked phrase falls on
+     its own line, so every note sits level with the words it explains. */
+  grid-template-columns: minmax(0, 22rem) minmax(0, 1fr);
+  gap: 2rem clamp(2.5rem, 6vw, 5rem);
+  align-items: start;
+  padding: 0.5rem 0 3.25rem;
+}
+/* The bubble takes the page's chat-bubble fill, edge and label. */
+.tr-bubble { position: relative; padding: 0.75rem 1rem 0.85rem; color: var(--tone-message-ink, #20353d); }
+.tr-outline { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
+.tr-outline path { fill: #e1ebf0; stroke: rgba(32, 53, 61, 0.086); stroke-width: 1; stroke-linejoin: round; }
+.tr-who, .tr-bubble p { position: relative; }
+.tr-who { display: block; margin-bottom: 0.25rem; font-size: var(--fs-label); font-weight: 550; color: inherit; }
+.tr-bubble p { margin: 0; font-size: var(--fs-body); line-height: 1.7; color: inherit; }
+.tr-mark { position: relative; white-space: nowrap; }
+.tr-mark i {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 1.5px;
+  background: var(--tone-message-mid); transform-origin: 0 50%;
+}
+.tr-notes { position: relative; align-self: stretch; margin: 0; padding: 0; list-style: none; }
+.tr-note {
+  position: absolute;
+  left: 0;
+  white-space: nowrap;
+  font-size: var(--fs-label);
+  line-height: 1.35;
+  color: var(--text);
+}
+.tr-note span { margin-right: 0.35rem; font-family: var(--font-mono); font-size: var(--fs-label); color: var(--text-tirtiary); }
+.tr-note[data-tone='result'] { color: var(--tone-result-mid); }
+.tr-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.tr-lead { fill: none; stroke: var(--text-tirtiary); stroke-width: 0.8; }
+.tr-dot { fill: var(--text); }
+@media (max-width: 700px) {
+  .tr { grid-template-columns: minmax(0, 1fr); gap: 2.75rem; }
+  .tr-lines { display: none; }
+  .tr-notes { display: grid; gap: 0.5rem; }
+  .tr-note { position: static; white-space: normal; }
+}
+
+/* ==== Shared figure system (fig-) ====
+   Every case page's figures use these: the object, and notes that sit on a
+   hairline meeting the object, in small text with a mono key. One look on
+   every page; only the object changes. */
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.fig-k { display: block; margin-bottom: 0.3rem; font-family: var(--font-mono); font-size: var(--fs-label); color: var(--text-tirtiary); }
+.fig-note p { margin: 0; font-size: var(--fs-body); line-height: 1.5; color: var(--text); max-width: 34ch; }
+.fig-note[data-tone='result'] .fig-k { color: var(--tone-result-mid); }
+.fig-note[data-tone='block'] .fig-k { color: var(--tone-block-mid); }
+
+/* Stepping demos: numbered steps, then the current note on its hairline. */
+.ax-scrub { container-type: inline-size; container-name: fig; }
+.ax-sticky { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); column-gap: clamp(2.5rem, 5vw, 4.5rem); }
+.ax-side { align-self: center; }
+.fig-steps { display: flex; gap: 0.4rem; margin: 0 0 1.25rem; padding: 0; list-style: none; }
+.fig-steps li {
+  display: grid; place-items: center;
+  width: 1.6rem; height: 1.6rem; border-radius: 50%;
+  border: 1px solid var(--rule-strong);
+  font-family: var(--font-mono); font-size: var(--fs-label); color: var(--text-tirtiary);
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+.fig-steps li[data-state='past'] { border-color: var(--text-tirtiary); color: var(--text-secondary); }
+.fig-steps li[data-state='now'] { background: var(--text); border-color: var(--text); color: var(--bg); }
+.fig-stack { display: grid; }
+.fig-stack > .fig-note {
+  grid-area: 1 / 1;
+  position: relative;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.fig-stack > .fig-note[data-on='true'] { opacity: 1; transform: none; }
+/* The hairline from the note back to the object, ending in a dot. */
+.fig-stack > .fig-note::before {
+  content: '';
+  position: absolute;
+  right: calc(100% + 0.6rem);
+  top: 0.45rem;
+  width: clamp(1.8rem, 4vw, 3.6rem);
+  border-top: 1px solid var(--text-tirtiary);
+}
+.fig-stack > .fig-note::after {
+  content: '';
+  position: absolute;
+  right: calc(100% + 0.6rem + clamp(1.8rem, 4vw, 3.6rem));
+  top: calc(0.45rem - 2.5px);
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--text);
+}
+@media (prefers-reduced-motion: reduce) { .fig-stack > .fig-note { transition: none; transform: none; } }
+
+/* The kiosk grows with the room it has. */
+.ax-stage { max-width: 40rem; width: 100%; justify-self: center; }
+
+/* Narrow figure: object first, notes under it, no hairline. */
+@container fig (max-width: 46rem) {
+  .ax-sticky { grid-template-columns: minmax(0, 1fr); row-gap: 1.25rem; }
+  .ax-stage, .ax-side { grid-column: 1; }
+  .fig-stack > .fig-note::before, .fig-stack > .fig-note::after { display: none; }
+}
+
+/* ---- Cross-page connections ----
+   Every case ends on the next one's cover: its meta line and its title, set
+   as that page's own cover sets them and from the same left edge. */
+.next-case {
+  margin-top: clamp(4rem, 9vw, 6.5rem);
+  padding-top: clamp(3rem, 6vw, 5rem);
+}
+.next-case-link {
+  display: grid;
+  justify-items: start;
+  gap: 0.6rem;
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  color: var(--text);
+  text-decoration: none;
+}
+.next-case-link .wl-title {
+  font-size: var(--fs-title);
+  letter-spacing: -0.022em;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+.next-case-link:hover .wl-title { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; text-decoration-color: var(--accent); }
+.next-case-link:hover .wl-go, .next-case-link:focus-visible .wl-go { color: var(--accent); }
+.next-case-link:hover .wl-go span, .next-case-link:focus-visible .wl-go span { transform: translateX(4px); }
+.next-case .cs-links { margin-top: 0; padding: 1.1rem 0 1.25rem; border-top: 1px solid var(--rule); }
+
+/* ---- Side list: a step darker, and a playful dot ---- */
+.case-nav a { color: var(--text-secondary); }
+.case-nav-group { color: var(--text-secondary); }
+.case-nav a:hover, .case-nav a[aria-current='true'] { color: var(--text); }
+.case-nav-dot { background: none; }
+.case-nav-dot i { display: block; width: 100%; height: 100%; border-radius: 50%; background: var(--tone-message-mid); }
+/* A faint dot answers the pointer on any other item. */
+.case-nav li:not(.case-nav-group)::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--rule-strong);
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 0.2s ease, transform 0.25s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+.case-nav li:not(.case-nav-group):hover::before { opacity: 1; transform: scale(1); }
+@media (prefers-reduced-motion: reduce) { .case-nav li::before { transition: none; } }
+
+/* ---- Balance ----
+   A held figure sits in the middle of the screen under the header while it
+   steps (Scrub sets --ax-top from its height), and is only as tall as its
+   content, so no blank stretch follows it once it lets go. The object sits
+   against the notes column, so a note's hairline meets it. */
+.ax-hold > .ax-sticky {
+  min-height: 0;
+  top: var(--ax-top, 88px);
+}
+.ax-flow > .ax-sticky { min-height: 0; }
+@container fig (min-width: 46rem) {
+  .ax-stage { justify-self: end; }
+}
+/* The clock's own notes take the shared note style: plain text, no box. */
+.wc-note .story-chip,
+.wc-note .story-chip:not([data-tone]) {
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  font-size: var(--fs-label);
+  line-height: 1.35;
+  color: var(--text);
+}
+.wc-note .story-chip[data-tone='result'] { color: var(--tone-result-mid); }
+.wc-note .story-chip[data-tone='block'] { color: var(--tone-block-mid); }

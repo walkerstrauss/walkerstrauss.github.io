@@ -1,0 +1,130 @@
+/* Figures for the Weather Clock case. Site tokens only; one accent. */
+.wc-label { display: block; margin: 0 0 0.5rem; font-size: var(--fs-label); font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--text-tirtiary); font-family: var(--font-mono); font-feature-settings: normal;
+}
+.wc-checks [data-on], .wc-prompt [data-on], .wc-halves [data-on], .wc-path [data-on] { transition: opacity 0.5s cubic-bezier(0.2, 0, 0.2, 1), color 0.5s, background-color 0.5s, border-color 0.5s; }
+
+/* ---- The clock as an object: shaded faces, a soft shadow, a paper display. */
+.ck.ck-render { display: block; width: 100%; max-width: 25rem; margin: 0 auto; overflow: visible; }
+.ck.ck-render .ck-wall { fill: #fdfdfc; stroke: rgba(17, 24, 39, 0.1); stroke-width: 0.6; }
+.ck.ck-render .ck-side { fill: #e3e6e8; }
+.ck.ck-render .ck-roof { fill: #eff1f2; }
+.ck.ck-render .ck-ground { fill: rgba(17, 24, 39, 0.2); filter: blur(9px); }
+.ck.ck-render .ck-part { stroke: rgba(17, 24, 39, 0.12); stroke-width: 0.6; }
+.ck.ck-render .ck-part[data-chimney] { fill: #f4f5f5; }
+.ck.ck-render .ck-ch-side[data-chimney] { fill: #dfe3e5; }
+.ck.ck-render .ck-ch-top[data-chimney] { fill: #fdfdfc; }
+.ck.ck-render .ck-part.ck-dark { fill: #e6e8e7; stroke: rgba(17, 24, 39, 0.16); }
+.ck.ck-render .ck-text { color: #23282b; }
+.ck.ck-render .ck-button { fill: #f4f5f5; }
+.ck.ck-render .ck-rim { stroke: rgba(17, 24, 39, 0.14); stroke-width: 0.25; }
+.ck.ck-render .ck-vane polyline, .ck.ck-render .ck-vane line { stroke: #c2553f; stroke-width: 1.6; }
+.ck.ck-render .ck-vane circle { fill: #d4604a; stroke: none; }
+
+
+/* ---- Research ---- */
+.wc-findings { margin: 2rem 0 0; padding: 0; list-style: none; border-top: 1px solid var(--rule-soft); }
+.wc-findings > li { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(1.25rem, 4vw, 3rem); padding: 1.5rem 0; border-bottom: 1px solid var(--rule-soft); }
+.wc-findings h3 { margin: 0 0 0.4rem; font-size: var(--fs-body); font-weight: 550; line-height: 1.35; letter-spacing: -0.01em; color: var(--text); }
+.wc-findings p { margin: 0; font-size: var(--fs-label); line-height: 1.65; color: var(--text-secondary); max-width: none; }
+.wc-findings .wc-became { color: var(--text); }
+.wc-became span { display: block; margin: 0.2rem 0 0.35rem; font-size: var(--fs-label); font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--tone-result-mid); font-family: var(--font-mono); font-feature-settings: normal;
+}
+
+/* ---- When each output fires ---- */
+.wc-checks { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: var(--fs-label); }
+.wc-checks thead th { padding: 0 0 0.7rem; font-size: var(--fs-label); font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--text-tirtiary); text-align: center; font-family: var(--font-mono); font-feature-settings: normal;
+}
+.wc-checks thead th[data-touch='true'] { color: var(--tone-message-mid); }
+.wc-checks thead td { width: 5rem; }
+.wc-checks tbody th { text-align: left; font-weight: 400; color: var(--text-tirtiary); }
+.wc-checks tbody td, .wc-checks tbody th { padding: 0.8rem 0; border-top: 1px solid var(--rule-soft); text-align: center; }
+.wc-checks tbody th { text-align: left; }
+.wc-weather td { color: var(--text-tirtiary); }
+.wc-weather td[data-changed='true'] { color: var(--text); font-weight: 550; }
+.wc-checks i { display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 50%; border: 1px solid var(--rule-strong); vertical-align: middle; }
+.wc-checks i[data-fire='true'] { border-color: var(--text); background: var(--text); }
+
+/* ---- The display ---- */
+.wc-display { padding: 1.1rem 1.25rem; border: 1px solid rgba(17, 24, 39, 0.14); border-radius: 4px; background: #e6e8e7; box-shadow: inset 0 1px 2px rgba(17, 24, 39, 0.06); }
+.wc-display p { margin: 0; font-size: var(--fs-body); line-height: 1.4; letter-spacing: -0.01em; color: #23282b; max-width: none; }
+
+/* ---- The prompt becomes a line ---- */
+.wc-prompt { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(1.25rem, 4vw, 3rem); align-items: center; }
+.wc-prompt dl { margin: 0; border-top: 1px solid var(--rule-soft); }
+.wc-prompt dl > div { padding: 0.85rem 0; border-bottom: 1px solid var(--rule-soft); }
+.wc-prompt dl > div[data-on='false'] { opacity: 0.28; }
+.wc-prompt dt { margin: 0 0 0.3rem; font-size: var(--fs-label); font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--text-tirtiary); font-family: var(--font-mono); font-feature-settings: normal;
+}
+.wc-prompt dd { margin: 0; font-size: var(--fs-label); line-height: 1.6; color: var(--text-secondary); }
+.wc-prompt mark { padding: 0.05em 0.3em; border-radius: 4px; background: var(--tone-message-bg); color: var(--tone-message-ink); }
+
+/* ---- One line, two halves ---- */
+.wc-halves { width: 100%; border-collapse: collapse; font-size: var(--fs-body); line-height: 1.5; }
+.wc-halves thead th { padding: 0 1.25rem 0.7rem 0; text-align: left; font-size: var(--fs-label); font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--text-tirtiary); font-family: var(--font-mono); font-feature-settings: normal;
+}
+.wc-halves tbody th { width: 7.5rem; padding: 1rem 1rem 1rem 0; text-align: left; vertical-align: top; font-size: var(--fs-label); font-weight: 400; color: var(--text-tirtiary); border-top: 1px solid var(--rule-soft); }
+.wc-halves tbody td { padding: 1rem 1.25rem 1rem 0; vertical-align: top; color: var(--text); border-top: 1px solid var(--rule-soft); }
+.wc-halves tbody td:last-child { color: var(--tone-result-ink); }
+
+/* ---- Seven patterns ---- */
+.wc-patterns { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(0.5rem, 2vw, 1.25rem); margin: 0; padding: 0; list-style: none; text-align: center; }
+.wc-patterns svg { display: block; width: 100%; height: auto; }
+.wc-patterns svg > circle:first-child { fill: #23292c; }
+.wc-patterns svg circle { fill: #343c40; transition: fill 0.8s ease; }
+.wc-patterns span { display: block; margin-top: 0.6rem; font-size: var(--fs-label); color: var(--text-secondary); }
+
+
+/* ---- From a reading to the display ---- */
+.wc-path > p { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 1rem; margin: 1.5rem 0 0 calc(100% / 6); padding: 0.9rem 0 0; border-top: 1px dashed var(--rule-strong); max-width: none; }
+.wc-code { margin: 0.9rem 0 0; padding: 0.9rem 1.1rem; border: 1px solid var(--rule-soft); border-radius: 8px; background: var(--tint); overflow-x: auto; font-size: 0.78rem; line-height: 1.6; color: var(--text-secondary); }
+.wc-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem 2rem; margin: 2rem 0 0; }
+.wc-steps h3 { margin: 0 0 0.4rem; font-size: var(--fs-body); font-weight: 550; line-height: 1.35; color: var(--text); }
+.wc-steps p { margin: 0; font-size: var(--fs-label); line-height: 1.6; color: var(--text-secondary); }
+
+@media (max-width: 720px) {
+  .wc-prompt, .wc-findings > li, .wc-steps { grid-template-columns: 1fr; }
+  .wc-patterns { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .wc-path > p { margin-left: 0; grid-template-columns: 1fr; gap: 0.2rem; }
+  .wc-checks thead td { width: 3.6rem; }
+  .wc-checks { font-size: var(--fs-label); }
+  .wc-halves, .wc-halves tbody, .wc-halves tr, .wc-halves td, .wc-halves tbody th { display: block; width: auto; }
+  .wc-halves thead { display: none; }
+  .wc-halves tbody td { border-top: 0; padding-top: 0; }
+}
+
+/* ---- The clock beside a figure: it acts out what the figure lists ---- */
+.wc-with-clock { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(1.25rem, 4vw, 3rem); align-items: center; }
+.wc-with-clock .ck.ck-render { max-width: 21rem; }
+.wc-checks td[data-now='true'] i { box-shadow: 0 0 0 4px var(--tone-message-bg); }
+.wc-patterns li { padding: 0.5rem; border: 1px solid transparent; border-radius: 4px; opacity: 0.55; transition: border-color 0.3s ease, opacity 0.3s ease; }
+.wc-patterns li[data-on='true'] { border-color: var(--text); opacity: 1; }
+.wc-patterns svg { max-width: 5.5rem; margin: 0 auto; }
+@media (max-width: 720px) { .wc-with-clock { grid-template-columns: 1fr; } }
+
+/* ---- The clock as the guide of a figure (Guided.jsx) ----
+   The clock leads every figure it is in: first, centred and large, with
+   notes on hairlines naming the part the point is about. What a figure
+   lists (a table, the options, the patterns) sits under it. */
+.wc-guide { position: relative; width: 100%; max-width: 40rem; margin: 0 auto; }
+.wc-guide .ck.ck-render { max-width: none; }
+.ck-note { color: rgba(17, 24, 39, 0.38); }
+.ck-note path { fill: none; stroke: currentColor; stroke-width: 0.7; }
+.ck-note circle { fill: var(--text, #111827); }
+.wc-note { position: absolute; display: flex; max-width: 24%; transform: translateY(-50%); pointer-events: none; }
+.wc-note[data-side='left'] { justify-content: flex-end; }
+.wc-with-clock { grid-template-columns: minmax(0, 1fr); justify-items: stretch; }
+.wc-with-clock { gap: 1.25rem; }
+.wc-with-clock > .wc-guide { margin-bottom: 0.25rem; }
+.wc-patterns { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.ax-more { margin: 0.5rem 0 0; font-size: var(--fs-label); line-height: 1.6; color: var(--text-secondary); }
+.ax-notes li:not([data-state='now']) .ax-more { display: none; }
+.ax-stage .wc-guide { max-width: 34rem; }
+@media (max-width: 720px) {
+  .wc-patterns { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+/* A held clock: the clock takes the wider column, its note the other. */
+.wc-held .ax-sticky { grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); column-gap: clamp(1rem, 3vw, 2.5rem); }
+.wc-held .ax-stage .wc-guide { max-width: none; }
+@media (max-width: 820px) { .wc-held .ax-sticky { grid-template-columns: minmax(0, 1fr); } }
+/* On a phone six column heads must fit their columns. */
+@media (max-width: 720px) { .wc-checks thead th { font-size: 0.68rem; padding-inline: 1px; } .wc-checks thead td { width: 3.2rem; } }

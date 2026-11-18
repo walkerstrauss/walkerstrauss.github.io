@@ -1,0 +1,116 @@
+/* Home cards for the Cornell work. Shares .mini, .mini-step, .mini-route and
+   .mini-end with the agent tiles. */
+.ec {
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 0.75rem;
+  padding: 1rem;
+  font-size: clamp(0.72rem, 1vw, 0.85rem);
+}
+
+.ec-col {
+  grid-template-columns: minmax(0, 1fr);
+  align-content: center;
+  justify-items: start;
+  gap: 0.6rem;
+  padding: 1rem 1.25rem;
+}
+
+/* The Weather Clock card is the clock as its case page draws it: the drawing
+   fills the card's height and its notes are the page's plain notes. */
+.ec-guide { grid-template-columns: minmax(0, 1fr); padding: 0.5rem 0.75rem; }
+.ec-guide .wc-guide { width: auto; height: 100%; max-width: 100%; aspect-ratio: 410 / 323; margin: 0; }
+.ec-guide .wc-note { max-width: 30%; }
+.ec-guide .wc-note .story-chip { font-size: 0.9em; line-height: 1.25; }
+
+.ec-hand small {
+  font-size: 0.8em;
+  font-weight: 400;
+  color: var(--text-tirtiary);
+}
+
+.ec-rq {
+  display: grid;
+  gap: 0.15rem;
+  font-weight: 550;
+  color: var(--text);
+}
+
+.ec-rq small,
+.ec-files small {
+  font-size: 0.78em;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--text-tirtiary); font-family: var(--font-mono); font-feature-settings: normal;
+}
+
+.ec-files {
+  display: grid;
+  gap: 0.3rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ec-files li {
+  display: grid;
+  grid-template-columns: 5.2rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.4rem 0.65rem;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(32, 53, 61, 0.08);
+  opacity: 0.35;
+  transition: opacity 0.4s ease, border-color 0.4s ease;
+}
+
+.ec-files li[data-on='true'] {
+  opacity: 1;
+}
+
+.ec-files li[data-on='true'][data-mine='true'] {
+  border-left: 3px solid var(--accent);
+}
+
+.ec-files code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ec-by {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8em;
+  color: var(--text-tirtiary);
+}
+
+.ec-by i {
+  width: 3px;
+  height: 0.9em;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+.ec-hand {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.ec-hand > span {
+  display: inline-flex;
+  gap: 4px;
+  --mj-w: clamp(22px, 2.3vw, 30px);
+}
+
+@media (max-width: 900px) {
+  .ec {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

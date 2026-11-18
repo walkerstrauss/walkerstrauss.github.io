@@ -1,0 +1,161 @@
+/* ============================================================
+   GROUNDS, COVERS AND FEEDBACK
+   Loaded last, so it sits over the page and case styles.
+
+   Grounds. A page has two flat grounds and no texture on either: ink, for
+   the cover it opens on and the band it ends on, and paper, for the reading
+   in between.
+
+   Covers. The top of every page is the same band and it is type only: the
+   home page's name, or a case's title. It starts at the page's left edge,
+   under the name in the site header. A case ends on the next case's cover.
+
+   Feedback. Whatever can be pressed answers the pointer the same way: a
+   line draws under it, an arrow leans the way it leads, a press sinks one
+   pixel. Whatever marks progress follows the scroll.
+   ============================================================ */
+
+/* ---- Ink: the tokens flip, so everything written with them follows ---- */
+.cover,
+.site-header[data-on-cover='true'],
+footer {
+  --bg: var(--ink);
+  --text: #eef3f6;
+  --text-secondary: #b9c6ce;
+  --text-tirtiary: #8fa0ab;
+  --rule: rgba(255, 255, 255, 0.14);
+  --rule-soft: rgba(255, 255, 255, 0.08);
+  --rule-strong: rgba(255, 255, 255, 0.32);
+  --accent: #9cc4da;
+  --link-hover: #ffffff;
+  color: var(--text);
+}
+
+/* ---- The band ---- */
+.cover {
+  position: relative;
+  isolation: isolate;
+}
+/* The band runs the width of the window from inside the page's column. */
+.cover::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0 -100vw;
+  background: var(--ink);
+}
+.cs-page:has(> .cover:first-child) { padding-top: 0; }
+.cs-page:has(> .next-case) { padding-bottom: 0; }
+
+/* ---- Site header: on the cover, then on paper ---- */
+.site-header {
+  transition: background-color 0.2s linear, border-color 0.2s linear;
+}
+.site-header[data-on-cover='true'] {
+  background: var(--ink);
+  border-bottom-color: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+/* The name and links change colour in one step, halfway through the bar's
+   fade, so they are never the same grey as the bar behind them. Under the
+   pointer the colour answers at once. */
+.navbar .logo,
+.navbar .nav-links a { transition: color 0s linear 0.1s, opacity 0.15s ease-out; }
+.navbar .logo:hover,
+.navbar .nav-links a:hover { transition-delay: 0s; }
+.site-header[data-on-cover='true'] .navbar .nav-links a { color: var(--text-secondary); }
+.site-header[data-on-cover='true'] .navbar .nav-links a:hover { color: var(--text); }
+
+footer {
+  background: var(--ink);
+  border-top: 1px solid var(--rule);
+  color: var(--text-tirtiary);
+}
+
+/* ---- Home cover: the name and the line ---- */
+.fo-hero.cover {
+  padding: clamp(3rem, 11vh, 6.5rem) 0 clamp(2.75rem, 8vh, 5rem);
+}
+/* The name at display size needs little weight: a regular cut already reads
+   as strong at this size, more so as light type on ink. */
+.fo-hero.cover .fo-name {
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  color: var(--text);
+}
+.fo-hero.cover .fo-line {
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+.home > .wl { padding-top: clamp(2rem, 4vw, 3rem); }
+
+/* ---- Progress: one line under the header, the phone bar's on a wide screen ---- */
+.case-progress {
+  position: fixed;
+  z-index: 101;
+  top: 63px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--paper-accent);
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+@media (max-width: 1000px) { .case-progress { display: none; } }
+
+/* ---- Feedback ---- */
+/* A line draws under a header link from the left. */
+.navbar .nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 21px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 0.2s cubic-bezier(0.2, 0, 0.2, 1);
+}
+.navbar .nav-links a:hover::after,
+.navbar .nav-links a:focus-visible::after { transform: scaleX(1); }
+
+/* The arrow on the way back leans back. */
+.back-home span { display: inline-block; transition: transform 0.2s cubic-bezier(0.2, 0, 0.2, 1); }
+.back-home:hover span, .back-home:focus-visible span { transform: translateX(-4px); }
+
+/* A press sinks one pixel. */
+.navbar .nav-links a:active,
+.navbar .logo:active,
+.back-link:active,
+.project-link:active,
+.case-nav a:active { transform: translateY(1px); }
+
+/* A Problem or Solution plate's edge draws across its top as the plate comes
+   up the screen, and is whole by the middle. It follows the scroll; without
+   support the edge is simply there. */
+@keyframes edge-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .plate::before {
+      transform-origin: 0 50%;
+      animation: edge-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 40%;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header,
+  .navbar .logo,
+  .navbar .nav-links a,
+  .navbar .nav-links a::after,
+  .back-home span { transition: none; }
+  .navbar .nav-links a:active,
+  .navbar .logo:active,
+  .back-link:active,
+  .project-link:active,
+  .case-nav a:active { transform: none; }
+}

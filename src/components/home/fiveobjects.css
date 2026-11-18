@@ -1,0 +1,309 @@
+/*
+ * Home: one shape, five objects.
+ * The drawing is line work in ink, 2px, round caps, like a pen sketch; each
+ * object adds one detail in its own colour (the hypothalamus warm, the tile's
+ * character red, the clock's lights blue, the bottle's label green, the
+ * rule's check ink). The name is the title serif; the questions are serif
+ * too, because they are Walker's questions; the context lines are mono.
+ */
+.fo {
+  --fo-warm: #a8661c;
+  --fo-hue: var(--text);
+  height: 520vh;
+  margin: 0 -16px;
+}
+.fo [data-tone='warm'] { --fo-hue: var(--fo-warm); }
+.fo [data-tone='block'] { --fo-hue: var(--tone-block-mid); }
+.fo [data-tone='message'] { --fo-hue: var(--tone-message-mid); }
+.fo [data-tone='result'] { --fo-hue: var(--tone-result-mid); }
+.fo [data-tone='ink'] { --fo-hue: var(--text); }
+
+.fo-stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  width: min(100% - 32px, 72rem);
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: calc(var(--header-h, 64px) + 1.5rem) 0 2rem;
+}
+.fo-name-block {
+  position: absolute;
+  top: calc(var(--header-h, 64px) + 2rem);
+  left: 0;
+  transform-origin: 0 0;
+}
+.fo-name {
+  margin: 0;
+  font-family: 'Newsreader', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(3.4rem, 11vw, 9.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  color: var(--text);
+}
+.fo-line {
+  margin: calc(clamp(1.5rem, 5vw, 4.3rem) + 1.2rem) 0 0;
+  max-width: 30ch;
+  font-size: clamp(1.1rem, 1.9vw, 1.45rem);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--text-secondary);
+}
+
+.fo-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(1rem, 4vw, 4rem);
+  min-height: 0;
+}
+.fo-svg {
+  width: 100%;
+  max-height: 58svh;
+  overflow: visible;
+}
+.fo-svg path,
+.fo-still .fo-svg path {
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.fo-svg .fo-faint { stroke: var(--text-tirtiary); stroke-width: 1.6; }
+.fo-hot { fill: var(--fo-warm); }
+.fo-hot-ring { fill: none; stroke: var(--fo-warm); stroke-width: 1.4; opacity: 0.45; }
+.fo-glyph {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 34px;
+  text-anchor: middle;
+  fill: var(--text);
+}
+.fo-glyph-tone { fill: var(--tone-block-mid); }
+.fo-led { fill: var(--tone-message-mid); }
+.fo-label { fill: color-mix(in srgb, var(--tone-result-mid) 22%, var(--bg)); stroke: var(--tone-result-mid); stroke-width: 1.4; }
+.fo-svg .fo-voice { stroke: var(--tone-result-mid); stroke-width: 1.8; }
+.fo-svg .fo-check { stroke: var(--tone-result-mid); stroke-width: 3; }
+
+.fo-caps { position: relative; min-height: 14rem; }
+.fo-cap { position: absolute; inset: 0 0 auto 0; }
+.fo-when {
+  display: block;
+  margin-bottom: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--fo-hue);
+}
+.fo-q {
+  margin: 0 0 1.2rem;
+  max-width: 18ch;
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: clamp(1.7rem, 3.4vw, 2.7rem);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+.fo-link {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--text-secondary);
+  text-decoration: underline;
+  text-decoration-color: var(--fo-hue);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+}
+.fo-link:hover { color: var(--text); text-decoration-thickness: 3px; }
+
+.fo-ticks {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.fo-ticks li {
+  position: relative;
+  flex: 1;
+  height: 2px;
+  background: var(--rule);
+  overflow: hidden;
+}
+.fo-ticks li span {
+  position: absolute;
+  inset: 0;
+  background: var(--fo-hue);
+  transform-origin: 0 50%;
+}
+.fo-cue {
+  position: absolute;
+  right: 0;
+  bottom: 2.6rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--text-tirtiary);
+}
+
+@media (max-width: 760px) {
+  .fo { height: 560vh; }
+  .fo-body { grid-template-columns: minmax(0, 1fr); align-content: center; gap: 0.5rem; }
+  .fo-svg { max-height: 34svh; }
+  .fo-caps { min-height: 11rem; }
+}
+
+/* Reduced motion: the five, finished, in a row. */
+.fo-still { height: auto; padding: calc(var(--header-h, 64px) + 2rem) 16px 4rem; width: min(100% - 32px, 72rem); margin: 0 auto; }
+.fo-still .fo-line { margin-top: 1rem; }
+.fo-still-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 2rem;
+  margin: 3rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.fo-still-list .fo-svg { max-height: 9rem; }
+.fo-still-list .fo-q { font-size: 1.15rem; display: block; text-decoration: none; }
+
+.fo-links { display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; }
+
+/* ---- The index at the end ---- */
+.ci {
+  width: min(100% - 32px, 72rem);
+  margin: 0 auto;
+  padding: 4rem 0 6rem;
+}
+.ci .section-label { margin: 0 0 1.25rem; }
+.ci-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--rule-strong); }
+.ci-list > li { border-bottom: 1px solid var(--rule); }
+.ci-list > li[data-tone='warm'] { --fo-hue: #a8661c; }
+.ci-list > li[data-tone='block'] { --fo-hue: var(--tone-block-mid); }
+.ci-list > li[data-tone='message'] { --fo-hue: var(--tone-message-mid); }
+.ci-list > li[data-tone='result'] { --fo-hue: var(--tone-result-mid); }
+.ci-list > li[data-tone='ink'] { --fo-hue: var(--text); }
+.ci-row {
+  display: grid;
+  grid-template-columns: 3.25rem minmax(0, 1.4fr) minmax(0, 1fr) 1.5rem;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 0;
+  color: var(--text);
+  text-decoration: none;
+}
+.ci-glyph { width: 3.25rem; height: 3.25rem; }
+.ci-glyph path { stroke-width: 6 !important; transition: stroke 0.2s ease; }
+.ci-glyph .fo-faint { stroke-width: 4 !important; }
+.ci-title {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+.ci-meta { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--text-tirtiary); }
+.ci-arrow { font-family: var(--font-mono); color: var(--text-tirtiary); transition: transform 0.25s cubic-bezier(0.2, 0, 0.2, 1), color 0.2s ease; }
+.ci-row:hover .ci-glyph path:not(.fo-faint),
+.ci-row:focus-visible .ci-glyph path:not(.fo-faint) { stroke: var(--fo-hue); }
+.ci-row:hover .ci-title { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; text-decoration-color: var(--fo-hue); }
+.ci-row:hover .ci-arrow,
+.ci-row:focus-visible .ci-arrow { transform: translateX(4px); color: var(--fo-hue); }
+.ci-row:active { opacity: 0.7; }
+@media (max-width: 760px) {
+  .ci-row { grid-template-columns: 2.6rem minmax(0, 1fr) 1.2rem; gap: 0.3rem 0.9rem; }
+  .ci-glyph { width: 2.6rem; height: 2.6rem; grid-row: span 2; }
+  .ci-title { grid-column: 2; }
+  .ci-meta { grid-column: 2; grid-row: 2; }
+  .ci-arrow { grid-column: 3; grid-row: 1 / span 2; }
+}
+@media (prefers-reduced-motion: reduce) { .ci-arrow { transition: none; } }
+.fo-num { font-family: 'Newsreader', Georgia, serif; font-size: 26px; text-anchor: middle; fill: var(--text); }
+.fo-svg .fo-slot { stroke: var(--text-tirtiary); stroke-width: 1.4; }
+.fo-svg .fo-moving { fill: var(--bg); stroke: var(--tone-block-mid); stroke-width: 2.4; }
+.fo-svg .fo-done { stroke: var(--tone-block-mid); stroke-width: 3; }
+
+/* ---- Home order: hero, the work, then how I got here ---- */
+/* The home page sits in the same page shell as every case (.cs-page), so
+   its name, line and list share the cases' left and right edges. */
+.fo-hero {
+  padding: clamp(4rem, 14vh, 9rem) 0 clamp(2rem, 6vh, 4rem);
+}
+.fo-hero .fo-name { transform-origin: 0 100%; }
+.fo-hero .fo-line {
+  margin: 1.4rem 0 0;
+  max-width: 26ch;
+  font-size: var(--fs-heading);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: var(--text);
+}
+.fo-head { margin: 0; }
+.ci { padding-top: 1rem; }
+.fo-intro { margin: 0.5rem 0 0; max-width: 46ch; font-size: var(--fs-body); line-height: 1.5; color: var(--text-secondary); }
+
+/* ---- The work: every case at once, newest first ----
+   Three across on a wide screen (four columns of the page grid each), so
+   all six fit in about two screens and none has to be scrolled to. In
+   date order the first row is the AI work and the second the Cornell work.
+   Each card keeps one order: the real thing, then the role, the serif
+   title, the question, the way in. */
+.wl { padding: 0.5rem 0 6rem; }
+.wl-head { margin-bottom: 1rem; }
+.wl-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: var(--grid-gap);
+  row-gap: clamp(2.5rem, 4vw, 3.5rem);
+  margin: 0;
+  padding: 1.5rem 0 0;
+  list-style: none;
+  border-top: 1px solid var(--rule-strong);
+}
+.wl-link {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  row-gap: 1.1rem;
+  height: 100%;
+  color: var(--text);
+  text-decoration: none;
+}
+.wl-text { display: grid; gap: 0.4rem; }
+.wl-meta { font-family: var(--font-sans); font-size: var(--fs-label); color: var(--text-tirtiary); }
+/* A case's title is the serif wherever it appears: its home row, its cover,
+   and the end of the case before it. */
+.wl-title { font-family: 'Newsreader', Georgia, 'Times New Roman', serif; font-size: var(--fs-heading); font-weight: 400; line-height: 1.14; letter-spacing: -0.018em; text-wrap: balance; }
+.wl-q { max-width: 44ch; font-size: var(--fs-body); line-height: 1.5; color: var(--text-secondary); }
+.wl-go { margin-top: 0.35rem; font-family: var(--font-mono); font-size: var(--fs-label); color: var(--text-secondary); }
+.wl-go span { display: inline-block; transition: transform 0.25s cubic-bezier(0.2, 0, 0.2, 1); }
+.wl-preview { order: -1; display: block; transition: transform 0.3s cubic-bezier(0.2, 0, 0.2, 1), border-color 0.25s ease; }
+/* A card's preview is a little wider than tall and scales its text with the
+   card, so it shows the same moment whole at every width. */
+.wl-preview.thumb-media { aspect-ratio: 16 / 10; container-type: inline-size; }
+.wl-preview .mini { font-size: clamp(0.75rem, 3.3cqi, 1rem); }
+.wl-link:hover .wl-title { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; text-decoration-color: var(--accent); }
+.wl-link:hover .wl-go, .wl-link:focus-visible .wl-go { color: var(--accent); }
+.wl-link:hover .wl-go span, .wl-link:focus-visible .wl-go span { transform: translateX(4px); }
+.wl-link:hover .wl-preview { transform: translateY(-3px); border-color: var(--accent); }
+.wl-link:active .wl-preview { transform: scale(0.99); transition-duration: 0.08s; }
+@media (max-width: 1000px) { .wl-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) {
+  .wl-list { grid-template-columns: minmax(0, 1fr); }
+  .wl-preview.thumb-media { aspect-ratio: 4 / 3; }
+}
+@media (prefers-reduced-motion: reduce) { .wl-go span, .wl-preview { transition: none; } }
+
+/* The name in the site's sans: the person, plainly. */
+.fo-hero .fo-name {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--fs-display);
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+/* The fit wrapper fills the card's frame; its inner layer is what scales. */
+.wl-fit, .wl-fit-in { position: absolute; inset: 0; display: block; }
+.wl-fit-in { transform-origin: 50% 50%; }
